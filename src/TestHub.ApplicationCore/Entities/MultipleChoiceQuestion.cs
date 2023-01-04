@@ -20,9 +20,9 @@
             ScoringOptions = scoringOptions;
         }
 
-        public override decimal GradeAnswer(object answer)
+        public override AnswerForm GetAnswerForm()
         {
-            throw new NotImplementedException();
+            return new 
         }
 
         public void AddChoice(Choice choice)
@@ -59,6 +59,23 @@
                 Description = description;
                 Points = points;
                 IsCorrect = isCorrect;
+            }
+        }
+
+        public sealed class MultipleChoiceAnswer : AnswerForm
+        {
+            private readonly MultipleChoiceQuestion _question;
+
+            public MultipleChoiceAnswer(MultipleChoiceQuestion question)
+            {
+                _question = question;
+            }
+
+            public override int Grade()
+            {
+
+
+                return 1;
             }
         }
     }

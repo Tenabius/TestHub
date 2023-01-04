@@ -1,4 +1,6 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿using TestHub.ApplicationCore.Interfaces;
+
+namespace TestHub.ApplicationCore.Entities
 {
     public abstract class Question : BaseEntity
     {
@@ -13,6 +15,10 @@
             TestId = testId;
         }
 
-        public abstract decimal GradeAnswer(object answer);
+        public abstract AnswerForm GetAnswerForm();
+
+        public abstract IView GetView();
+
+        public abstract void Validate();
     }
 }

@@ -8,7 +8,7 @@
 
         public ScoringOptions? ScoringOptions { get; set; }
 
-        public override decimal GradeAnswer()
+        public override decimal GetAnswerForm()
         {
             throw new NotImplementedException();
         }
