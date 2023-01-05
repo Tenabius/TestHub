@@ -16,13 +16,5 @@
             StartTestingTime = currentTime.UtcDateTime;
             Answers = Test.GetAnswerForms();
         }
-
-        public void Complete()
-        {
-            if (!Answers.All(a => a.IsValid()))
-            {
-                throw new Exception("Not all question is ");
-            }
-        }
     }
 }

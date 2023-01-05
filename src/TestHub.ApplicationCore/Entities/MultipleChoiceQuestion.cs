@@ -11,10 +11,10 @@
         public MultipleChoiceQuestion(
             string description,
             int maxPoints,
-            int testId,
+            Test test,
             bool multipleCorrectChoices,
             ScoringOptions scoringOptions) :
-                base (description, maxPoints, testId)
+                base (description, maxPoints, test)
         {
             MultipleCorrectChoices = multipleCorrectChoices;
             ScoringOptions = scoringOptions;
@@ -22,7 +22,7 @@
 
         public override AnswerForm GetAnswerForm()
         {
-            return new 
+            throw new Exception();
         }
 
         public void AddChoice(Choice choice)
@@ -44,6 +44,11 @@
         {
             int updatedChoice = _choices.FindIndex(ch => ch.Id == choice.Id);
             //TODO Not completed
+        }
+
+        public override void Validate()
+        {
+            throw new NotImplementedException();
         }
 
         public sealed class Choice : BaseEntity

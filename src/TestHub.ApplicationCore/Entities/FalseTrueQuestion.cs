@@ -1,14 +1,18 @@
-﻿using TestHub.ApplicationCore.Interfaces;
-
-namespace TestHub.ApplicationCore.Entities
+﻿namespace TestHub.ApplicationCore.Entities
 {
     public sealed class FalseTrueQuestion : Question
     {
-        public bool? CorrectChoice { get; set; }
+        public bool CorrectChoice { get; private set; }
 
-        public FalseTrueQuestion(string description, int maxPoints, int testId)
-            : base(description, maxPoints, testId)
+        public FalseTrueQuestion(string description, int maxPoints, Test test, bool correctChoice)
+            : base(description, maxPoints, test)
         {
+            CorrectChoice = correctChoice;
+        }
+
+        public void UpdateCorrectChoice(bool correctChoice)
+        {
+            CorrectChoice = correctChoice;
         }
 
         public override AnswerForm GetAnswerForm()
@@ -16,21 +20,15 @@ namespace TestHub.ApplicationCore.Entities
             return new FalseTrueAnswerForm(this);
         }
 
-        public override IView GetView()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Validate()
         {
-            //TODO Change exception
-            if (CorrectChoice is null) throw new Exception();
+            return;
         }
     }
 
     public sealed class FalseTrueAnswerForm : AnswerForm
     {
-        public bool? SelectedChoice { get; set; }
+        public bool? SelectedChoice { get; private set; }
 
         private readonly FalseTrueQuestion _question;
 
@@ -39,9 +37,14 @@ namespace TestHub.ApplicationCore.Entities
             _question = question;
         }
 
+        public void SelectChoice(bool selectedChoice)
+        {
+            SelectedChoice = selectedChoice;
+        }
+
         public override int Grade()
         {
-            return (SelectedChoice is not null &&
+            return (SelectedChoice.HasValue &&
                 SelectedChoice == _question.CorrectChoice) ? _question.MaxPoints : 0;
         }
     }

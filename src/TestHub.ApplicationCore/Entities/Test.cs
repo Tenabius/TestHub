@@ -3,13 +3,20 @@ namespace TestHub.ApplicationCore.Entities
 {
     public class Test : BaseEntity
     {
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public List<Question> Questions { get; } = new();
-        public int PassingScore { get; set; }
-        public User Author { get; set; }
-        public TimeSpan? TimeTesting { get; set; }
-        public int? AttemptAllowed { get; set; }
+        public User Author { get; }
+        public string? Name { get; private set; }
+        public string? Description { get; private set; }
+        public int? PassingScore { get; private set; }
+        public TimeSpan? TimeTesting { get; private set; }
+        public int? AttemptAllowed { get; private set; }
+        public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
+
+        private readonly List<Question> _questions = new();
+
+        public Test(User author)
+        {
+            Author = author;
+        }
 
         public List<AnswerForm> GetAnswerForms()
         {
@@ -25,7 +32,7 @@ namespace TestHub.ApplicationCore.Entities
         public void AddQuestion(Question question)
         {
             question.Validate();
-            Questions.Add(question);
+            _questions.Add(question);
         }
 
         public void Validate()
@@ -38,7 +45,7 @@ namespace TestHub.ApplicationCore.Entities
 
             foreach(PropertyInfo property in properties)
             {
-                if (GetType().GetProperty(property.Name).GetValue(this) is null)
+                if (GetType().GetProperty(property.Name)?.GetValue(this) is null)
                 {
                     nullProperties.Add(property.Name);
                 }
