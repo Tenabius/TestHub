@@ -2,15 +2,10 @@
 {
     public sealed class FalseTrueQuestion : Question
     {
-        public bool CorrectChoice { get; private set; }
+        public bool CorrectChoice { get; set; }
 
-        public FalseTrueQuestion(string description, int maxPoints, Test test, bool correctChoice)
-            : base(description, maxPoints, test)
-        {
-            CorrectChoice = correctChoice;
-        }
-
-        public void UpdateCorrectChoice(bool correctChoice)
+        public FalseTrueQuestion(Test test, string description, int maxPoints, bool correctChoice)
+            : base(test, description, maxPoints)
         {
             CorrectChoice = correctChoice;
         }
@@ -20,15 +15,12 @@
             return new FalseTrueAnswerForm(this);
         }
 
-        public override void Validate()
-        {
-            return;
-        }
+        public override void Validate() { }
     }
 
     public sealed class FalseTrueAnswerForm : AnswerForm
     {
-        public bool? SelectedChoice { get; private set; }
+        public bool? SelectedChoice { get; set; }
 
         private readonly FalseTrueQuestion _question;
 
@@ -37,12 +29,7 @@
             _question = question;
         }
 
-        public void SelectChoice(bool selectedChoice)
-        {
-            SelectedChoice = selectedChoice;
-        }
-
-        public override int Grade()
+        public override decimal Grade()
         {
             return (SelectedChoice.HasValue &&
                 SelectedChoice == _question.CorrectChoice) ? _question.MaxPoints : 0;

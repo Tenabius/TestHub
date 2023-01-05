@@ -1,4 +1,6 @@
-﻿using TestHub.ApplicationCore.Interfaces;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Xml.Linq;
+using TestHub.ApplicationCore.Interfaces;
 
 namespace TestHub.ApplicationCore.Entities
 {
@@ -8,33 +10,34 @@ namespace TestHub.ApplicationCore.Entities
         public int MaxPoints { get; private set; }
         public Test Test { get; }
 
-        protected Question(string description, int maxPoints, Test test)
+        protected Question(Test test, string description, int maxPoints)
         {
-            Description = description;
-            MaxPoints = maxPoints > 0 ? maxPoints : throw new Exception();
+            SetDescription(description);
+            SetMaxPoints(maxPoints);
             Test = test;
         }
 
-        public void UpdateDescription(string description)
+        [MemberNotNull(nameof(Description))]
+        public void SetDescription(string description)
         {
             if (description != string.Empty)
             {
                 Description = description;
             } else
             {
-                throw new InvalidOperationException("Description is empty.");
+                throw new ArgumentException(nameof(Description));
             }
         }
 
-        public void UpdateMaxPoints(int maxPoints)
+        [MemberNotNull(nameof(MaxPoints))]
+        public void SetMaxPoints(int maxPoints)
         {
             if (maxPoints > 0)
             {
                 MaxPoints = maxPoints;
             } else
             {
-                //TODO Change exception
-                throw new InvalidOperationException();
+                throw new ArgumentOutOfRangeException(nameof(maxPoints));
             }
             
         }
