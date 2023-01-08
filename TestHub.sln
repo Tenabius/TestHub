@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHub.ApplicationCore", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHub.Infrastructure", "src\TestHub.Infrastructure\TestHub.Infrastructure.csproj", "{D3FA9D83-E6AA-4A2C-8DBB-34F1CDB68FB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHub.Web", "src\TestHib.Web\TestHub.Web.csproj", "{B20A4E98-EB1C-4670-9657-8136FE70115A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHub.Web", "src\TestHub.Web\TestHub.Web.csproj", "{B20A4E98-EB1C-4670-9657-8136FE70115A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

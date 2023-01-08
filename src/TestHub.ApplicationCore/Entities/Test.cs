@@ -51,7 +51,7 @@ namespace TestHub.ApplicationCore.Entities
         [MemberNotNull(nameof(PassingPercent))]
         public void SetPassingPercent(decimal passingPercent)
         {
-            Requires.Range(passingPercent < 0 && passingPercent > 1, 
+            Requires.Range(passingPercent > 0 && passingPercent < 1, 
                 nameof(passingPercent),
                 $"{nameof(PassingPercent)} must be greater than 0 and smaller than 1.0");
             PassingPercent = passingPercent;
