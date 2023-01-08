@@ -9,12 +9,12 @@
         private readonly List<Choice> _choices = new();
 
         public MultipleChoiceQuestion(
+            Test test,
             string description,
             int maxPoints,
-            Test test,
             bool multipleCorrectChoices,
             ScoringOptions scoringOptions) :
-                base (description, maxPoints, test)
+                base (test, description, maxPoints)
         {
             MultipleCorrectChoices = multipleCorrectChoices;
             ScoringOptions = scoringOptions;
@@ -76,7 +76,7 @@
                 _question = question;
             }
 
-            public override int Grade()
+            public override decimal Grade()
             {
 
 

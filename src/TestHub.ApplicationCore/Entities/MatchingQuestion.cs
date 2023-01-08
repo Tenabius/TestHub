@@ -8,7 +8,17 @@
 
         public ScoringOptions? ScoringOptions { get; set; }
 
-        public override decimal GetAnswerForm()
+        public MatchingQuestion(Test test, string description, int maxPoints)
+            : base(test, description, maxPoints)
+        {
+        }
+
+        public override AnswerForm GetAnswerForm()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Validate()
         {
             throw new NotImplementedException();
         }

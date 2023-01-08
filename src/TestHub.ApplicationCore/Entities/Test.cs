@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Validation;
-using System.Reflection;
+
 namespace TestHub.ApplicationCore.Entities
 {
     public class Test : BaseEntity
@@ -8,18 +8,30 @@ namespace TestHub.ApplicationCore.Entities
         public User Author { get; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public decimal PassingScore { get; private set; }
+        public decimal PassingPercent { get; private set; }
         public TimeSpan TimeTesting { get; private set; }
         public int AttemptAllowed { get; private set; }
         public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
 
         private readonly List<Question> _questions = new();
 
-        public Test(User author, string name, decimal passingScore, TimeSpan timeTesting, int attemptAllowed)
+        #pragma warning disable CS8618
+        private Test() { }
+        #pragma warning restore CS8618
+
+        public Test(User author, 
+            string name,
+            string desription,
+            decimal passingPercent, 
+            TimeSpan timeTesting, 
+            int attemptAllowed)
         {
             Author = author;
             SetName(name);
-            SetPassingScore(passingScore);
+            SetDescription(desription);
+            SetPassingPercent(passingPercent);
+            SetTimeTesting(timeTesting);
+            SetAttemptAllowed(attemptAllowed);
         }
 
         [MemberNotNull(nameof(Name))]
@@ -29,18 +41,38 @@ namespace TestHub.ApplicationCore.Entities
             Name = name;
         }
 
-        [MemberNotNull(nameof(PassingScore))]
-        public void SetPassingScore(decimal passingScore)
-        {
-            //TODO check for passing score
-            Requires.Range(passingScore < 0, nameof(passingScore), $"{nameof(PassingScore)} must be greater than 0");
-            PassingScore = passingScore;
-        }
-
+        [MemberNotNull(nameof(Description))]
         public void SetDescription(string description)
         {
             Requires.NotNull(description, nameof(description));
             Description = description;
+        }
+
+        [MemberNotNull(nameof(PassingPercent))]
+        public void SetPassingPercent(decimal passingPercent)
+        {
+            Requires.Range(passingPercent < 0 && passingPercent > 1, 
+                nameof(passingPercent),
+                $"{nameof(PassingPercent)} must be greater than 0 and smaller than 1.0");
+            PassingPercent = passingPercent;
+        }
+
+        [MemberNotNull(nameof(TimeTesting))]
+        private void SetTimeTesting(TimeSpan timeTesting)
+        {
+            Requires.Range(timeTesting.Minutes > 1,
+                nameof(timeTesting),
+                $"{nameof(timeTesting)} must be greater than 1 minute");
+            TimeTesting = timeTesting;
+        }
+
+        [MemberNotNull(nameof(AttemptAllowed))]
+        private void SetAttemptAllowed(int attemptAllowed)
+        {
+            Requires.Range(attemptAllowed > 1,
+                nameof(attemptAllowed),
+                $"{nameof(attemptAllowed)} must be equal or greater than 1");
+            AttemptAllowed = attemptAllowed;
         }
 
         public List<AnswerForm> GetAnswerForms()
@@ -59,28 +91,5 @@ namespace TestHub.ApplicationCore.Entities
             question.Validate();
             _questions.Add(question);
         }
-
-        public void Validate()
-        {
-            var properties = GetType().GetProperties(BindingFlags.DeclaredOnly
-                | BindingFlags.Instance
-                | BindingFlags.Public);
-
-            List<string> nullProperties = new();
-
-            foreach(PropertyInfo property in properties)
-            {
-                if (GetType().GetProperty(property.Name)?.GetValue(this) is null)
-                {
-                    nullProperties.Add(property.Name);
-                }
-            }
-            
-            if (nullProperties.Count > 0)
-            {
-                throw new Exception($"Property(-ies) {String.Join(", ", nullProperties)} is null.");
-            }
-        }
-
     }
 }

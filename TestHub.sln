@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHub.ApplicationCore", "src\TestHub.ApplicationCore\TestHub.ApplicationCore.csproj", "{D56E868C-2BE0-4766-89DD-CE015600E0A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHub.Infrastructure", "src\TestHub.Infrastructure\TestHub.Infrastructure.csproj", "{D3FA9D83-E6AA-4A2C-8DBB-34F1CDB68FB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHub.Infrastructure", "src\TestHub.Infrastructure\TestHub.Infrastructure.csproj", "{D3FA9D83-E6AA-4A2C-8DBB-34F1CDB68FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHib.Web", "src\TestHib.Web\TestHib.Web.csproj", "{B20A4E98-EB1C-4670-9657-8136FE70115A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestHub.Web", "src\TestHib.Web\TestHub.Web.csproj", "{B20A4E98-EB1C-4670-9657-8136FE70115A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

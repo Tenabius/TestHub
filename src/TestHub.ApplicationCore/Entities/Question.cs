@@ -10,6 +10,10 @@ namespace TestHub.ApplicationCore.Entities
         public int MaxPoints { get; private set; }
         public Test Test { get; }
 
+        #pragma warning disable CS8618
+        public Question() { }
+        #pragma warning restore CS8618
+
         protected Question(Test test, string description, int maxPoints)
         {
             SetDescription(description);
