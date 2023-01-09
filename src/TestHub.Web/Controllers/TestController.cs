@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TestHub.ApplicationCore.Entities;
 using TestHub.ApplicationCore.Interfaces;
 
 namespace TestHub.Web.Controllers
@@ -16,5 +17,12 @@ namespace TestHub.Web.Controllers
         {
             return View(_repository.GetById(Id));
         }
+
+        [HttpPost]
+        public IActionResult Submit(AnswerSheet answerSheet)
+        {
+            return View(answerSheet);
+        }
+
     }
 }

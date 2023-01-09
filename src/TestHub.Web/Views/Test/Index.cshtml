@@ -1,5 +1,47 @@
 ﻿@model Test
 
-<div class="text-center">
-    <h1 class="display-4">@Model.Name</h1>
-</div>
+<section>
+    <div class="container">
+        <h1 class="display-4">@Model.Name</h1>
+        <form id="Test" asp-action="Submit" method="post">
+        @{
+            foreach (Question question in Model.Questions)
+            {
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-1">
+                                <b>1.</b>
+                            </div>
+                            <div class="col">
+                                @question.Description
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                            </div>
+                            <div class="col">
+                                <div class="col">
+                                    <input type="radio" id="@question.Id-True" name="@question.Id" value="1" checked="checked">
+                                        <label for="@question.Id-True">True</label>
+                                </div>
+                                <div class="col">
+                                        <input type="radio" id="@question.Id-False" name="@question.Id" value="0">
+                                        <label for="@question.Id-False">False</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                    </div>
+                </div>
+            }
+        }
+        </form>
+        <input type="submit" form="Test" value="Submit"/>
+    </div>
+
+
+</section>

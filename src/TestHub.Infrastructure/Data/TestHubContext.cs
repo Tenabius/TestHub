@@ -20,6 +20,7 @@ namespace TestHub.Infrastructure.Data
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             builder.Entity<Test>().HasOne(t => t.Author);
+            builder.Entity<Test>().Navigation(t => t.Questions).AutoInclude();
             builder.Entity<Question>().UseTptMappingStrategy();
             builder.Entity<AnswerForm>().UseTptMappingStrategy();
             builder.Entity<FalseTrueQuestion>();
