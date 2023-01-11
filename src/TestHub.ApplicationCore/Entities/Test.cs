@@ -6,10 +6,10 @@ namespace TestHub.ApplicationCore.Entities
     public class Test : BaseEntity
     {
         public User Author { get; }
-        public string Name { get; private set; }
+        public string Theme { get; private set; }
         public string Description { get; private set; }
         public decimal PassingPercent { get; private set; }
-        public TimeSpan TimeTesting { get; private set; }
+        public TimeSpan Duration { get; private set; }
         public int AttemptAllowed { get; private set; }
         public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
 
@@ -34,11 +34,11 @@ namespace TestHub.ApplicationCore.Entities
             SetAttemptAllowed(attemptAllowed);
         }
 
-        [MemberNotNull(nameof(Name))]
+        [MemberNotNull(nameof(Theme))]
         public void SetName(string name)
         {
-            Requires.NotNullOrEmpty(name, nameof(Name));
-            Name = name;
+            Requires.NotNullOrEmpty(name, nameof(Theme));
+            Theme = name;
         }
 
         [MemberNotNull(nameof(Description))]
@@ -57,13 +57,13 @@ namespace TestHub.ApplicationCore.Entities
             PassingPercent = passingPercent;
         }
 
-        [MemberNotNull(nameof(TimeTesting))]
+        [MemberNotNull(nameof(Duration))]
         private void SetTimeTesting(TimeSpan timeTesting)
         {
             Requires.Range(timeTesting.Minutes > 1,
                 nameof(timeTesting),
                 $"{nameof(timeTesting)} must be greater than 1 minute");
-            TimeTesting = timeTesting;
+            Duration = timeTesting;
         }
 
         [MemberNotNull(nameof(AttemptAllowed))]
