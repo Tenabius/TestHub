@@ -67,7 +67,7 @@ namespace TestHub.ApplicationCore.Entities
         }
 
         [MemberNotNull(nameof(AttemptAllowed))]
-        private void SetAttemptAllowed(int attemptAllowed)
+        public void SetAttemptAllowed(int attemptAllowed)
         {
             Requires.Range(attemptAllowed > 1,
                 nameof(attemptAllowed),
