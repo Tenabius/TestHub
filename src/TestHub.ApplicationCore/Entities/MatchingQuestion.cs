@@ -13,7 +13,7 @@
         {
         }
 
-        public override AnswerForm GetAnswerForm()
+        public override AnswerForm GetContent()
         {
             throw new NotImplementedException();
         }

@@ -6,9 +6,9 @@ namespace TestHub.Web.Controllers
 {
     public class TestController : Controller
     {
-        private readonly IRepository _repository;
+        private readonly ITestRepository _repository;
 
-        public TestController(IRepository repository) 
+        public TestController(ITestRepository repository) 
         {
             _repository = repository;
         }
@@ -19,7 +19,7 @@ namespace TestHub.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Submit(AnswerSheet answerSheet)
+        public IActionResult Submit(TestForm answerSheet)
         {
             return View(answerSheet);
         }

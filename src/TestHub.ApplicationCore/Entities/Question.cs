@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Validation;
 using System.Xml.Linq;
 using TestHub.ApplicationCore.Interfaces;
 
@@ -6,48 +7,39 @@ namespace TestHub.ApplicationCore.Entities
 {
     public abstract class Question : BaseEntity
     {
-        public string Description { get; private set; }
+        public string Directions { get; private set; }
         public int MaxPoints { get; private set; }
         public Test Test { get; }
 
         #pragma warning disable CS8618
-        public Question() { }
+        protected Question() { }
         #pragma warning restore CS8618
 
-        protected Question(Test test, string description, int maxPoints)
+        protected Question(Test test, string directions, int maxPoints)
         {
-            SetDescription(description);
+            SetDirections(directions);
             SetMaxPoints(maxPoints);
             Test = test;
         }
 
-        [MemberNotNull(nameof(Description))]
-        public void SetDescription(string description)
+        [MemberNotNull(nameof(Directions))]
+        public void SetDirections(string directions)
         {
-            if (description != string.Empty)
-            {
-                Description = description;
-            } else
-            {
-                throw new ArgumentException(nameof(Description));
-            }
+            Requires.NotNullOrEmpty(directions, nameof(directions));
+            Directions = directions;
         }
 
         [MemberNotNull(nameof(MaxPoints))]
         public void SetMaxPoints(int maxPoints)
         {
-            if (maxPoints > 0)
-            {
-                MaxPoints = maxPoints;
-            } else
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxPoints));
-            }
-            
+            Requires.Range(maxPoints > 0,
+                nameof(maxPoints),
+                $"{nameof(maxPoints)} must be greater than 0");
+            MaxPoints = maxPoints;
         }
 
-        public abstract AnswerForm GetAnswerForm();
+        public abstract decimal Grade(QuestionForm candidateAnswer);
 
-        public abstract void Validate();
+        public abstract QuestionContent GetContent();
     }
 }

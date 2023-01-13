@@ -12,7 +12,7 @@ builder.Services.AddMvc();
 builder.Services.AddDbContext<TestHubContext>(options => 
     options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub"));
 
-builder.Services.AddScoped<IRepository, TestRepository>();
+builder.Services.AddScoped<ITestRepository, TestRepository>();
 
 var app = builder.Build();
 

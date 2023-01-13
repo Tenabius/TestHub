@@ -1,40 +1,38 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿using System.Diagnostics.CodeAnalysis;
+using Validation;
+
+namespace TestHub.ApplicationCore.Entities
 {
     public sealed class MultipleChoiceQuestion : Question
     {
+        public string Stem { get; private set; }
         public IReadOnlyCollection<Choice> Choices => _choices.AsReadOnly();
-        public bool MultipleCorrectChoices { get; }
-        public ScoringOptions ScoringOptions { get; }
+        public bool IsMultipleAnswers { get; private set; }
 
         private readonly List<Choice> _choices = new();
 
         public MultipleChoiceQuestion(
             Test test,
-            string description,
+            string directions,
             int maxPoints,
-            bool multipleCorrectChoices,
-            ScoringOptions scoringOptions) :
-                base (test, description, maxPoints)
+            string stem,
+            bool isMultipleAnswers)
+            : base (test, directions, maxPoints)
         {
-            MultipleCorrectChoices = multipleCorrectChoices;
-            ScoringOptions = scoringOptions;
-        }
-
-        public override AnswerForm GetAnswerForm()
-        {
-            throw new Exception();
+            SetStem(stem);
+            IsMultipleAnswers = isMultipleAnswers;
         }
 
         public void AddChoice(Choice choice)
         {
-            if (MultipleCorrectChoices ||
-                !choice.IsCorrect ||
-                !_choices.Any(ch => ch.IsCorrect))
+            if (IsMultipleAnswers
+                || !choice.IsCorrect
+                || !_choices.Any(ch => ch.IsCorrect))
             {
                 _choices.Add(choice);
             } else
             {
-                throw new InvalidOperationException("Question, with property \"MuliplieCorrectChoice\" is false, can have only one correct choice");
+                throw new InvalidOperationException("Question, with property \"IsMultipleAnswers\" is false, can have only one correct choice");
             }
         }
 
@@ -43,44 +41,59 @@
         public void UpdateChoice(Choice choice)
         {
             int updatedChoice = _choices.FindIndex(ch => ch.Id == choice.Id);
-            //TODO Not completed
+            if (updatedChoice != -1)
+            {
+                _choices[updatedChoice] = choice;
+            }
+            throw new InvalidOperationException("Choice not found");
         }
 
-        public override void Validate()
+        [MemberNotNull(nameof(Stem))]
+        public void SetStem(string stem)
         {
-            throw new NotImplementedException();
+            Requires.NotNullOrEmpty(stem, nameof(stem));
+            Stem = stem;
+        }
+
+        public void SetIsMultipliAnswers(bool isMultipliAnswers)
+        {
+            IsMultipleAnswers = isMultipliAnswers;
+        }
+
+        public override QuestionContent GetContent()
+        {
+            return new MultipleChoiceQuestionContent(Id, Directions, Stem, _choices.ConvertAll(ch => (ch.Id, ch.Description)));
+        }
+
+        public override decimal Grade(QuestionForm candidateAnswer)
+        {
+            if (candidateAnswer is MultipleChoiceQuestionForm answer)
+            {
+                if (answer.SelectedChoicesId is null
+                    || (!IsMultipleAnswers && answer.SelectedChoicesId.Count > 1))
+                {
+                    return 0;
+                } else
+                {
+                    return _choices.Where(ch => ch.IsCorrect).All(ch => answer.SelectedChoicesId.Contains(ch.Id))
+                        && _choices.Where(ch => !ch.IsCorrect).All(ch => !answer.SelectedChoicesId.Contains(ch.Id))
+                        ? MaxPoints : 0;
+                }
+            }
+            throw new InvalidCastException(nameof(candidateAnswer));
         }
 
         public sealed class Choice : BaseEntity
         {
             public int QuestionId { get; }
             public string Description { get; }
-            public int Points { get; }
             public bool IsCorrect { get; }
 
-            public Choice(int questionId, string description, int points, bool isCorrect)
+            public Choice(int questionId, string description, bool isCorrect)
             {
                 QuestionId = questionId;
                 Description = description;
-                Points = points;
                 IsCorrect = isCorrect;
-            }
-        }
-
-        public sealed class MultipleChoiceAnswer : AnswerForm
-        {
-            private readonly MultipleChoiceQuestion _question;
-
-            public MultipleChoiceAnswer(MultipleChoiceQuestion question)
-            {
-                _question = question;
-            }
-
-            public override decimal Grade()
-            {
-
-
-                return 1;
             }
         }
     }

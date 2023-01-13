@@ -1,47 +1,50 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿using System.Diagnostics.CodeAnalysis;
+using Validation;
+
+namespace TestHub.ApplicationCore.Entities
 {
     public sealed class FalseTrueQuestion : Question
     {
-        public bool CorrectChoice { get; set; }
+        public bool CorrectChoice { get; private set; }
+        public string Statment { get; private set; }
 
         #pragma warning disable CS8618
-        public FalseTrueQuestion() { }
+        private FalseTrueQuestion() { }
         #pragma warning restore CS8618
 
+        public FalseTrueQuestion(Test test, string directions, int maxPoints, string statment, bool correctChoice)
+            : base(test, directions, maxPoints)
+        {
+            SetCorrectChoice(correctChoice);
+            SetStatment(statment);
+        }
 
-        public FalseTrueQuestion(Test test, string description, int maxPoints, bool correctChoice)
-            : base(test, description, maxPoints)
+        [MemberNotNull(nameof(CorrectChoice))]
+        public void SetCorrectChoice(bool correctChoice)
         {
             CorrectChoice = correctChoice;
         }
 
-        public override AnswerForm GetAnswerForm()
+        [MemberNotNull(nameof(Statment))]
+        public void SetStatment(string statment)
         {
-            return new FalseTrueAnswerForm(this);
+            Requires.NotNullOrEmpty(statment, nameof(statment));
+            Statment = statment;
         }
 
-        public override void Validate() { }
-    }
-
-    public sealed class FalseTrueAnswerForm : AnswerForm
-    {
-        public bool? SelectedChoice { get; set; }
-
-        private readonly FalseTrueQuestion _question;
-
-        #pragma warning disable CS8618
-        public FalseTrueAnswerForm() { }
-        #pragma warning restore CS8618
-
-        public FalseTrueAnswerForm(FalseTrueQuestion question)
+        public override decimal Grade(QuestionForm candidateAnswer)
         {
-            _question = question;
+            if (candidateAnswer is FalseTrueQuestionForm answer)
+            {
+                return answer.SelectedChoice.HasValue
+                    && answer.SelectedChoice == CorrectChoice ? MaxPoints : 0;
+            }
+            throw new InvalidCastException(nameof(candidateAnswer));
         }
 
-        public override decimal Grade()
+        public override QuestionContent GetContent()
         {
-            return (SelectedChoice.HasValue &&
-                SelectedChoice == _question.CorrectChoice) ? _question.MaxPoints : 0;
+            return new FalseTrueQuestionContent(Id, Directions, Statment);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace TestHub.ApplicationCore.Entities
         public string Description { get; private set; }
         public decimal PassingPercent { get; private set; }
         public TimeSpan Duration { get; private set; }
+        public DateTimeOffset CreationTime { get; }
         public int AttemptAllowed { get; private set; }
         public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
 
@@ -19,11 +20,11 @@ namespace TestHub.ApplicationCore.Entities
         private Test() { }
         #pragma warning restore CS8618
 
-        public Test(User author, 
+        public Test(User author,
             string name,
             string desription,
-            decimal passingPercent, 
-            TimeSpan timeTesting, 
+            decimal passingPercent,
+            TimeSpan timeTesting,
             int attemptAllowed)
         {
             Author = author;
@@ -75,12 +76,12 @@ namespace TestHub.ApplicationCore.Entities
             AttemptAllowed = attemptAllowed;
         }
 
-        public List<AnswerForm> GetAnswerForms()
+        public List<QuestionContent> GetQuestionsContents()
         {
-            var answerForms = new List<AnswerForm>();
+            var answerForms = new List<QuestionContent>();
             foreach (var question in Questions)
             {
-                answerForms.Add(question.GetAnswerForm());
+                answerForms.Add(question.GetContent());
             }
 
             return answerForms;
@@ -88,7 +89,6 @@ namespace TestHub.ApplicationCore.Entities
 
         public void AddQuestion(Question question)
         {
-            question.Validate();
             _questions.Add(question);
         }
     }

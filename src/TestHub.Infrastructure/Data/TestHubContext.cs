@@ -11,8 +11,7 @@ namespace TestHub.Infrastructure.Data
 
         public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<AnswerSheet> AnswerSheets { get; set; }
-        public DbSet<AnswerForm> Answers { get; set; }
+        public DbSet<TestForm> AnswerSheets { get; set; } //TODO Change to better name
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -22,9 +21,9 @@ namespace TestHub.Infrastructure.Data
             builder.Entity<Test>().HasOne(t => t.Author);
             builder.Entity<Test>().Navigation(t => t.Questions).AutoInclude();
             builder.Entity<Question>().UseTptMappingStrategy();
-            builder.Entity<AnswerForm>().UseTptMappingStrategy();
+            builder.Entity<QuestionForm>().UseTptMappingStrategy();
             builder.Entity<FalseTrueQuestion>();
-            builder.Entity<FalseTrueAnswerForm>();
+            builder.Entity<FalseTrueQuestionForm>();
         }
 
     }

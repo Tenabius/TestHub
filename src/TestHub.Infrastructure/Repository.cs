@@ -9,7 +9,7 @@ using TestHub.Infrastructure.Data;
 
 namespace TestHub.Infrastructure
 {
-    public class TestRepository : IRepository
+    public class TestRepository : ITestRepository
     {
         private readonly TestHubContext _context;
 

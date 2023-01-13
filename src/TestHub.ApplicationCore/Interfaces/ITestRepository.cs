@@ -7,7 +7,7 @@ using TestHub.ApplicationCore.Entities;
 
 namespace TestHub.ApplicationCore.Interfaces
 {
-    public interface IRepository
+    public interface ITestRepository
     {
         Test GetById(int id);
     }
