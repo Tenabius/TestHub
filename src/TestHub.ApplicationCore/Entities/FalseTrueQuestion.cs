@@ -8,9 +8,9 @@ namespace TestHub.ApplicationCore.Entities
         public bool CorrectChoice { get; private set; }
         public string Statment { get; private set; }
 
-        #pragma warning disable CS8618
+#pragma warning disable CS8618
         private FalseTrueQuestion() { }
-        #pragma warning restore CS8618
+#pragma warning restore 
 
         public FalseTrueQuestion(Test test, string directions, int maxPoints, string statment, bool correctChoice)
             : base(test, directions, maxPoints)
@@ -32,14 +32,14 @@ namespace TestHub.ApplicationCore.Entities
             Statment = statment;
         }
 
-        public override decimal Grade(QuestionForm candidateAnswer)
+        public override decimal Grade(QuestionForm candidateForm)
         {
-            if (candidateAnswer is FalseTrueQuestionForm answer)
+            if (candidateForm is FalseTrueQuestionForm form)
             {
-                return answer.SelectedChoice.HasValue
-                    && answer.SelectedChoice == CorrectChoice ? MaxPoints : 0;
+                return form.SelectedChoice.HasValue
+                    && form.SelectedChoice == CorrectChoice ? MaxPoints : 0;
             }
-            throw new InvalidCastException(nameof(candidateAnswer));
+            throw new InvalidCastException(nameof(candidateForm));
         }
 
         public override QuestionContent GetContent()

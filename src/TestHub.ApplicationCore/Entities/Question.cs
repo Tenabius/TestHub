@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Validation;
-using System.Xml.Linq;
-using TestHub.ApplicationCore.Interfaces;
 
 namespace TestHub.ApplicationCore.Entities
 {
@@ -11,9 +9,9 @@ namespace TestHub.ApplicationCore.Entities
         public int MaxPoints { get; private set; }
         public Test Test { get; }
 
-        #pragma warning disable CS8618
+#pragma warning disable CS8618
         protected Question() { }
-        #pragma warning restore CS8618
+#pragma warning restore 
 
         protected Question(Test test, string directions, int maxPoints)
         {
@@ -38,7 +36,7 @@ namespace TestHub.ApplicationCore.Entities
             MaxPoints = maxPoints;
         }
 
-        public abstract decimal Grade(QuestionForm candidateAnswer);
+        public abstract decimal Grade(QuestionForm candidateForm);
 
         public abstract QuestionContent GetContent();
     }

@@ -2,38 +2,52 @@
 {
     public sealed class FillBlankQuestion : Question
     {
-        public List<Blank> Banks { get; } = new();
+        public string Context { get; }
+        public IReadOnlyCollection<Blank> Blanks => _blanks.AsReadOnly();
+        private readonly List<Blank> _blanks = new();
 
-        public List<Answer> Answers { get; } = new();
+#pragma warning disable CS8618
+        private FillBlankQuestion() { }
+#pragma warning restore 
 
-        public ScoringOptions? ScoringOptions { get; set; }
-
-        public FillBlankQuestion(Test test, string description, int maxPoints)
-            : base(test, description, maxPoints)
+        public FillBlankQuestion(Test test, string directions, int maxPoints, string context, ICollection<Blank> blanks)
+            : base(test, directions, maxPoints)
         {
+            Context = context;
+            _blanks = blanks.ToList();
         }
 
-        public override AnswerForm GetContent()
+        public override QuestionContent GetContent()
         {
-            throw new NotImplementedException();
+            return new FillBlankQuestionContent(Id, Directions, Context);
         }
 
-        public sealed class Blank
+        public override decimal Grade(QuestionForm candidateForm)
         {
-            public string? Id { get; set; }
-
-            public Answer? CorrectAnswer { get; set; }
-
-            public FillBlankQuestion? FillBlankQuestion { get; set; }
+            if (candidateForm is FillBlankQuestionForm form)
+            {
+                return form.Answers.All(a => _blanks.Find(b => b.InnerId == a.InnerId)?.Answer == a.Answer.Trim().ToLower())
+                    ? MaxPoints : 0;
+            }
+            throw new InvalidCastException(nameof(candidateForm));
         }
 
-        public sealed class Answer
+        public sealed class Blank : BaseEntity
         {
-            public string? Id { get; set; }
+            public FillBlankQuestion FillBlankQuestion { get; }
+            public string InnerId { get; set; }
+            public string Answer { get; set; }
 
-            public string? Description { get; set; }
+#pragma warning disable CS8618
+            private Blank() { }
+#pragma warning restore 
 
-            public FillBlankQuestion? FillBlankQuestion { get; set; }
+            public Blank(FillBlankQuestion fillBlankQuestion, string innerId, string answer)
+            {
+                FillBlankQuestion = fillBlankQuestion;
+                InnerId = innerId;
+                Answer = answer.Trim().ToLower();
+            }
         }
     }
 }

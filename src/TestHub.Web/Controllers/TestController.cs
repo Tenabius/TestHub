@@ -6,9 +6,9 @@ namespace TestHub.Web.Controllers
 {
     public class TestController : Controller
     {
-        private readonly ITestRepository _repository;
+        private readonly IRepository<Test> _repository;
 
-        public TestController(ITestRepository repository) 
+        public TestController(IRepository<Test> repository)
         {
             _repository = repository;
         }

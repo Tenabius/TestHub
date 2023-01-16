@@ -2,45 +2,75 @@
 {
     public sealed class MatchingQuestion : Question
     {
-        public List<Stem> Stems { get; } = new();
+        public List<Stem> Stems { get; }
+        public List<Response> Responses { get; }
 
-        public List<Response> Responses { get; } = new();
+#pragma warning disable CS8618
+        private MatchingQuestion() { }
+#pragma warning restore 
 
-        public ScoringOptions? ScoringOptions { get; set; }
-
-        public MatchingQuestion(Test test, string description, int maxPoints)
-            : base(test, description, maxPoints)
+        public MatchingQuestion(Test test, string directions, int maxPoints, List<Stem> stems, List<Response> responses)
+            : base(test, directions, maxPoints)
         {
+            Stems = stems;
+            Responses = responses;
         }
 
-        public override AnswerForm GetContent()
+        public override QuestionContent GetContent()
         {
-            throw new NotImplementedException();
+            return new MatchingQuestionContent(Id,
+                Directions,
+                Stems.ConvertAll(stem => (stem.Id, stem.Content)),
+                Responses.ConvertAll(response => (response.Id, response.Content)));
         }
 
-        public override void Validate()
+        public override decimal Grade(QuestionForm candidateForm)
         {
-            throw new NotImplementedException();
+            if (candidateForm is MatchingQuestionFrom form)
+            {
+                return Stems.All(stem => form.Answers.Find(a => a.StemId == stem.Id).ResponseId == stem.CorrectResponse.Id)
+                    ? MaxPoints : 0;
+                //TODO If not found and Response's ID can be 0, will return true, what is a problem
+            }
+            throw new InvalidCastException(nameof(candidateForm));
         }
 
-        public sealed class Stem
+
+
+        public sealed class Stem : BaseEntity
         {
-            public string? Id { get; set; }
+            public string Content { get; }
+            public Response CorrectResponse { get; }
+            public MatchingQuestion MatchingQuestion { get; }
 
-            public string? Description { get; set; }
+#pragma warning disable CS8618
+            private Stem() { }
+#pragma warning restore 
 
-            public Response? CorrectResponse { get; set; }
-
-            public MatchingQuestion? MatchingQuestion { get; set; }
+            public Stem(string content, Response correctResponse, MatchingQuestion matchingQuestion)
+            {
+                Content = content;
+                CorrectResponse = correctResponse;
+                MatchingQuestion = matchingQuestion;
+            }
         }
 
-        public sealed class Response
+
+
+        public sealed class Response : BaseEntity
         {
-            public string? Id { get; set; }
+            public string Content { get; }
+            public MatchingQuestion MatchingQuestion { get; }
 
-            public string? Description { get; set; }
+#pragma warning disable CS8618
+            private Response() { }
+#pragma warning restore 
 
-            public MatchingQuestion? MatchingQuestion { get; set; }
+            public Response(string content, MatchingQuestion matchingQuestion)
+            {
+                Content = content;
+                MatchingQuestion = matchingQuestion;
+            }
         }
     }
 }

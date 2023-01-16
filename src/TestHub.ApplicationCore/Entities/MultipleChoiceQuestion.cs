@@ -11,6 +11,10 @@ namespace TestHub.ApplicationCore.Entities
 
         private readonly List<Choice> _choices = new();
 
+#pragma warning disable CS8618
+        private MultipleChoiceQuestion() { }
+#pragma warning restore 
+
         public MultipleChoiceQuestion(
             Test test,
             string directions,
@@ -65,22 +69,21 @@ namespace TestHub.ApplicationCore.Entities
             return new MultipleChoiceQuestionContent(Id, Directions, Stem, _choices.ConvertAll(ch => (ch.Id, ch.Description)));
         }
 
-        public override decimal Grade(QuestionForm candidateAnswer)
+        public override decimal Grade(QuestionForm candidateForm)
         {
-            if (candidateAnswer is MultipleChoiceQuestionForm answer)
+            if (candidateForm is MultipleChoiceQuestionForm form)
             {
-                if (answer.SelectedChoicesId is null
-                    || (!IsMultipleAnswers && answer.SelectedChoicesId.Count > 1))
+                if (!IsMultipleAnswers && form.SelectedChoicesId.Count > 1)
                 {
                     return 0;
                 } else
                 {
-                    return _choices.Where(ch => ch.IsCorrect).All(ch => answer.SelectedChoicesId.Contains(ch.Id))
-                        && _choices.Where(ch => !ch.IsCorrect).All(ch => !answer.SelectedChoicesId.Contains(ch.Id))
+                    return _choices.Where(ch => ch.IsCorrect).All(ch => form.SelectedChoicesId.Contains(ch.Id))
+                        && _choices.Where(ch => !ch.IsCorrect).All(ch => !form.SelectedChoicesId.Contains(ch.Id))
                         ? MaxPoints : 0;
                 }
             }
-            throw new InvalidCastException(nameof(candidateAnswer));
+            throw new InvalidCastException(nameof(candidateForm));
         }
 
         public sealed class Choice : BaseEntity
@@ -88,6 +91,10 @@ namespace TestHub.ApplicationCore.Entities
             public int QuestionId { get; }
             public string Description { get; }
             public bool IsCorrect { get; }
+
+#pragma warning disable CS8618
+            private Choice() { }
+#pragma warning restore 
 
             public Choice(int questionId, string description, bool isCorrect)
             {

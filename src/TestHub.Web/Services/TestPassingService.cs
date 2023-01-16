@@ -7,10 +7,11 @@ namespace TestHub.Web.Services
 {
     public class TestPassingService : ITestPassingService
     {
-        private readonly ITestRepository _repository;
-        private Test _test;
+        private readonly IRepository<Test> _repository;
+        //TODO WTF
+        //private Test _test;
 
-        public TestPassingService(ITestRepository repository)
+        public TestPassingService(IRepository<Test> repository)
         {
             _repository = repository;
         }

@@ -11,15 +11,12 @@ namespace TestHub.ApplicationCore.Entities
     {
         public bool? SelectedChoice { get; private set; }
 
+#pragma warning disable CS8618
         private FalseTrueQuestionForm() { }
+#pragma warning restore 
 
         public FalseTrueQuestionForm(int questionId, bool? selectedChoice) :
             base(questionId)
-        {
-            SelectedChoice = selectedChoice;
-        }
-
-        public void SetSelectedChoice(bool selectedChoice)
         {
             SelectedChoice = selectedChoice;
         }

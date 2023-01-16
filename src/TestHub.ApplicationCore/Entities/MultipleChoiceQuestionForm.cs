@@ -2,15 +2,14 @@
 {
     public class MultipleChoiceQuestionForm : QuestionForm
     {
-        public List<int>? SelectedChoicesId { get; private set; }
+        public List<int> SelectedChoicesId { get; private set; }
 
-        public MultipleChoiceQuestionForm(int questionId, List<int>? selectedChoicesId)
+#pragma warning disable CS8618
+        private MultipleChoiceQuestionForm() { }
+#pragma warning restore 
+
+        public MultipleChoiceQuestionForm(int questionId, List<int> selectedChoicesId)
             : base(questionId)
-        {
-            SelectedChoicesId = selectedChoicesId;
-        }
-
-        public void SetSelectedChoicesId(List<int> selectedChoicesId)
         {
             SelectedChoicesId = selectedChoicesId;
         }
