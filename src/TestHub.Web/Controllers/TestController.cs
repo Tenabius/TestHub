@@ -15,13 +15,20 @@ namespace TestHub.Web.Controllers
 
         public IActionResult Index(int Id = 1)
         {
-            return View(_repository.GetById(Id));
+            return View(_repository.GetById(Id)?.GetQuestionsContents());
         }
 
         [HttpPost]
-        public IActionResult Submit(TestForm answerSheet)
+        public IActionResult Submit([FromForm] List<FalseTrueQuestionForm> questionForms)
         {
-            return View(answerSheet);
+            var questions = _repository.GetById(1)?.Questions;
+            int result = 0;
+            foreach (var questionForm in questionForms)
+            {
+                result += questions?.First(q => q.Id == questionForm.Id)?.Grade(questionForm) > 0 ? 1 : 0;
+            }
+
+            return View("Result", result);
         }
 
     }

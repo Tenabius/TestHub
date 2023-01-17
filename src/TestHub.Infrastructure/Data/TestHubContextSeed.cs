@@ -15,8 +15,11 @@ namespace TestHub.Infrastructure.Data
         public static async Task SeedAsync(TestHubContext context)
         {
             if (!context.Database.GetService<IRelationalDatabaseCreator>().Exists())
+            {
+                context.Database.EnsureDeleted();
                 context.Database.Migrate();
-
+            }
+                
             await context.Tests.AddAsync(GetTest());
             await context.SaveChangesAsync();
         }

@@ -1,47 +1,16 @@
-﻿@model Test
+﻿@model List<QuestionContent>
+@inject IPartialViewResolver Resolver
 
 <section>
     <div class="container">
-        <h1 class="display-4">@Model.Theme</h1>
         <form id="Test" asp-action="Submit" method="post">
         @{
-            foreach (Question question in Model.Questions)
+            foreach (QuestionContent content in Model)
             {
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-1">
-                                <b>1.</b>
-                            </div>
-                            <div class="col">
-                                @question.Directions
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-1">
-                            </div>
-                            <div class="col">
-                                <div class="col">
-                                    <input type="radio" id="@question.Id-True" name="@question.Id" value="1" checked="checked">
-                                        <label for="@question.Id-True">True</label>
-                                </div>
-                                <div class="col">
-                                        <input type="radio" id="@question.Id-False" name="@question.Id" value="0">
-                                        <label for="@question.Id-False">False</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                    </div>
-                </div>
+                @(await Html.PartialAsync(Resolver.GetPartialViewName(content.GetType()), content))
             }
         }
         </form>
         <input type="submit" form="Test" value="Submit"/>
     </div>
-
-
 </section>

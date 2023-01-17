@@ -33,6 +33,7 @@ namespace TestHub.ApplicationCore.Entities
             SetPassingPercent(passingPercent);
             SetTimeTesting(timeTesting);
             SetAttemptAllowed(attemptAllowed);
+            CreationTime = DateTimeOffset.Now;
         }
 
         [MemberNotNull(nameof(Theme))]

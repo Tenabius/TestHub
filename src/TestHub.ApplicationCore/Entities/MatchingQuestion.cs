@@ -28,8 +28,7 @@
         {
             if (submittedForm is MatchingQuestionFrom form)
             {
-                return Stems.All(stem => 
-                form.SubmittedAnswers.Find(a => a.StemId == stem.Id).ResponseId == stem.CorrectResponse.Id)
+                return Stems.All(stem => (form.SubmittedAnswers.Find(a => a.StemId == stem.Id).ResponseId) == stem.CorrectResponse.Id) 
                     ? MaxPoints : 0;
                 //TODO If not found and Response's ID can be 0, will return true, what is a problem
             }

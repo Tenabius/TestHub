@@ -54,7 +54,7 @@ namespace TestHub.Infrastructure.Data
             builder.Entity<TestForm>().HasOne(f => f.Candidate).WithMany().OnDelete(DeleteBehavior.NoAction);
             builder.Entity<TestForm>().HasOne(f => f.Test).WithMany().OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<MatchingQuestion.Stem>().HasOne(s => s.CorrectResponse).WithOne().OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<MatchingQuestion.Stem>().HasOne(s => s.CorrectResponse).WithMany().OnDelete(DeleteBehavior.NoAction);
         }
 
     }

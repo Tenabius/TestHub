@@ -4,6 +4,9 @@ using TestHub.ApplicationCore.Entities;
 using TestHub.ApplicationCore.Interfaces;
 using TestHub.Infrastructure;
 using TestHub.Infrastructure.Data;
+using TestHub.Web.Configuration;
+using TestHub.Web.Interfaces;
+using TestHub.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,7 @@ builder.Services.AddDbContext<TestHubContext>(options =>
     options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub"));
 
 builder.Services.AddScoped<IRepository<Test>, TestRepository>();
+builder.Services.AddSingleton<IPartialViewResolver, PartialViewResolver>();
 
 var app = builder.Build();
 
@@ -31,6 +35,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.ConfigurePartialViewResolver();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

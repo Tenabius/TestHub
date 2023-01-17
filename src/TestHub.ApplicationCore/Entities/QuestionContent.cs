@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TestHub.ApplicationCore.Entities
+﻿namespace TestHub.ApplicationCore.Entities
 {
-    public abstract class QuestionContent
+    public abstract class QuestionContent //TODO Move to web project and name QuestionViewModel?
     {
         public int QuestionId { get; }
 

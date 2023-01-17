@@ -1,0 +1,36 @@
+﻿@model FalseTrueQuestionContent
+
+<div class="row">
+    <input type="hidden" name="questionForms.Index" value="@(Model.QuestionId - 1)">
+    <input type="hidden" name="questionForms.QuestionId" value="@Model.QuestionId">
+    <div class="col">
+        <div class="row">
+            <div class="col-1">
+                <b>1.</b>
+            </div>
+            <div class="col">
+                @Model.Statment
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col">
+                <div class="col">
+                    <input type="radio" id="@Model.QuestionId-True" name="questionForms[@(Model.QuestionId - 1)].SubmittedChoice" value="true" checked="checked">
+                    <label for="@Model.QuestionId-True">True</label>
+                </div>
+                <div class="col">
+                    <input type="radio" id="@Model.QuestionId-False" name="questionForms[@(Model.QuestionId - 1)].SubmittedChoice" value="false">
+                    <label for="@Model.QuestionId-False">False</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+    </div>
+</div>
+
+
