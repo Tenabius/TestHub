@@ -8,16 +8,16 @@ namespace TestHub.ApplicationCore.Entities
 {
     public class FillBlankQuestionForm : QuestionForm
     {
-        public List<(string InnerId, string Answer)> Answers { get; private set; }
+        public List<(string Name, string Answer)> SubmittedAnswers { get; private set; }
 
 #pragma warning disable CS8618
         private FillBlankQuestionForm() { }
 #pragma warning restore 
 
-        public FillBlankQuestionForm(int questionId, List<(string InnerId, string Answer)> blanks)
+        public FillBlankQuestionForm(int questionId, List<(string Name, string Answer)> submittedAnswers)
             : base(questionId)
         {
-            Answers = blanks;
+            SubmittedAnswers = submittedAnswers;
         }
     }
 }

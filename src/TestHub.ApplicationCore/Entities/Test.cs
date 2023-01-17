@@ -5,12 +5,12 @@ namespace TestHub.ApplicationCore.Entities
 {
     public class Test : BaseEntity
     {
-        public User Author { get; }
+        public User Author { get; private set; }
         public string Theme { get; private set; }
         public string Description { get; private set; }
         public decimal PassingPercent { get; private set; }
         public TimeSpan Duration { get; private set; }
-        public DateTimeOffset CreationTime { get; }
+        public DateTimeOffset CreationTime { get; private set; }
         public int AttemptAllowed { get; private set; }
         public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
 

@@ -7,7 +7,7 @@ namespace TestHub.ApplicationCore.Entities
     {
         public string Directions { get; private set; }
         public int MaxPoints { get; private set; }
-        public Test Test { get; }
+        public Test Test { get; private set; }
 
 #pragma warning disable CS8618
         protected Question() { }
@@ -36,7 +36,7 @@ namespace TestHub.ApplicationCore.Entities
             MaxPoints = maxPoints;
         }
 
-        public abstract decimal Grade(QuestionForm candidateForm);
+        public abstract decimal Grade(QuestionForm submittedForm);
 
         public abstract QuestionContent GetContent();
     }

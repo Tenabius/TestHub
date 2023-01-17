@@ -2,7 +2,7 @@
 {
     public sealed class FillBlankQuestion : Question
     {
-        public string Context { get; }
+        public string Context { get; private set; }
         public IReadOnlyCollection<Blank> Blanks => _blanks.AsReadOnly();
         private readonly List<Blank> _blanks = new();
 
@@ -22,21 +22,21 @@
             return new FillBlankQuestionContent(Id, Directions, Context);
         }
 
-        public override decimal Grade(QuestionForm candidateForm)
+        public override decimal Grade(QuestionForm submittedForm)
         {
-            if (candidateForm is FillBlankQuestionForm form)
+            if (submittedForm is FillBlankQuestionForm form)
             {
-                return form.Answers.All(a => _blanks.Find(b => b.InnerId == a.InnerId)?.Answer == a.Answer.Trim().ToLower())
+                return form.SubmittedAnswers.All(a => _blanks.Find(b => b.Name == a.Name)?.Answer == a.Answer.Trim().ToLower())
                     ? MaxPoints : 0;
             }
-            throw new InvalidCastException(nameof(candidateForm));
+            throw new InvalidCastException(nameof(submittedForm));
         }
 
         public sealed class Blank : BaseEntity
         {
-            public FillBlankQuestion FillBlankQuestion { get; }
-            public string InnerId { get; set; }
-            public string Answer { get; set; }
+            public FillBlankQuestion FillBlankQuestion { get; private set; }
+            public string Name { get; private set; }
+            public string Answer { get; private set; }
 
 #pragma warning disable CS8618
             private Blank() { }
@@ -45,7 +45,7 @@
             public Blank(FillBlankQuestion fillBlankQuestion, string innerId, string answer)
             {
                 FillBlankQuestion = fillBlankQuestion;
-                InnerId = innerId;
+                Name = innerId;
                 Answer = answer.Trim().ToLower();
             }
         }

@@ -69,9 +69,9 @@ namespace TestHub.ApplicationCore.Entities
             return new MultipleChoiceQuestionContent(Id, Directions, Stem, _choices.ConvertAll(ch => (ch.Id, ch.Description)));
         }
 
-        public override decimal Grade(QuestionForm candidateForm)
+        public override decimal Grade(QuestionForm submittedForm)
         {
-            if (candidateForm is MultipleChoiceQuestionForm form)
+            if (submittedForm is MultipleChoiceQuestionForm form)
             {
                 if (!IsMultipleAnswers && form.SelectedChoicesId.Count > 1)
                 {
@@ -83,14 +83,14 @@ namespace TestHub.ApplicationCore.Entities
                         ? MaxPoints : 0;
                 }
             }
-            throw new InvalidCastException(nameof(candidateForm));
+            throw new InvalidCastException(nameof(submittedForm));
         }
 
         public sealed class Choice : BaseEntity
         {
-            public int QuestionId { get; }
-            public string Description { get; }
-            public bool IsCorrect { get; }
+            public int QuestionId { get; private set; }
+            public string Description { get; private set; }
+            public bool IsCorrect { get; private set; }
 
 #pragma warning disable CS8618
             private Choice() { }

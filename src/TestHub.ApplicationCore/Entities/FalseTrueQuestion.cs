@@ -32,14 +32,14 @@ namespace TestHub.ApplicationCore.Entities
             Statment = statment;
         }
 
-        public override decimal Grade(QuestionForm candidateForm)
+        public override decimal Grade(QuestionForm submittedForm)
         {
-            if (candidateForm is FalseTrueQuestionForm form)
+            if (submittedForm is FalseTrueQuestionForm form)
             {
                 return form.SelectedChoice.HasValue
                     && form.SelectedChoice == CorrectChoice ? MaxPoints : 0;
             }
-            throw new InvalidCastException(nameof(candidateForm));
+            throw new InvalidCastException(nameof(submittedForm));
         }
 
         public override QuestionContent GetContent()

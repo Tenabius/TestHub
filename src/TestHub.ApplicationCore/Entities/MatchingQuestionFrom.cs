@@ -8,16 +8,16 @@ namespace TestHub.ApplicationCore.Entities
 {
     public class MatchingQuestionFrom : QuestionForm
     {
-        public List<(int StemId, int ResponseId)> Answers { get; private set; }
+        public List<(int StemId, int ResponseId)> SubmittedAnswers { get; private set; }
 
 #pragma warning disable CS8618
         private MatchingQuestionFrom() { }
 #pragma warning restore 
 
-        public MatchingQuestionFrom(int questionId, List<(int StemId, int ResponseId)>answers)
+        public MatchingQuestionFrom(int questionId, List<(int StemId, int ResponseId)> submittedAnswers)
             : base(questionId)
         {
-            Answers = answers;
+            SubmittedAnswers = submittedAnswers;
         }
     }
 }

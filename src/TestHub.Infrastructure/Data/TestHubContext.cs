@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Reflection;
 using TestHub.ApplicationCore.Entities;
 
@@ -23,14 +24,37 @@ namespace TestHub.Infrastructure.Data
             builder.Entity<MultipleChoiceQuestion>();
             builder.Entity<FillBlankQuestion>();
             builder.Entity<Question>().UseTptMappingStrategy();
-            builder.Entity<Test>().HasOne(t => t.Author);
+            builder.Entity<Test>().HasOne(t => t.Author).WithMany().OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Test>().Navigation(t => t.Questions).AutoInclude();
             builder.Entity<FalseTrueQuestionForm>();
-            builder.Entity<FillBlankQuestionForm>();
-            builder.Entity<MatchingQuestionFrom>();
-            builder.Entity<MultipleChoiceQuestionForm>();
+
+            var converter1 = new ValueConverter<List<(string Name, string Answer)>, string>(
+                blanks => string.Join("\\;", blanks.ConvertAll(blank => blank.Name + "\\," + blank.Answer)),
+                blanks => blanks
+                    .Split("\\;", StringSplitOptions.None).ToList()
+                    .ConvertAll(x => x.Split("\\,", 2, StringSplitOptions.None).ToList())
+                    .ConvertAll(x => new Tuple<string, string>(x.First(), x.Last()).ToValueTuple())
+                );
+            builder.Entity<FillBlankQuestionForm>().Property(f => f.SubmittedAnswers).HasConversion(converter1);
+
+            var converter2 = new ValueConverter<List<(int StemId, int ResponseId)>, string>(
+                blanks => string.Join("\\;", blanks.ConvertAll(blank => blank.StemId + "\\," + blank.ResponseId)),
+                blanks => blanks
+                    .Split("\\;", StringSplitOptions.None).ToList()
+                    .ConvertAll(x => x.Split("\\,", 2, StringSplitOptions.None).ToList())
+                    .ConvertAll(x => new Tuple<int, int>(int.Parse(x.First()), int.Parse(x.Last())).ToValueTuple())
+                );
+            builder.Entity<MatchingQuestionFrom>().Property(f => f.SubmittedAnswers).HasConversion(converter2);
+
+            var converter3 = new ValueConverter<List<int>, string>(ids => string.Join(";", ids),
+                ids => ids.Split(new[] { ';' }).Select(id => int.Parse(id)).ToList());
+            builder.Entity<MultipleChoiceQuestionForm>().Property(f => f.SelectedChoicesId).HasConversion(converter3);
+
             builder.Entity<QuestionForm>().UseTptMappingStrategy();
-            builder.Entity<TestForm>().HasOne(t => t.Candidate);
+            builder.Entity<TestForm>().HasOne(f => f.Candidate).WithMany().OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<TestForm>().HasOne(f => f.Test).WithMany().OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<MatchingQuestion.Stem>().HasOne(s => s.CorrectResponse).WithOne().OnDelete(DeleteBehavior.NoAction);
         }
 
     }

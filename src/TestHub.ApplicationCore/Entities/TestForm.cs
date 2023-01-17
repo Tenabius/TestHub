@@ -2,11 +2,11 @@
 {
     public class TestForm : BaseEntity
     {
-        public User Candidate { get; }
-        public Test Test { get; }
-        public DateTimeOffset StartTestingTime { get; }
+        public User Candidate { get; private set; }
+        public Test Test { get; private set; }
+        public DateTimeOffset StartTestingTime { get; private set; }
         public DateTimeOffset? EndTestingTime { get; private set; }
-        public List<QuestionForm> CandidateAnswers { get; }
+        public List<QuestionForm> CandidateAnswers { get; private set; }
 
         #pragma warning disable CS8618
         private TestForm() { }
