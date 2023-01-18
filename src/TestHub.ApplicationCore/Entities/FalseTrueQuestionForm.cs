@@ -9,10 +9,10 @@ namespace TestHub.ApplicationCore.Entities
 {
     public sealed class FalseTrueQuestionForm : QuestionForm
     {
-        public bool? SelectedChoice { get; private set; }
+        public bool? SelectedChoice { get; set; }
 
 #pragma warning disable CS8618
-        private FalseTrueQuestionForm() { }
+        public FalseTrueQuestionForm() { }
 #pragma warning restore 
 
         public FalseTrueQuestionForm(int questionId, bool? selectedChoice) :

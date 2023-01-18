@@ -9,6 +9,7 @@ namespace TestHub.Web.Configuration
         {
             var resolver = app.Services.GetRequiredService<IPartialViewResolver>();
             resolver.AddPartialView<FalseTrueQuestionContent>("_FalseTrueQuestion");
+            resolver.AddPartialView<MultipleChoiceQuestionContent>("_MultipleChoiceQuestion");
         }
     }
 }

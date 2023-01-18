@@ -21,7 +21,7 @@ namespace TestHub.Infrastructure.Data
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             builder.Entity<FalseTrueQuestion>();
             builder.Entity<MatchingQuestion>();
-            builder.Entity<MultipleChoiceQuestion>();
+            builder.Entity<MultipleChoiceQuestion>().Navigation(q => q.Choices).AutoInclude();
             builder.Entity<FillBlankQuestion>();
             builder.Entity<Question>().UseTptMappingStrategy();
             builder.Entity<Test>().HasOne(t => t.Author).WithMany().OnDelete(DeleteBehavior.NoAction);
@@ -49,6 +49,7 @@ namespace TestHub.Infrastructure.Data
             var converter3 = new ValueConverter<List<int>, string>(ids => string.Join(";", ids),
                 ids => ids.Split(new[] { ';' }).Select(id => int.Parse(id)).ToList());
             builder.Entity<MultipleChoiceQuestionForm>().Property(f => f.SelectedChoicesId).HasConversion(converter3);
+
 
             builder.Entity<QuestionForm>().UseTptMappingStrategy();
             builder.Entity<TestForm>().HasOne(f => f.Candidate).WithMany().OnDelete(DeleteBehavior.NoAction);

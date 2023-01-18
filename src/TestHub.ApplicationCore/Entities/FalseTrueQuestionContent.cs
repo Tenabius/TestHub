@@ -12,7 +12,7 @@ namespace TestHub.ApplicationCore.Entities
         public string Statment { get; }
 
         public FalseTrueQuestionContent(int questionId, string directions, string statment)
-            : base(questionId)
+            : base(questionId, nameof(FalseTrueQuestionForm))
         {
             Directions = directions;
             Statment = statment;

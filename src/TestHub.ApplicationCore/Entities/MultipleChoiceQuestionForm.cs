@@ -2,10 +2,10 @@
 {
     public class MultipleChoiceQuestionForm : QuestionForm
     {
-        public List<int> SelectedChoicesId { get; private set; }
+        public List<int> SelectedChoicesId { get; set; }
 
 #pragma warning disable CS8618
-        private MultipleChoiceQuestionForm() { }
+        public MultipleChoiceQuestionForm() { }
 #pragma warning restore 
 
         public MultipleChoiceQuestionForm(int questionId, List<int> selectedChoicesId)

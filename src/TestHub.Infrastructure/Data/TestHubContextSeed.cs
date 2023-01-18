@@ -14,11 +14,9 @@ namespace TestHub.Infrastructure.Data
     {
         public static async Task SeedAsync(TestHubContext context)
         {
-            if (!context.Database.GetService<IRelationalDatabaseCreator>().Exists())
-            {
-                context.Database.EnsureDeleted();
-                context.Database.Migrate();
-            }
+
+            context.Database.EnsureDeleted();
+            context.Database.Migrate();
                 
             await context.Tests.AddAsync(GetTest());
             await context.SaveChangesAsync();
@@ -30,7 +28,16 @@ namespace TestHub.Infrastructure.Data
             var test = new Test(user, "Animals", "Trial test", 0.8m, TimeSpan.FromMinutes(10), 2);
             var q1 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Sharks are mammals.", false);
             test.AddQuestion(q1);
-            var q2 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Sea otters have a favorite rock they use to break open food.", true);
+
+
+
+            var q2 = new MultipleChoiceQuestion(test, "Choose answer", 10,
+                "Known for its intelligence, which dog breed has been found capable of understanding more than a thousand words?", false);
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Cocker Spaniel", false));
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "French Bulldog", false));
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Dachshund", false));
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Border Collie", true));
+
             test.AddQuestion(q2);
             var q3 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "The blue whale is the biggest animal to have ever lived.", true);
             test.AddQuestion(q3);

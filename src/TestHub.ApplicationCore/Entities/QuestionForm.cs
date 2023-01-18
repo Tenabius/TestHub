@@ -8,7 +8,7 @@ namespace TestHub.ApplicationCore.Entities
 {
     public abstract class QuestionForm : BaseEntity
     {
-        public int QuestionId { get; private set; }
+        public int QuestionId { get; set; }
 
 #pragma warning disable CS8618
         protected QuestionForm() { }

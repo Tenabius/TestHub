@@ -12,7 +12,7 @@ using TestHub.Infrastructure.Data;
 namespace TestHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TestHubContext))]
-    [Migration("20230117104156_Initial")]
+    [Migration("20230118111708_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -115,15 +115,12 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MultipleChoiceQuestionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MultipleChoiceQuestionId");
+                    b.HasIndex("QuestionId");
 
                     b.ToTable("Choice");
                 });
@@ -394,9 +391,13 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.ApplicationCore.Entities.MultipleChoiceQuestion+Choice", b =>
                 {
-                    b.HasOne("TestHub.ApplicationCore.Entities.MultipleChoiceQuestion", null)
+                    b.HasOne("TestHub.ApplicationCore.Entities.MultipleChoiceQuestion", "Question")
                         .WithMany("Choices")
-                        .HasForeignKey("MultipleChoiceQuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("TestHub.ApplicationCore.Entities.Question", b =>

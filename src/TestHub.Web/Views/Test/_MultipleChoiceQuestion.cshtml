@@ -1,4 +1,4 @@
-﻿@model FalseTrueQuestionContent
+﻿@model MultipleChoiceQuestionContent
 
 <div class="row">
     <input type="hidden" name="Index" value="@(Model.QuestionId - 1)">
@@ -10,21 +10,22 @@
                 <b>1.</b>
             </div>
             <div class="col">
-                @Model.Statment
+                @Model.Stem
             </div>
         </div>
         <div class="row">
             <div class="col-1">
             </div>
             <div class="col">
-                <div class="col">
-                    <input type="radio" id="@Model.QuestionId-True" name="[@(Model.QuestionId - 1)].SelectedChoice" value="true" checked="checked">
-                    <label for="@Model.QuestionId-True">True</label>
-                </div>
-                <div class="col">
-                    <input type="radio" id="@Model.QuestionId-False" name="[@(Model.QuestionId - 1)].SelectedChoice" value="false">
-                    <label for="@Model.QuestionId-False">False</label>
-                </div>
+                @for(int i = 0; i < Model.Choices.Count; i++)
+                {
+                    <div class="col">
+                        <input type="checkbox" id="@Model.QuestionId-@Model.Choices[i].Id-Checkbox"
+                           name="[@(Model.QuestionId - 1)].SelectedChoicesId[]"
+                           value="@Model.Choices[i].Id">
+                        <label for="@Model.QuestionId-@Model.Choices[i].Id-Checkbox">@Model.Choices[i].Description</label>
+                    </div>
+                }
             </div>
         </div>
     </div>
@@ -33,5 +34,3 @@
     <div class="col">
     </div>
 </div>
-
-

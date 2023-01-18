@@ -19,13 +19,13 @@ namespace TestHub.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Submit([FromForm] List<FalseTrueQuestionForm> questionForms)
+        public IActionResult Submit([FromForm] List<QuestionForm> questionForms)
         {
             var questions = _repository.GetById(1)?.Questions;
             int result = 0;
             foreach (var questionForm in questionForms)
             {
-                result += questions?.First(q => q.Id == questionForm.Id)?.Grade(questionForm) > 0 ? 1 : 0;
+                result += questions?.First(q => q.Id == questionForm.QuestionId)?.Grade(questionForm) > 0 ? 1 : 0;
             }
 
             return View("Result", result);

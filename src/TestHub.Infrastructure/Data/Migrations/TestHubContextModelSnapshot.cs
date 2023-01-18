@@ -112,15 +112,12 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MultipleChoiceQuestionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MultipleChoiceQuestionId");
+                    b.HasIndex("QuestionId");
 
                     b.ToTable("Choice");
                 });
@@ -391,9 +388,13 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.ApplicationCore.Entities.MultipleChoiceQuestion+Choice", b =>
                 {
-                    b.HasOne("TestHub.ApplicationCore.Entities.MultipleChoiceQuestion", null)
+                    b.HasOne("TestHub.ApplicationCore.Entities.MultipleChoiceQuestion", "Question")
                         .WithMany("Choices")
-                        .HasForeignKey("MultipleChoiceQuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("TestHub.ApplicationCore.Entities.Question", b =>

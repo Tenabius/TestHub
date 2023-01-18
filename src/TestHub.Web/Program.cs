@@ -6,6 +6,7 @@ using TestHub.Infrastructure;
 using TestHub.Infrastructure.Data;
 using TestHub.Web.Configuration;
 using TestHub.Web.Interfaces;
+using TestHub.Web.ModelBinders;
 using TestHub.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,9 @@ builder.Services.AddDbContext<TestHubContext>(options =>
 
 builder.Services.AddScoped<IRepository<Test>, TestRepository>();
 builder.Services.AddSingleton<IPartialViewResolver, PartialViewResolver>();
+
+builder.Services.AddControllers(options =>
+    options.ModelBinderProviders.Insert(0, new QuestionFormModelBinderProvider()));
 
 var app = builder.Build();
 

@@ -236,17 +236,17 @@ namespace TestHub.Infrastructure.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuestionId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsCorrect = table.Column<bool>(type: "bit", nullable: false),
-                    MultipleChoiceQuestionId = table.Column<int>(type: "int", nullable: true)
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Choice", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Choice_MultipleChoiceQuestion_MultipleChoiceQuestionId",
-                        column: x => x.MultipleChoiceQuestionId,
+                        name: "FK_Choice_MultipleChoiceQuestion_QuestionId",
+                        column: x => x.QuestionId,
                         principalTable: "MultipleChoiceQuestion",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -353,9 +353,9 @@ namespace TestHub.Infrastructure.Data.Migrations
                 column: "FillBlankQuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Choice_MultipleChoiceQuestionId",
+                name: "IX_Choice_QuestionId",
                 table: "Choice",
-                column: "MultipleChoiceQuestionId");
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuestionForm_TestFormId",

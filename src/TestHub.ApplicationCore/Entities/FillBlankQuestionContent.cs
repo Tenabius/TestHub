@@ -12,7 +12,7 @@ namespace TestHub.ApplicationCore.Entities
         public string Context { get; }
 
         public FillBlankQuestionContent(int questionId, string directions, string context)
-            : base(questionId)
+            : base(questionId, nameof(FillBlankQuestionForm))
         {
             Directions = directions;
             Context = context;

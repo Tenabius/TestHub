@@ -73,7 +73,8 @@ namespace TestHub.ApplicationCore.Entities
         {
             if (submittedForm is MultipleChoiceQuestionForm form)
             {
-                if (!IsMultipleAnswers && form.SelectedChoicesId.Count > 1)
+                if (form.SelectedChoicesId is null
+                    || (!IsMultipleAnswers && form.SelectedChoicesId.Count > 1))
                 {
                     return 0;
                 } else
@@ -88,7 +89,7 @@ namespace TestHub.ApplicationCore.Entities
 
         public sealed class Choice : BaseEntity
         {
-            public int QuestionId { get; private set; }
+            public MultipleChoiceQuestion Question { get; private set; }
             public string Description { get; private set; }
             public bool IsCorrect { get; private set; }
 
@@ -96,9 +97,9 @@ namespace TestHub.ApplicationCore.Entities
             private Choice() { }
 #pragma warning restore 
 
-            public Choice(int questionId, string description, bool isCorrect)
+            public Choice(MultipleChoiceQuestion question, string description, bool isCorrect)
             {
-                QuestionId = questionId;
+                Question = question;
                 Description = description;
                 IsCorrect = isCorrect;
             }
