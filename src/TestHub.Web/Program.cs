@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TestHub.ApplicationCore.Entities;
-using TestHub.ApplicationCore.Interfaces;
+using TestHub.Core.Entities;
+using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
 using TestHub.Infrastructure.Data;
 using TestHub.Web.Configuration;

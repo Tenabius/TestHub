@@ -1,50 +1,41 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Validation;
 
-namespace TestHub.ApplicationCore.Entities
+namespace TestHub.Core.Entities
 {
     public sealed class FalseTrueQuestion : Question
     {
-        public bool CorrectChoice { get; private set; }
         public string Statment { get; private set; }
+        public bool CorrectChoice { get; private set; }
 
 #pragma warning disable CS8618
         private FalseTrueQuestion() { }
 #pragma warning restore 
 
-        public FalseTrueQuestion(Test test, string directions, int maxPoints, string statment, bool correctChoice)
-            : base(test, directions, maxPoints)
+        private FalseTrueQuestion(string directions, string statment, bool correctChoice)
+            : base(directions)
         {
-            SetCorrectChoice(correctChoice);
-            SetStatment(statment);
-        }
-
-        [MemberNotNull(nameof(CorrectChoice))]
-        public void SetCorrectChoice(bool correctChoice)
-        {
+            Statment = statment;
             CorrectChoice = correctChoice;
         }
 
-        [MemberNotNull(nameof(Statment))]
-        public void SetStatment(string statment)
+        public static FalseTrueQuestion Create(string directions, string statment, bool correctChoice)
         {
             Requires.NotNullOrEmpty(statment, nameof(statment));
-            Statment = statment;
+            Requires.NotNullOrEmpty(directions, nameof(directions));
+
+            return new(directions, statment, correctChoice);
         }
 
-        public override decimal Grade(QuestionForm submittedForm)
+        public override bool EvaluateAnswer(Answer submittedAnswer)
         {
-            if (submittedForm is FalseTrueQuestionForm form)
+            if (submittedAnswer is FalseTrueAnswer answer)
             {
-                return form.SelectedChoice.HasValue
-                    && form.SelectedChoice == CorrectChoice ? MaxPoints : 0;
+                return answer.SelectedChoice.HasValue
+                    && answer.SelectedChoice == CorrectChoice;
             }
-            throw new InvalidCastException(nameof(submittedForm));
-        }
 
-        public override QuestionContent GetContent()
-        {
-            return new FalseTrueQuestionContent(Id, Directions, Statment);
+            throw new InvalidCastException(nameof(submittedAnswer));
         }
     }
 }

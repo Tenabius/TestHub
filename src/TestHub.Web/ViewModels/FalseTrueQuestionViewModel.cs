@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestHub.ApplicationCore.Entities
+namespace TestHub.Web.ViewModels
 {
-    public class FalseTrueQuestionContent : QuestionContent
+    public class FalseTrueQuestionViewModel : QuestionViewModel
     {
         public string Directions { get; }
         public string Statment { get; }
 
-        public FalseTrueQuestionContent(int questionId, string directions, string statment)
-            : base(questionId, nameof(FalseTrueQuestionForm))
+        public FalseTrueQuestionViewModel(int questionId, string directions, string statment)
+            : base(questionId, nameof(FalseTrueQuestionViewModel))
         {
             Directions = directions;
             Statment = statment;

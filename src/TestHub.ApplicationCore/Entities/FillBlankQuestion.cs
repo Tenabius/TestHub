@@ -1,52 +1,67 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿using Validation;
+
+namespace TestHub.Core.Entities
 {
     public sealed class FillBlankQuestion : Question
     {
+        public static readonly string BlankTag = "<blank>";
         public string Context { get; private set; }
-        public IReadOnlyCollection<Blank> Blanks => _blanks.AsReadOnly();
+        public IReadOnlyList<Blank> Blanks => _blanks.AsReadOnly();
         private readonly List<Blank> _blanks = new();
 
 #pragma warning disable CS8618
         private FillBlankQuestion() { }
 #pragma warning restore 
 
-        public FillBlankQuestion(Test test, string directions, int maxPoints, string context, ICollection<Blank> blanks)
-            : base(test, directions, maxPoints)
+        private FillBlankQuestion(string directions, string context, IList<Blank> blanks)
+            : base(directions)
         {
             Context = context;
             _blanks = blanks.ToList();
         }
 
-        public override QuestionContent GetContent()
+        public static FillBlankQuestion Create(string directions, string context, IList<Blank> blanks)
         {
-            return new FillBlankQuestionContent(Id, Directions, Context);
+            Requires.NotNullOrEmpty(directions, nameof(directions));
+            Requires.NotNullOrEmpty(context, nameof(context));
+            //TODO Check that all blanks have answers and no answers without a blank
+
+            return new(directions, context, blanks);
         }
 
-        public override decimal Grade(QuestionForm submittedForm)
+        public override bool EvaluateAnswer(Answer submittedAnswer)
         {
-            if (submittedForm is FillBlankQuestionForm form)
+            if (submittedAnswer is FillBlankAnswer answer)
             {
-                return form.SubmittedAnswers.All(a => _blanks.Find(b => b.Name == a.Name)?.Answer == a.Answer.Trim().ToLower())
-                    ? MaxPoints : 0;
+                return answer.SubmittedAnswers
+                    .All(a => a.SubmittedAnswer == a.Blank.CorrectAnswer);
             }
-            throw new InvalidCastException(nameof(submittedForm));
+
+            throw new InvalidCastException(nameof(submittedAnswer));
         }
 
         public sealed class Blank : BaseEntity
         {
-            public FillBlankQuestion FillBlankQuestion { get; private set; }
             public string Name { get; private set; }
-            public string Answer { get; private set; }
+            public string CorrectAnswer { get; private set; }
 
 #pragma warning disable CS8618
             private Blank() { }
 #pragma warning restore 
 
-            public Blank(FillBlankQuestion fillBlankQuestion, string innerId, string answer)
+            private Blank(string name, string correctAnswer)
             {
-                FillBlankQuestion = fillBlankQuestion;
-                Name = innerId;
-                Answer = answer.Trim().ToLower();
+                Name = name;
+                CorrectAnswer = correctAnswer;
+            }
+
+            public static Blank Create(string name, string correctAnswer)
+            {
+                Requires.NotNullOrEmpty(name, nameof(name));
+                Requires.NotNullOrEmpty(correctAnswer, nameof(correctAnswer));
+
+                return new(name,
+                    correctAnswer.Trim().ToLower());
             }
         }
     }

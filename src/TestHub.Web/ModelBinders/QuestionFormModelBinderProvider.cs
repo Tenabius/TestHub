@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using TestHub.ApplicationCore.Entities;
+using TestHub.Core.Entities;
 
 namespace TestHub.Web.ModelBinders
 {
@@ -7,12 +7,12 @@ namespace TestHub.Web.ModelBinders
     {
         public IModelBinder? GetBinder(ModelBinderProviderContext context)
         {
-            if (context.Metadata.ModelType != typeof(QuestionForm))
+            if (context.Metadata.ModelType != typeof(Answer))
             {
                 return null;
             }
 
-            var subclasses = new[] { typeof(FalseTrueQuestionForm), typeof(MultipleChoiceQuestionForm), };
+            var subclasses = new[] { typeof(FalseTrueAnswer), typeof(MultipleChoiceQuestionForm), };
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();
             foreach (var type in subclasses)

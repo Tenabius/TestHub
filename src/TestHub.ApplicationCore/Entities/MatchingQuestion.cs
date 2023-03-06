@@ -1,4 +1,6 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿using Validation;
+
+namespace TestHub.Core.Entities
 {
     public sealed class MatchingQuestion : Question
     {
@@ -9,67 +11,72 @@
         private MatchingQuestion() { }
 #pragma warning restore 
 
-        public MatchingQuestion(Test test, string directions, int maxPoints, List<Stem> stems, List<Response> responses)
-            : base(test, directions, maxPoints)
+        private MatchingQuestion(string directions, IList<Stem> stems, IList<Response> responses)
+            : base(directions)
         {
-            Stems = stems;
-            Responses = responses;
+            Stems = stems.ToList();
+            Responses = responses.ToList();
         }
 
-        public override QuestionContent GetContent()
+        public static MatchingQuestion Create(string directions, IList<Stem> stems, IList<Response> responses)
         {
-            return new MatchingQuestionContent(Id,
-                Directions,
-                Stems.ConvertAll(stem => (stem.Id, stem.Content)),
-                Responses.ConvertAll(response => (response.Id, response.Content)));
+            Requires.NotNullOrEmpty(directions, nameof(directions));
+
+            return new(directions, stems, responses);
         }
 
-        public override decimal Grade(QuestionForm submittedForm)
+        public override bool EvaluateAnswer(Answer submittedAnswer)
         {
-            if (submittedForm is MatchingQuestionFrom form)
+            if (submittedAnswer is MatchingAnswer answer)
             {
-                return Stems.All(stem => (form.SubmittedAnswers.Find(a => a.StemId == stem.Id).ResponseId) == stem.CorrectResponse.Id) 
-                    ? MaxPoints : 0;
-                //TODO If not found and Response's ID can be 0, will return true, what is a problem
+                return answer.SubmittedAnswers.All(a => a.Stem.CorrectResponse == a.SubmittedResponse);
             }
-            throw new InvalidCastException(nameof(submittedForm));
+
+            throw new InvalidCastException(nameof(submittedAnswer));
         }
-
-
 
         public sealed class Stem : BaseEntity
         {
             public string Content { get; private set; }
             public Response CorrectResponse { get; private set; }
-            public MatchingQuestion MatchingQuestion { get; private set; }
 
 #pragma warning disable CS8618
             private Stem() { }
 #pragma warning restore 
 
-            public Stem(string content, Response correctResponse, MatchingQuestion matchingQuestion)
+            private Stem(string content, Response correctResponse)
             {
                 Content = content;
                 CorrectResponse = correctResponse;
-                MatchingQuestion = matchingQuestion;
+            }
+
+            public static Stem Create(string content, Response correctResponse)
+            {
+                Requires.NotNullOrEmpty(content, nameof(content));
+                Requires.NotNull(correctResponse, nameof(correctResponse));
+
+                return new(content, correctResponse);
             }
         }
-
-
 
         public sealed class Response : BaseEntity
         {
             public string Content { get; private set; }
-            public MatchingQuestion MatchingQuestion { get; private set; }
 
 #pragma warning disable CS8618
             private Response() { }
 #pragma warning restore 
 
-            public Response(string content, MatchingQuestion matchingQuestion)
+            private Response(string content)
             {
                 Content = content;
-                MatchingQuestion = matchingQuestion;
+            }
+
+            public static Response Create(string content)
+            {
+                Requires.NotNullOrEmpty(content, nameof(content));
+
+                return new Response(content);
             }
         }
     }

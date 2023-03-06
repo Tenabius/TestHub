@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TestHub.ApplicationCore.Entities;
-using TestHub.ApplicationCore.Interfaces;
+using TestHub.Core.Entities;
+using TestHub.Core.Interfaces;
 
 namespace TestHub.Web.Controllers
 {
@@ -19,13 +19,13 @@ namespace TestHub.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Submit([FromForm] List<QuestionForm> questionForms)
+        public IActionResult Submit([FromForm] List<Answer> questionForms)
         {
             var questions = _repository.GetById(1)?.Questions;
             int result = 0;
             foreach (var questionForm in questionForms)
             {
-                result += questions?.First(q => q.Id == questionForm.QuestionId)?.Grade(questionForm) > 0 ? 1 : 0;
+                result += questions?.First(q => q.Id == questionForm.QuestionId)?.EvaluateAnswer(questionForm) > 0 ? 1 : 0;
             }
 
             return View("Result", result);

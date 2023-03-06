@@ -1,5 +1,5 @@
-﻿using TestHub.ApplicationCore.Entities;
-using TestHub.ApplicationCore.Interfaces;
+﻿using TestHub.Core.Entities;
+using TestHub.Core.Interfaces;
 using TestHub.Web.Interfaces;
 using TestHub.Web.ViewModels;
 

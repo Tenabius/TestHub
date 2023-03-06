@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using TestHub.ApplicationCore.Entities;
+using TestHub.Core.Entities;
 
 namespace TestHub.Web.DataBinders
 {

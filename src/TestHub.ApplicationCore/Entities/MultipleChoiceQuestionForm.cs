@@ -1,6 +1,6 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿namespace TestHub.Core.Entities
 {
-    public class MultipleChoiceQuestionForm : QuestionForm
+    public class MultipleChoiceQuestionForm : Answer
     {
         public List<int> SelectedChoicesId { get; set; }
 

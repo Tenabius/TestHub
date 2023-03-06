@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using TestHub.ApplicationCore.Entities;
+using TestHub.Core.Entities;
 
 namespace TestHub.Web.ModelBinders
 {
@@ -16,14 +16,14 @@ namespace TestHub.Web.ModelBinders
         public async Task BindModelAsync(ModelBindingContext bindingContext)
         {
 
-            var modelKindName = ModelNames.CreatePropertyModelName(bindingContext.ModelName, nameof(QuestionContent.Kind));
+            var modelKindName = ModelNames.CreatePropertyModelName(bindingContext.ModelName, nameof(QuestionViewModel.Kind));
             var modelTypeValue = bindingContext.ValueProvider.GetValue(modelKindName).FirstValue;
 
             IModelBinder modelBinder;
             ModelMetadata modelMetadata;
-            if (modelTypeValue == nameof(FalseTrueQuestionForm))
+            if (modelTypeValue == nameof(FalseTrueAnswer))
             {
-                (modelMetadata, modelBinder) = binders[typeof(FalseTrueQuestionForm)];
+                (modelMetadata, modelBinder) = binders[typeof(FalseTrueAnswer)];
             }
             else if (modelTypeValue == nameof(MultipleChoiceQuestionForm))
             {

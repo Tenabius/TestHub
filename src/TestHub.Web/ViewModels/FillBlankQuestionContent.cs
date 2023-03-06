@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestHub.ApplicationCore.Entities
+namespace TestHub.Core.Entities
 {
     public class FillBlankQuestionContent : QuestionContent
     {
@@ -12,7 +12,7 @@ namespace TestHub.ApplicationCore.Entities
         public string Context { get; }
 
         public FillBlankQuestionContent(int questionId, string directions, string context)
-            : base(questionId, nameof(FillBlankQuestionForm))
+            : base(questionId, nameof(FillBlankAnswer))
         {
             Directions = directions;
             Context = context;

@@ -1,4 +1,4 @@
-﻿using TestHub.ApplicationCore.Entities;
+﻿using TestHub.Core.Entities;
 using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
@@ -8,7 +8,7 @@ namespace TestHub.Web.Configuration
         public static void ConfigurePartialViewResolver(this WebApplication app)
         {
             var resolver = app.Services.GetRequiredService<IPartialViewResolver>();
-            resolver.AddPartialView<FalseTrueQuestionContent>("_FalseTrueQuestion");
+            resolver.AddPartialView<FalseTrueQuestionViewModel>("_FalseTrueQuestion");
             resolver.AddPartialView<MultipleChoiceQuestionContent>("_MultipleChoiceQuestion");
         }
     }

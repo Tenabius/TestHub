@@ -1,4 +1,4 @@
-﻿using TestHub.ApplicationCore.Entities;
+﻿using TestHub.Core.Entities;
 
 namespace TestHub.Web.ViewModels
 {

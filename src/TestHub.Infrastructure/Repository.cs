@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestHub.ApplicationCore.Entities;
-using TestHub.ApplicationCore.Interfaces;
+using TestHub.Core.Entities;
+using TestHub.Core.Interfaces;
 using TestHub.Infrastructure.Data;
 
 namespace TestHub.Infrastructure

@@ -1,4 +1,4 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿namespace TestHub.Core.Entities
 {
     public class BaseEntity
     {

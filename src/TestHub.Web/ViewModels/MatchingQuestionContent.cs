@@ -1,4 +1,4 @@
-﻿namespace TestHub.ApplicationCore.Entities
+﻿namespace TestHub.Core.Entities
 {
     public class MatchingQuestionContent : QuestionContent
     {
@@ -10,7 +10,7 @@
             string directions,
             List<(int Id, string Stem)> stems,
             List<(int Id, string Response)> responses)
-            : base(questionId, nameof(MatchingQuestionFrom))
+            : base(questionId, nameof(MatchingAnswer))
         {
             Directions = directions;
             Stems = stems;

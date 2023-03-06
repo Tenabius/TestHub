@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Validation;
 
-namespace TestHub.ApplicationCore.Entities
+namespace TestHub.Core.Entities
 {
     public sealed class MultipleChoiceQuestion : Question
     {
@@ -69,7 +69,7 @@ namespace TestHub.ApplicationCore.Entities
             return new MultipleChoiceQuestionContent(Id, Directions, Stem, _choices.ConvertAll(ch => (ch.Id, ch.Description)));
         }
 
-        public override decimal Grade(QuestionForm submittedForm)
+        public override decimal EvaluateAnswer(Answer submittedForm)
         {
             if (submittedForm is MultipleChoiceQuestionForm form)
             {

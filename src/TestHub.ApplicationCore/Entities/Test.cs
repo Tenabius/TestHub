@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Validation;
 
-namespace TestHub.ApplicationCore.Entities
+namespace TestHub.Core.Entities
 {
     public class Test : BaseEntity
     {

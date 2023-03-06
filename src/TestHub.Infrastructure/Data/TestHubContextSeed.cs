@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestHub.ApplicationCore.Entities;
+using TestHub.Core.Entities;
 
 namespace TestHub.Infrastructure.Data
 {
