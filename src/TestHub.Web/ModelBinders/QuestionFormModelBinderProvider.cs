@@ -12,7 +12,7 @@ namespace TestHub.Web.ModelBinders
                 return null;
             }
 
-            var subclasses = new[] { typeof(FalseTrueAnswer), typeof(MultipleChoiceQuestionForm), };
+            var subclasses = new[] { typeof(FalseTrueAnswer), typeof(MultipleChoiceAnswer), };
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();
             foreach (var type in subclasses)

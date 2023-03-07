@@ -12,5 +12,10 @@
         {
             Question = question;
         }
+
+        public virtual bool IsCorrect()
+        {
+            return Question.EvaluateAnswer(this);
+        }
     }
 }

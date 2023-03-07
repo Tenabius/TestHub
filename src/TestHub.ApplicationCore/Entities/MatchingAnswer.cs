@@ -4,7 +4,8 @@ namespace TestHub.Core.Entities
 {
     public class MatchingAnswer : Answer
     {
-        public List<(Stem Stem, Response SubmittedResponse)> SubmittedAnswers { get; private set; }
+        public IReadOnlyList<(Stem Stem, Response SubmittedResponse)> SubmittedAnswers => _submittedAnswers.AsReadOnly();
+        private List<(Stem Stem, Response SubmittedResponse)> _submittedAnswers;
 
 #pragma warning disable CS8618
         private MatchingAnswer() { }
@@ -13,7 +14,7 @@ namespace TestHub.Core.Entities
         public MatchingAnswer(Question question, IList<(Stem Stem, Response SubmittedResponse)> submittedAnswers)
             : base(question)
         {
-            SubmittedAnswers = submittedAnswers.ToList();
+            _submittedAnswers = submittedAnswers.ToList();
         }
     }
 }

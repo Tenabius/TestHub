@@ -10,7 +10,8 @@ namespace TestHub.Core.Entities
 {
     public sealed class FillBlankAnswer : Answer
     {
-        public List<(Blank Blank, string SubmittedAnswer)> SubmittedAnswers { get; private set; }
+        public IReadOnlyList<(Blank Blank, string SubmittedAnswer)> SubmittedAnswers => _submittedAnswers.AsReadOnly();
+        private List<(Blank Blank, string SubmittedAnswer)> _submittedAnswers;
 
 #pragma warning disable CS8618
         private FillBlankAnswer() { }
@@ -19,7 +20,7 @@ namespace TestHub.Core.Entities
         public FillBlankAnswer(Question question, IList<(Blank Blank, string SubmittedAnswer)> submittedAnswers)
             : base(question)
         {
-            SubmittedAnswers = submittedAnswers.ToList();
+            _submittedAnswers = submittedAnswers.ToList();
         }
     }
 }

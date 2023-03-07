@@ -5,26 +5,26 @@ namespace TestHub.Core.Entities
 {
     public sealed class FalseTrueQuestion : Question
     {
-        public string Statment { get; private set; }
+        public string Statement { get; private set; }
         public bool CorrectChoice { get; private set; }
 
 #pragma warning disable CS8618
         private FalseTrueQuestion() { }
 #pragma warning restore 
 
-        private FalseTrueQuestion(string directions, string statment, bool correctChoice)
+        private FalseTrueQuestion(string directions, string statement, bool correctChoice)
             : base(directions)
         {
-            Statment = statment;
+            Statement = statement;
             CorrectChoice = correctChoice;
         }
 
-        public static FalseTrueQuestion Create(string directions, string statment, bool correctChoice)
+        public static FalseTrueQuestion Create(string directions, string statement, bool correctChoice)
         {
-            Requires.NotNullOrEmpty(statment, nameof(statment));
+            Requires.NotNullOrEmpty(statement, nameof(statement));
             Requires.NotNullOrEmpty(directions, nameof(directions));
 
-            return new(directions, statment, correctChoice);
+            return new(directions, statement, correctChoice);
         }
 
         public override bool EvaluateAnswer(Answer submittedAnswer)

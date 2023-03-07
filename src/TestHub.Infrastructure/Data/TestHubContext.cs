@@ -12,7 +12,7 @@ namespace TestHub.Infrastructure.Data
 
         public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<TestForm> TestForms { get; set; } //TODO Change to better name
+        public DbSet<AnswersSheet> TestForms { get; set; } //TODO Change to better name
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -48,12 +48,12 @@ namespace TestHub.Infrastructure.Data
 
             var converter3 = new ValueConverter<List<int>, string>(ids => string.Join(";", ids),
                 ids => ids.Split(new[] { ';' }).Select(id => int.Parse(id)).ToList());
-            builder.Entity<MultipleChoiceQuestionForm>().Property(f => f.SelectedChoicesId).HasConversion(converter3);
+            builder.Entity<MultipleChoiceAnswer>().Property(f => f.SelectedChoicesId).HasConversion(converter3);
 
 
             builder.Entity<Answer>().UseTptMappingStrategy();
-            builder.Entity<TestForm>().HasOne(f => f.Candidate).WithMany().OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<TestForm>().HasOne(f => f.Test).WithMany().OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<AnswersSheet>().HasOne(f => f.Candidate).WithMany().OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<AnswersSheet>().HasOne(f => f.Test).WithMany().OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<MatchingQuestion.Stem>().HasOne(s => s.CorrectResponse).WithMany().OnDelete(DeleteBehavior.NoAction);
         }

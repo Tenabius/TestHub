@@ -32,7 +32,7 @@ namespace TestHub.Web.Services
             {
                 AuthorId = test.Author.Id,
                 AuthorName = test.Author.Name,
-                Name = test.Theme,
+                Name = test.Title,
                 Description = test.Description,
                 Id = test.Id,
                 Duration = test.Duration

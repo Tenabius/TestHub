@@ -25,9 +25,9 @@ namespace TestHub.Web.ModelBinders
             {
                 (modelMetadata, modelBinder) = binders[typeof(FalseTrueAnswer)];
             }
-            else if (modelTypeValue == nameof(MultipleChoiceQuestionForm))
+            else if (modelTypeValue == nameof(MultipleChoiceAnswer))
             {
-                (modelMetadata, modelBinder) = binders[typeof(MultipleChoiceQuestionForm)];
+                (modelMetadata, modelBinder) = binders[typeof(MultipleChoiceAnswer)];
             }
             else
             {

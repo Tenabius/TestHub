@@ -21,7 +21,7 @@
                 {
                     <div class="col">
                         <input type="checkbox" id="@Model.QuestionId-@Model.Choices[i].Id-Checkbox"
-                           name="[@(Model.QuestionId - 1)].SelectedChoicesId[]"
+                           name="[@(Model.QuestionId - 1)].SelectedChoicesId"
                            value="@Model.Choices[i].Id">
                         <label for="@Model.QuestionId-@Model.Choices[i].Id-Checkbox">@Model.Choices[i].Description</label>
                     </div>

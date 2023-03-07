@@ -13,7 +13,7 @@ namespace TestHub.Core.Entities
         public List<(int Id, string Description)> Choices { get; }
 
         public MultipleChoiceQuestionContent(int questionId, string directions, string stem, List<(int, string)> choices)
-            : base(questionId, nameof(MultipleChoiceQuestionForm))
+            : base(questionId, nameof(MultipleChoiceAnswer))
         {
             Directions = directions;
             Stem = stem;
