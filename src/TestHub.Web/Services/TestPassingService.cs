@@ -1,7 +1,7 @@
 ﻿using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
 using TestHub.Web.Interfaces;
-using TestHub.Web.ViewModels;
+using TestHub.Web.Models;
 
 namespace TestHub.Web.Services
 {
@@ -28,19 +28,19 @@ namespace TestHub.Web.Services
 
         private TestBlankViewModel MapTestToTestBlank(Test test)
         {
-            TestBlankViewModel blank = new()
-            {
-                AuthorId = test.Author.Id,
-                AuthorName = test.Author.Name,
-                Name = test.Title,
-                Description = test.Description,
-                Id = test.Id,
-                Duration = test.Duration
-            };
+            //TestBlankViewModel blank = new()
+            //{
+            //    AuthorId = test.Author.Id,
+            //    AuthorName = test.Author.Name,
+            //    Name = test.Title,
+            //    Description = test.Description,
+            //    Id = test.Id,
+            //    Duration = test.Duration
+            //};
 
+            //return blank;
 
-
-            return blank;
+            throw new NotImplementedException();
         }
     }
 }

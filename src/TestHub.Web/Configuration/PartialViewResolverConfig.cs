@@ -1,5 +1,6 @@
 ﻿using TestHub.Core.Entities;
 using TestHub.Web.Interfaces;
+using TestHub.Web.Models;
 
 namespace TestHub.Web.Configuration
 {
@@ -9,7 +10,7 @@ namespace TestHub.Web.Configuration
         {
             var resolver = app.Services.GetRequiredService<IPartialViewResolver>();
             resolver.AddPartialView<FalseTrueQuestionViewModel>("_FalseTrueQuestion");
-            resolver.AddPartialView<MultipleChoiceQuestionContent>("_MultipleChoiceQuestion");
+            resolver.AddPartialView<MultipleChoiceQuestionViewModel>("_MultipleChoiceQuestion");
         }
     }
 }

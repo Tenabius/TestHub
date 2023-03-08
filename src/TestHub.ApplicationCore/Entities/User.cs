@@ -1,13 +1,9 @@
-﻿namespace TestHub.Core.Entities
-{
-    public class User
-    {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
+﻿using Microsoft.AspNetCore.Identity;
 
-        public User(string name)
-        {
-            Name = name;
-        }
+namespace TestHub.Core.Entities
+{
+    public class User : IdentityUser
+    {
+
     }
 }

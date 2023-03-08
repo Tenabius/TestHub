@@ -1,4 +1,4 @@
-﻿using TestHub.Web.ViewModels;
+﻿using TestHub.Web.Models;
 
 namespace TestHub.Web.Interfaces
 {

@@ -15,7 +15,8 @@ namespace TestHub.Web.Controllers
 
         public IActionResult Index(int Id = 1)
         {
-            return View(_repository.GetById(Id)?.GetQuestionsContents());
+            return View();
+            //return View(_repository.GetById(Id)?.GetQuestionsContents());
         }
 
         [HttpPost]
@@ -23,10 +24,10 @@ namespace TestHub.Web.Controllers
         {
             var questions = _repository.GetById(1)?.Questions;
             int result = 0;
-            foreach (var questionForm in questionForms)
-            {
-                result += questions?.First(q => q.Id == questionForm.QuestionId)?.EvaluateAnswer(questionForm) > 0 ? 1 : 0;
-            }
+            //foreach (var questionForm in questionForms)
+            //{
+            //    result += questions?.First(q => q.Id == questionForm.QuestionId)?.EvaluateAnswer(questionForm) > 0 ? 1 : 0;
+            //}
 
             return View("Result", result);
         }
