@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
-using Microsoft.Extensions.Configuration;
 
 namespace TestHub.Infrastructure.EmailSender
 {
@@ -19,8 +17,8 @@ namespace TestHub.Infrastructure.EmailSender
         {
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Gmail", _config.User));
-            message.To.Add(new MailboxAddress("User", email));
+            message.From.Add(new MailboxAddress("Sender", _config.User));
+            message.To.Add(new MailboxAddress("Receiver", email));
             message.Subject = subject;
             
             BodyBuilder builder = new BodyBuilder();
