@@ -7,6 +7,7 @@ using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
 using TestHub.Infrastructure.Data;
 using TestHub.Infrastructure.Data.Identity;
+using TestHub.Infrastructure.EmailSender;
 using TestHub.Web.Configuration;
 using TestHub.Web.Interfaces;
 using TestHub.Web.ModelBinders;
@@ -30,6 +31,15 @@ builder.Services.AddAuthentication(options =>
     options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
 })
     .AddIdentityCookies(options => { });
+
+var configuration = builder.Configuration;
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
+});
+
+builder.ConfigureEmailSender();
 
 builder.Services.AddIdentityCore<IdentityUser>(options =>
 {
@@ -56,6 +66,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = scopedProvider.GetRequiredService<TestHubIdentityContext>();
+        context.Database.EnsureDeleted();
         context.Database.Migrate();
         //await TestHubContextSeed.SeedAsync(context);
     }
@@ -91,5 +102,10 @@ app.UseAuthorization();
 app.MapDefaultControllerRoute();
 
 app.MapRazorPages();
+
+app.UseCookiePolicy(new CookiePolicyOptions()
+{
+    MinimumSameSitePolicy = SameSiteMode.Lax
+});
 
 app.Run();
