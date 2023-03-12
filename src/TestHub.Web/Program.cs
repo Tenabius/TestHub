@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,13 +9,15 @@ using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
 using TestHub.Infrastructure.Data;
 using TestHub.Infrastructure.Data.Identity;
-using TestHub.Infrastructure.EmailSender;
 using TestHub.Web.Configuration;
 using TestHub.Web.Interfaces;
 using TestHub.Web.ModelBinders;
 using TestHub.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.ConfigureApplication();
+
 var connectionString = builder.Configuration.GetConnectionString("TestHubIdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'TestHubIdentityContextConnection' not found.");
 
 // Add services to the container.
@@ -30,7 +34,24 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = IdentityConstants.ApplicationScheme;
     options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
 })
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.SlidingExpiration = true;
+        options.LoginPath = "/Identity/Account/Login";
+    })
     .AddIdentityCookies(options => { });
+
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultScheme = IdentityConstants.ApplicationScheme;
+//    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+//})
+//    .AddCookie(options =>
+//    {
+//        options.LoginPath = "/Index";
+//    })
+//    .AddIdentityCookies(options => { });
 
 var configuration = builder.Configuration;
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
@@ -38,8 +59,6 @@ builder.Services.AddAuthentication().AddGoogle(googleOptions =>
     googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
     googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
 });
-
-builder.ConfigureEmailSender();
 
 builder.Services.AddIdentityCore<IdentityUser>(options =>
 {
@@ -99,9 +118,8 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
-
 app.MapRazorPages();
+app.MapDefaultControllerRoute();
 
 app.UseCookiePolicy(new CookiePolicyOptions()
 {
