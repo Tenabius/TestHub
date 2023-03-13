@@ -2,7 +2,7 @@
 
 namespace TestHub.Web.Configuration
 {
-    public class RazorPagesAuthorizationConfiguration : IApplicationConfiguration
+    public class RazorPagesAuthorizationConfiguration : IApplicationConfigurator
     {
         public void ConfigureApplication(WebApplicationBuilder builder)
         {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
-using TestHub.Infrastructure.Data;
+using TestHub.Infrastructure.Data.Models;
 
 namespace TestHub.Infrastructure
 {

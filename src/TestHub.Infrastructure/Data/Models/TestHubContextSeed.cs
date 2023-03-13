@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestHub.Core.Entities;
 
-namespace TestHub.Infrastructure.Data
+namespace TestHub.Infrastructure.Data.Models
 {
     public static class TestHubContextSeed
     {
@@ -17,7 +17,7 @@ namespace TestHub.Infrastructure.Data
 
         //    context.Database.EnsureDeleted();
         //    context.Database.Migrate();
-                
+
         //    await context.Tests.AddAsync(GetTest());
         //    await context.SaveChangesAsync();
         //}

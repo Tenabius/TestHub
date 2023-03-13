@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Reflection;
 using TestHub.Core.Entities;
 
-namespace TestHub.Infrastructure.Data
+namespace TestHub.Infrastructure.Data.Models
 {
     public class TestHubContext : DbContext
     {
-        public TestHubContext(DbContextOptions<TestHubContext> options) 
+        public TestHubContext(DbContextOptions<TestHubContext> options)
             : base(options) { }
 
         public DbSet<Test> Tests { get; set; }

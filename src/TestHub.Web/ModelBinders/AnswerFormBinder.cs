@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using TestHub.Core.Entities;
 
-namespace TestHub.Web.DataBinders
+namespace TestHub.Web.ModelBinders
 {
     public class AnswerFormBinder : IModelBinder
     {

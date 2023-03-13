@@ -1,6 +1,6 @@
 ﻿namespace TestHub.Web.Interfaces
 {
-    public interface IApplicationConfiguration
+    public interface IApplicationConfigurator
     {
         void ConfigureApplication(WebApplicationBuilder builder);
     }

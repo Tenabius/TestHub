@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TestHub.Infrastructure.Data;
+using TestHub.Infrastructure.Data.Models;
 
 #nullable disable
 
 namespace TestHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TestHubContext))]
-    partial class TestHubContextModelSnapshot : ModelSnapshot
+    [Migration("20230118111708_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

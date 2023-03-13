@@ -9,7 +9,7 @@ using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
 {
-    public class ConfigureEmailSenderHelper : IApplicationConfiguration
+    public class ConfigureEmailSenderHelper : IApplicationConfigurator
     {
         public void ConfigureApplication(WebApplicationBuilder builder)
         {

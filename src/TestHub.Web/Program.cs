@@ -7,8 +7,8 @@ using Microsoft.Extensions.Options;
 using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
-using TestHub.Infrastructure.Data;
 using TestHub.Infrastructure.Data.Identity;
+using TestHub.Infrastructure.Data.Models;
 using TestHub.Web.Configuration;
 using TestHub.Web.Interfaces;
 using TestHub.Web.ModelBinders;
@@ -18,56 +18,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureApplication();
 
-var connectionString = builder.Configuration.GetConnectionString("TestHubIdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'TestHubIdentityContextConnection' not found.");
-
 // Add services to the container.
 builder.Services.AddMvc();
 
 builder.Services.AddDbContext<TestHubContext>(options =>
     options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub"));
-
-builder.Services.AddDbContext<TestHubIdentityContext>(options =>
-    options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub.Identity"));
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-})
-    .AddCookie(options =>
-    {
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-        options.SlidingExpiration = true;
-        options.LoginPath = "/Identity/Account/Login";
-    })
-    .AddIdentityCookies(options => { });
-
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultScheme = IdentityConstants.ApplicationScheme;
-//    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-//})
-//    .AddCookie(options =>
-//    {
-//        options.LoginPath = "/Index";
-//    })
-//    .AddIdentityCookies(options => { });
-
-var configuration = builder.Configuration;
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = configuration["Authentication:Google:ClientId"]!;
-    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"]!;
-});
-
-builder.Services.AddIdentityCore<IdentityUser>(options =>
-{
-    options.Stores.MaxLengthForKeys = 128;
-    options.SignIn.RequireConfirmedAccount = true;
-})
-    .AddDefaultTokenProviders()
-    .AddSignInManager()
-    .AddEntityFrameworkStores<TestHubIdentityContext>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -119,6 +74,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
 app.MapDefaultControllerRoute();
 
 app.UseCookiePolicy(new CookiePolicyOptions()

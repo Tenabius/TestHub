@@ -1,10 +1,9 @@
-﻿using TestHub.Core.Entities;
-using TestHub.Web.Interfaces;
+﻿using TestHub.Web.Interfaces;
 using TestHub.Web.Models;
 
 namespace TestHub.Web.Configuration
 {
-    public static class PartialViewResolverConfig
+    public static class PartialViewResolverConfiguration
     {
         public static void ConfigurePartialViewResolver(this WebApplication app)
         {
