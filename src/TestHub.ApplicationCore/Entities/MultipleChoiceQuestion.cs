@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Validation;
+﻿using Validation;
 
 namespace TestHub.Core.Entities
 {

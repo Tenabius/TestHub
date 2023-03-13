@@ -1,11 +1,11 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Microsoft.AspNetCore.Identity;
 using Validation;
 
 namespace TestHub.Core.Entities
 {
     public class Test : BaseEntity
     {
-        public User Author { get; private set; }
+        public IdentityUser Author { get; private set; }
         public string Title { get; private set; }
         public int PassingScore { get; private set; }
         public TimeSpan Duration { get; private set; }
@@ -19,7 +19,7 @@ namespace TestHub.Core.Entities
         private Test() { }
         #pragma warning restore CS8618
 
-        private Test(User author,
+        private Test(IdentityUser author,
             string title,
             int passingScore,
             TimeSpan duration,
@@ -35,7 +35,7 @@ namespace TestHub.Core.Entities
             CreationTime = DateTimeOffset.Now;
         }
 
-        public static Test Create(User author, 
+        public static Test Create(IdentityUser author, 
             string title, 
             int passingScore, 
             TimeSpan duration,

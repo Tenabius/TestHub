@@ -1,10 +1,11 @@
-﻿using Validation;
+﻿using Microsoft.AspNetCore.Identity;
+using Validation;
 
 namespace TestHub.Core.Entities
 {
     public class AnswersSheet : BaseEntity
     {
-        public User Candidate { get; private set; }
+        public IdentityUser Candidate { get; private set; }
         public Test Test { get; private set; }
         public DateTimeOffset StartTime { get; private set; }
         public DateTimeOffset EndTime { get; private set; }
@@ -17,7 +18,7 @@ namespace TestHub.Core.Entities
         private AnswersSheet() { }
 #pragma warning restore CS8618
 
-        private AnswersSheet(User candidate, 
+        private AnswersSheet(IdentityUser candidate, 
             Test test, 
             DateTimeOffset startTime, 
             DateTimeOffset endTime, 
@@ -30,7 +31,7 @@ namespace TestHub.Core.Entities
             _submittedAnswers = submittedAnswers.ToList();
         }
 
-        public static AnswersSheet Create(User candidate,
+        public static AnswersSheet Create(IdentityUser candidate,
             Test test,
             DateTimeOffset startTime,
             DateTimeOffset endTime,

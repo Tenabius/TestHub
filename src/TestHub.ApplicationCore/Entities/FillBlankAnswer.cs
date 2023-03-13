@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Validation;
-using static TestHub.Core.Entities.FillBlankQuestion;
+﻿using static TestHub.Core.Entities.FillBlankQuestion;
 
 namespace TestHub.Core.Entities
 {
