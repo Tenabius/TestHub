@@ -7,7 +7,7 @@ namespace TestHub.Web.Configuration
 {
     public class AuthenthicationWithIdentityConfiguration : IApplicationConfigurator
     {
-        public void ConfigureApplication(WebApplicationBuilder builder)
+        public void ApplyConfiguration(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<TestHubIdentityContext>(options =>
             options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub.Identity"));
