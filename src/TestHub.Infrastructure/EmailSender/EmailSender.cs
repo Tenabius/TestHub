@@ -1,25 +1,24 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
-using Microsoft.Extensions.Configuration;
+using TestHub.Infrastructure.Interfaces;
 
 namespace TestHub.Infrastructure.EmailSender
 {
     public class EmailSender : IEmailSender
     {
-        private readonly EmailConfig _config;
+        private readonly SmtpSettings _settings;
 
-        public EmailSender(EmailConfig config)
+        public EmailSender(SmtpSettings settings, IKeyVaultManager keyVaultManager)
         {
-            _config = config;
+            _settings = settings;
         }
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Gmail", _config.User));
+            message.From.Add(new MailboxAddress("Gmail", _settings.Mailbox));
             message.To.Add(new MailboxAddress("User", email));
             message.Subject = subject;
             
@@ -29,8 +28,8 @@ namespace TestHub.Infrastructure.EmailSender
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync(_config.Server, _config.Port!.Value, false);
-                await client.AuthenticateAsync(_config.User, _config.Password);
+                await client.ConnectAsync(_settings.Server, _settings.Port!.Value, false);
+                await client.AuthenticateAsync(_settings.User, _settings.Password);
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
             }

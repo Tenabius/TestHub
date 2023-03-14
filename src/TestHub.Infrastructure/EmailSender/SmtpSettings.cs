@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TestHub.Infrastructure.EmailSender
 {
-    public class EmailConfig
+    public class SmtpSettings
     {
-        public string? User { get; set; }
-        public string? Password { get; set; }
+        public string? Mailbox { get; set; }
         public string? Server { get; set; }
         public int? Port { get; set; }
     }

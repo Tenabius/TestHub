@@ -13,7 +13,6 @@ namespace TestHub.Infrastructure.Data.Models
         public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<AnswersSheet> TestForms { get; set; } //TODO Change to better name
-        public DbSet<IdentityUser> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -13,10 +13,10 @@ namespace TestHub.Web.Configuration
     {
         public void ConfigureApplication(WebApplicationBuilder builder)
         {
-            var emailConfig = new EmailConfig();
+            var smtpSettings = new SmtpSettings();
             var configuration = builder.Configuration;
-            configuration.GetSection("Authentication:Mail").Bind(emailConfig);
-            builder.Services.AddSingleton(emailConfig);
+            configuration.GetSection("SmptSettings").Bind(smtpSettings);
+            builder.Services.AddSingleton(smtpSettings);
             builder.Services.AddScoped<IEmailSender, EmailSender>();
         }
     }
