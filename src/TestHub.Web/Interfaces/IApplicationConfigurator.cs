@@ -2,6 +2,6 @@
 {
     public interface IApplicationConfigurator
     {
-        void ConfigureApplication(WebApplicationBuilder builder);
+        void ApplyConfiguration(WebApplicationBuilder builder);
     }
 }

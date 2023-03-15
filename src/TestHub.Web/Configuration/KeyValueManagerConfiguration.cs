@@ -6,7 +6,7 @@ namespace TestHub.Web.Configuration
 {
     public class KeyValueManagerConfiguration : IApplicationConfigurator
     {
-        public void ConfigureApplication(WebApplicationBuilder builder)
+        public void ApplyConfiguration(WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IKeyVaultManager, GoogleSecretManager>();
         }

@@ -12,7 +12,7 @@ namespace TestHub.Web.Configuration
 
             foreach (var type in types)
             {
-                type.GetMethod(nameof(IApplicationConfigurator.ConfigureApplication))?
+                type.GetMethod(nameof(IApplicationConfigurator.ApplyConfiguration))?
                     .Invoke(Activator.CreateInstance(type), new[] { builder });
             }
         }

@@ -11,7 +11,7 @@ namespace TestHub.Web.Configuration
 {
     public class ConfigureEmailSenderHelper : IApplicationConfigurator
     {
-        public void ConfigureApplication(WebApplicationBuilder builder)
+        public void ApplyConfiguration(WebApplicationBuilder builder)
         {
             var smtpSettings = new SmtpSettings();
             var configuration = builder.Configuration;

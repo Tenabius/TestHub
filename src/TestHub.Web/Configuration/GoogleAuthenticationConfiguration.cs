@@ -5,9 +5,9 @@ using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
 {
-    public class AuthenthicationWithIdentityConfiguration : IApplicationConfigurator
+    public class GoogleAuthenticationConfiguration : IApplicationConfigurator
     {
-        public void ConfigureApplication(WebApplicationBuilder builder)
+        public void ApplyConfiguration(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<TestHubIdentityContext>(options =>
             options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub.Identity"));
@@ -18,12 +18,6 @@ namespace TestHub.Web.Configuration
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             })
                 .AddIdentityCookies();
-
-            builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-            {
-                googleOptions.ClientId = builder.Configuration["GoogleOAuth:ClientId"]!;
-                googleOptions.ClientSecret = builder.Configuration["GoogleOAuth:ClientSecret"]!;
-            });
 
             builder.Services.AddIdentityCore<IdentityUser>(options =>
             {
