@@ -13,7 +13,7 @@
             Question = question;
         }
 
-        public virtual bool IsCorrect()
+        public bool IsCorrect()
         {
             return Question.EvaluateAnswer(this);
         }

@@ -2,8 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
-using TestHub.Infrastructure.Data.Identity;
-using TestHub.Infrastructure.Data.Models;
+using TestHub.Infrastructure.Data;
 using TestHub.Web.Configuration;
 using TestHub.Web.Interfaces;
 using TestHub.Web.ModelBinders;
@@ -16,11 +15,6 @@ builder.ConfigureApplication();
 // Add services to the container.
 builder.Services.AddMvc();
 
-builder.Services.AddDbContext<TestHubContext>(options =>
-    options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub"));
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
 builder.Services.AddScoped<IRepository<Test>, TestRepository>();
 builder.Services.AddSingleton<IPartialViewResolver, PartialViewResolver>();
 
@@ -29,12 +23,12 @@ builder.Services.AddControllers(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var scopedProvider = scope.ServiceProvider;
     try
     {
-        var context = scopedProvider.GetRequiredService<TestHubIdentityContext>();
+        var context = scopedProvider.GetRequiredService<TestHubContext>();
         context.Database.EnsureDeleted();
         context.Database.Migrate();
         //await TestHubContextSeed.SeedAsync(context);
@@ -43,7 +37,7 @@ using (var scope = app.Services.CreateScope())
     {
         app.Logger.LogError(ex, "An error occurred seeding the DB.");
     }
-}
+}*/
 
 app.ConfigurePartialViewResolver();
 

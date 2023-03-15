@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TestHub.Infrastructure.Data.Identity;
+using TestHub.Infrastructure.Data;
 using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
@@ -9,9 +9,6 @@ namespace TestHub.Web.Configuration
     {
         public void ApplyConfiguration(WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<TestHubIdentityContext>(options =>
-            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub.Identity"));
-
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = IdentityConstants.ApplicationScheme;
@@ -26,7 +23,7 @@ namespace TestHub.Web.Configuration
             })
                 .AddDefaultTokenProviders()
                 .AddSignInManager()
-                .AddEntityFrameworkStores<TestHubIdentityContext>();
+                .AddEntityFrameworkStores<TestHubContext>();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {

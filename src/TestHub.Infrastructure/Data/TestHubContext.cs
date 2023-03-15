@@ -1,23 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Reflection;
 using TestHub.Core.Entities;
 
-namespace TestHub.Infrastructure.Data.Models
+namespace TestHub.Infrastructure.Data
 {
-    public class TestHubContext : DbContext
+    public class TestHubContext : IdentityDbContext
     {
         public TestHubContext(DbContextOptions<TestHubContext> options)
             : base(options) { }
 
         public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<AnswersSheet> TestForms { get; set; } //TODO Change to better name
+        public DbSet<AnswersSheet> AnswersSheets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             base.OnModelCreating(builder);
-            //builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             //builder.Entity<FalseTrueQuestion>();
             //builder.Entity<MatchingQuestion>();
             //builder.Entity<MultipleChoiceQuestion>().Navigation(q => q.Choices).AutoInclude();

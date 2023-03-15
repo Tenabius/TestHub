@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestHub.Core.Entities;
 
-namespace TestHub.Infrastructure.Data.Models
+namespace TestHub.Infrastructure.Data
 {
     public static class TestHubContextSeed
     {
