@@ -21,8 +21,8 @@ namespace TestHub.Web.Configuration
 
             builder.Services.AddAuthentication().AddGoogle(googleOptions =>
             {
-                googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
-                googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
+                googleOptions.ClientId = builder.Configuration["GoogleOAuth:ClientId"]!;
+                googleOptions.ClientSecret = builder.Configuration["GoogleOAuth:ClientSecret"]!;
             });
 
             builder.Services.AddIdentityCore<IdentityUser>(options =>

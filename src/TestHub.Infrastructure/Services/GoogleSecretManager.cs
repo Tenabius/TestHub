@@ -1,7 +1,8 @@
 ﻿using Google.Cloud.SecretManager.V1;
-using TestHub.Web.Interfaces;
+using Microsoft.Extensions.Configuration;
+using TestHub.Infrastructure.Interfaces;
 
-namespace TestHub.Web.Services
+namespace TestHub.Infrastructure.Services
 {
     public class GoogleSecretManager : IKeyVaultManager
     {

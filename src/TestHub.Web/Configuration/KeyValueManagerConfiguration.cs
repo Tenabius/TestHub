@@ -1,5 +1,6 @@
 ﻿using TestHub.Web.Interfaces;
-using TestHub.Web.Services;
+using TestHub.Infrastructure.Interfaces;
+using TestHub.Infrastructure.Services;
 
 namespace TestHub.Web.Configuration
 {
