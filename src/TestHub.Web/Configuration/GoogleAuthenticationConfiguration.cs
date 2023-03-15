@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using TestHub.Infrastructure.Data.Identity;
+﻿using TestHub.Infrastructure.Services;
 using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
@@ -9,28 +7,12 @@ namespace TestHub.Web.Configuration
     {
         public void ApplyConfiguration(WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<TestHubIdentityContext>(options =>
-            options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=TestHub.Identity"));
+            var keyVaultManager = new GoogleSecretManager(builder.Configuration);
 
-            builder.Services.AddAuthentication(options =>
+            builder.Services.AddAuthentication().AddGoogle(googleOptions =>
             {
-                options.DefaultScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-            })
-                .AddIdentityCookies();
-
-            builder.Services.AddIdentityCore<IdentityUser>(options =>
-            {
-                options.Stores.MaxLengthForKeys = 128;
-                options.SignIn.RequireConfirmedAccount = true;
-            })
-                .AddDefaultTokenProviders()
-                .AddSignInManager()
-                .AddEntityFrameworkStores<TestHubIdentityContext>();
-
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Identity/Account/Login";
+                googleOptions.ClientId = keyVaultManager.GetSecret("GoogleOAuth:ClientId");
+                googleOptions.ClientSecret = keyVaultManager.GetSecret("GoogleOAuth:ClientSecret");
             });
         }
     }
