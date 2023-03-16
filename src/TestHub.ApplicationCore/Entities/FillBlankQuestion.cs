@@ -33,7 +33,7 @@ namespace TestHub.Core.Entities
         {
             if (submittedAnswer is FillBlankAnswer answer)
             {
-                return answer.SubmittedAnswers
+                return answer.SubmittedBlanks
                     .All(a => a.SubmittedAnswer == a.Blank.CorrectAnswer);
             }
 

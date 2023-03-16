@@ -4,17 +4,33 @@ namespace TestHub.Core.Entities
 {
     public sealed class FillBlankAnswer : Answer
     {
-        public IReadOnlyList<(Blank Blank, string SubmittedAnswer)> SubmittedAnswers => _submittedAnswers.AsReadOnly();
-        private List<(Blank Blank, string SubmittedAnswer)> _submittedAnswers;
+        public IReadOnlyList<SubmittedBlank> SubmittedBlanks => _submittedBlanks.AsReadOnly();
+        private List<SubmittedBlank> _submittedBlanks;
 
 #pragma warning disable CS8618
         private FillBlankAnswer() { }
 #pragma warning restore 
 
-        public FillBlankAnswer(Question question, IList<(Blank Blank, string SubmittedAnswer)> submittedAnswers)
+        public FillBlankAnswer(Question question, IList<SubmittedBlank> submittedBlanks)
             : base(question)
         {
-            _submittedAnswers = submittedAnswers.ToList();
+            _submittedBlanks = submittedBlanks.ToList();
+        }
+
+        public class SubmittedBlank : BaseEntity
+        {
+            public Blank Blank { get; private set; }
+            public string SubmittedAnswer { get; private set; }
+
+            public SubmittedBlank(Blank blank, string answer)
+            {
+                Blank = blank;
+                SubmittedAnswer = answer;
+            }
+
+#pragma warning disable CS8618
+            private SubmittedBlank() { }
+#pragma warning restore 
         }
     }
 }
