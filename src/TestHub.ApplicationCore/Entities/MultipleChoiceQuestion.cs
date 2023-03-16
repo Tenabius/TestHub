@@ -40,7 +40,7 @@ namespace TestHub.Core.Entities
         {
             if (submittedAnswer is MultipleChoiceAnswer answer)
             {
-                return answer.SubmittedAnswers.All(a => a.Choice.IsCorrect == a.IsSelected);
+                return answer.SubmittedChoices.All(a => a.Choice.IsCorrect == a.IsSelected);
             }
             throw new InvalidCastException(nameof(submittedAnswer));
         }
