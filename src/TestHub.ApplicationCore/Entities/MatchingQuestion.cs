@@ -31,7 +31,7 @@ namespace TestHub.Core.Entities
         {
             if (submittedAnswer is MatchingAnswer answer)
             {
-                return answer.SubmittedAnswers.All(a => a.Stem.CorrectResponse == a.SubmittedResponse);
+                return answer.SubmittedResponses.All(a => a.Stem.CorrectResponse == a.Response);
             }
 
             throw new InvalidCastException(nameof(submittedAnswer));

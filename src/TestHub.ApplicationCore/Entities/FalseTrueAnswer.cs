@@ -2,16 +2,16 @@
 {
     public sealed class FalseTrueAnswer : Answer
     {
-        public bool? SelectedChoice { get; private set; }
+        public bool? SubmittedChoice { get; private set; }
 
 #pragma warning disable CS8618
         public FalseTrueAnswer() { }
 #pragma warning restore 
 
-        public FalseTrueAnswer(Question question, bool? selectedChoice) :
+        public FalseTrueAnswer(Question question, bool? submittedChoice) :
             base(question)
         {
-            SelectedChoice = selectedChoice;
+            SubmittedChoice = submittedChoice;
         }
     }
 }
