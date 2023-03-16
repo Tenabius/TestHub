@@ -4,8 +4,10 @@ namespace TestHub.Core.Entities
 {
     public sealed class MatchingQuestion : Question
     {
-        public List<Stem> Stems { get; private set; }
-        public List<Response> Responses { get; private set; }
+        private readonly List<Stem> _stems;
+        public IReadOnlyList<Stem> Stems => _stems.AsReadOnly();
+        private readonly List<Response> _responses;
+        public IReadOnlyList<Response> Responses => _responses.AsReadOnly();
 
 #pragma warning disable CS8618
         private MatchingQuestion() { }
@@ -14,8 +16,8 @@ namespace TestHub.Core.Entities
         private MatchingQuestion(string directions, IList<Stem> stems, IList<Response> responses)
             : base(directions)
         {
-            Stems = stems.ToList();
-            Responses = responses.ToList();
+            _stems = stems.ToList();
+            _responses = responses.ToList();
         }
 
         public static MatchingQuestion Create(string directions, IList<Stem> stems, IList<Response> responses)
