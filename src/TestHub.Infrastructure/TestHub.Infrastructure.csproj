@@ -28,8 +28,4 @@
     <ProjectReference Include="..\TestHub.ApplicationCore\TestHub.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\Configuration\" />
-  </ItemGroup>
-
 </Project>

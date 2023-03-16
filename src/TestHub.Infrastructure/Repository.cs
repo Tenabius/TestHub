@@ -20,7 +20,8 @@ namespace TestHub.Infrastructure
 
         public Test GetById(int id)
         {
-            return _context.Tests.First(x => x.Id == id);
+            throw new NotImplementedException();
+            //return _context.Tests.First(x => x.Id == id);
         }
 
     }

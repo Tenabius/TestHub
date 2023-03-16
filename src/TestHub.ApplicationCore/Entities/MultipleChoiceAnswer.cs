@@ -5,7 +5,7 @@ namespace TestHub.Core.Entities
     public class MultipleChoiceAnswer : Answer
     {
         public IReadOnlyList<SubmittedChoice> SubmittedChoices => _submittedChoices.AsReadOnly();
-        private List<SubmittedChoice> _submittedChoices { get; set; }
+        private readonly List<SubmittedChoice> _submittedChoices;
 
 #pragma warning disable CS8618
         public MultipleChoiceAnswer() { }
@@ -17,7 +17,7 @@ namespace TestHub.Core.Entities
             _submittedChoices = submittedChoices.ToList();
         }
 
-        public class SubmittedChoice
+        public class SubmittedChoice : BaseEntity
         {
             public Choice Choice { get; private set; }
             public bool IsSelected { get; private set; }
