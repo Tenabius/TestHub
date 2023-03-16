@@ -10,7 +10,11 @@ namespace TestHub.Web.Configuration
         {
             builder.Services.AddDbContext<TestHubContext>(options =>
             options.UseSqlServer(builder.Configuration.GetValue<string>("ConnectionStrings:TestHubDb")));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            }
         }
     }
 }

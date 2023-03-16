@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
@@ -22,41 +23,46 @@ namespace TestHub.Infrastructure.Data
         //    await context.SaveChangesAsync();
         //}
 
-        //private static Test GetTest()
-        //{
-        //    var user = new User("Mock");
-        //    var test = new Test(user, "Animals", "Trial test", 0.8m, TimeSpan.FromMinutes(10), 2);
-        //    var q1 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Sharks are mammals.", false);
-        //    test.AddQuestion(q1);
+        private static Test GetTest()
+        {
+            List<Question> questions = new List<Question>();
+
+            questions.Add(MultipleChoiceQuestion.Create(directions: "Choose answer"));
+
+
+            var author = new IdentityUser();
+            var test = Test.Create(author, "Animals", 6, TimeSpan.FromMinutes(5), 2, );
+            var q1 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Sharks are mammals.", false);
+            test.AddQuestion(q1);
 
 
 
-        //    var q2 = new MultipleChoiceQuestion(test, "Choose answer", 10,
-        //        "Known for its intelligence, which dog breed has been found capable of understanding more than a thousand words?", false);
-        //    q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Cocker Spaniel", false));
-        //    q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "French Bulldog", false));
-        //    q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Dachshund", false));
-        //    q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Border Collie", true));
+            var q2 = new MultipleChoiceQuestion(test, "Choose answer", 10,
+                "Known for its intelligence, which dog breed has been found capable of understanding more than a thousand words?", false);
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Cocker Spaniel", false));
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "French Bulldog", false));
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Dachshund", false));
+            q2.AddChoice(new MultipleChoiceQuestion.Choice(q2, "Border Collie", true));
 
-        //    test.AddQuestion(q2);
-        //    var q3 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "The blue whale is the biggest animal to have ever lived.", true);
-        //    test.AddQuestion(q3);
-        //    var q4 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "The hummingbird egg is the world's smallest bird egg.", true);
-        //    test.AddQuestion(q4);
-        //    var q5 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Pigs roll in the mud because they don’t like being clean.", false);
-        //    test.AddQuestion(q5);
-        //    var q6 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Bats are blind.", false);
-        //    test.AddQuestion(q6);
-        //    var q7 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "A dog sweats by panting its tongue.", false);
-        //    test.AddQuestion(q7);
-        //    var q8 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "It takes a sloth two weeks to digest a meal.", true);
-        //    test.AddQuestion(q8);
-        //    var q9 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "The largest living frog is the Goliath frog of West Africa.", true);
-        //    test.AddQuestion(q9);
-        //    var q10 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "An ant can lift 1,000 times its body weight.", false);
-        //    test.AddQuestion(q10);
+            test.AddQuestion(q2);
+            var q3 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "The blue whale is the biggest animal to have ever lived.", true);
+            test.AddQuestion(q3);
+            var q4 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "The hummingbird egg is the world's smallest bird egg.", true);
+            test.AddQuestion(q4);
+            var q5 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Pigs roll in the mud because they don’t like being clean.", false);
+            test.AddQuestion(q5);
+            var q6 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "Bats are blind.", false);
+            test.AddQuestion(q6);
+            var q7 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "A dog sweats by panting its tongue.", false);
+            test.AddQuestion(q7);
+            var q8 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "It takes a sloth two weeks to digest a meal.", true);
+            test.AddQuestion(q8);
+            var q9 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "The largest living frog is the Goliath frog of West Africa.", true);
+            test.AddQuestion(q9);
+            var q10 = new FalseTrueQuestion(test, "Choose TRUE or FALSE", 10, "An ant can lift 1,000 times its body weight.", false);
+            test.AddQuestion(q10);
 
-        //    return test;
-        //}
+            return test;
+        }
     }
 }
