@@ -1,7 +1,7 @@
 ﻿using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
+using TestHub.Web.Areas.TestTaker.Models;
 using TestHub.Web.Interfaces;
-using TestHub.Web.Models;
 
 namespace TestHub.Web.Services
 {
@@ -16,17 +16,17 @@ namespace TestHub.Web.Services
             _repository = repository;
         }
 
-        public TestBlankViewModel GetTestBlank(int testId)
+        public TestViewModel GetTestBlank(int testId)
         {
             return MapTestToTestBlank(_repository.GetById(testId));
         }
 
-        public void SubmitTestBlank(TestBlankViewModel testBlankViewModel)
+        public void SubmitTestBlank(TestViewModel testBlankViewModel)
         {
             throw new NotImplementedException();
         }
 
-        private TestBlankViewModel MapTestToTestBlank(Test test)
+        private TestViewModel MapTestToTestBlank(Test test)
         {
             //TestBlankViewModel blank = new()
             //{

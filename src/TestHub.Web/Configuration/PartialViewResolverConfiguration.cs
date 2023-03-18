@@ -1,5 +1,5 @@
-﻿using TestHub.Web.Interfaces;
-using TestHub.Web.Models;
+﻿using TestHub.Web.Areas.TestTaker.Models;
+using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
 {

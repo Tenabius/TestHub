@@ -1,10 +1,10 @@
-﻿using TestHub.Web.Models;
+﻿using TestHub.Web.Areas.TestTaker.Models;
 
 namespace TestHub.Web.Interfaces
 {
     public interface ITestPassingService
     {
-        TestBlankViewModel GetTestBlank(int testId);
-        void SubmitTestBlank(TestBlankViewModel testBlankViewModel);
+        TestViewModel GetTestBlank(int testId);
+        void SubmitTestBlank(TestViewModel testBlankViewModel);
     }
 }
