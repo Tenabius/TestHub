@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using TestHub.Core.Entities;
 using TestHub.Web.Areas.TestTaker.Models;
 
 namespace TestHub.Web.ModelBinders
@@ -22,13 +21,10 @@ namespace TestHub.Web.ModelBinders
 
             IModelBinder modelBinder;
             ModelMetadata modelMetadata;
-            if (modelTypeValue == nameof(FalseTrueAnswer))
+            var type = binders.Keys.First(type => type.Name == modelTypeValue);
+            if (type is not null)
             {
-                (modelMetadata, modelBinder) = binders[typeof(FalseTrueAnswer)];
-            }
-            else if (modelTypeValue == nameof(MultipleChoiceAnswer))
-            {
-                (modelMetadata, modelBinder) = binders[typeof(MultipleChoiceAnswer)];
+                (modelMetadata, modelBinder) = binders[type];
             }
             else
             {
