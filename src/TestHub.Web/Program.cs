@@ -12,10 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureApplication();
 
-// Add services to the container.
 builder.Services.AddMvc();
 
 builder.Services.AddScoped<IRepository<Test>, TestRepository>();
+
 builder.Services.AddSingleton<IPartialViewResolver, PartialViewResolver>();
 
 builder.Services.AddControllers(options =>
@@ -23,21 +23,20 @@ builder.Services.AddControllers(options =>
 
 var app = builder.Build();
 
-/*using (var scope = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
     var scopedProvider = scope.ServiceProvider;
     try
     {
         var context = scopedProvider.GetRequiredService<TestHubContext>();
-        context.Database.EnsureDeleted();
-        context.Database.Migrate();
-        //await TestHubContextSeed.SeedAsync(context);
+        context.Database.EnsureCreated();
+        await TestHubContextSeed.SeedAsync(context);
     }
     catch (Exception ex)
     {
         app.Logger.LogError(ex, "An error occurred seeding the DB.");
     }
-}*/
+}
 
 app.ConfigurePartialViewResolver();
 
