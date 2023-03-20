@@ -14,7 +14,7 @@ builder.ConfigureApplication();
 
 builder.Services.AddMvc();
 
-builder.Services.AddScoped<IRepository<Test>, TestRepository>();
+builder.Services.AddScoped<IRepository<Test>, EFRepository>();
 
 builder.Services.AddSingleton<IPartialViewResolver, PartialViewResolver>();
 
