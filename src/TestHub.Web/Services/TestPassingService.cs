@@ -18,7 +18,7 @@ namespace TestHub.Web.Services
 
         public TestBlankViewModel GetTestBlank(int testId)
         {
-            return MapTestToTestBlank(_repository.GetById(testId));
+            return MapTestToTestBlank(_repository.GetByIdAsync(testId));
         }
 
         public void SubmitTestBlank(TestBlankViewModel testBlankViewModel)
