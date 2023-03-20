@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TestHub.Core.Interfaces;
+using TestHub.Infrastructure;
 using TestHub.Infrastructure.Data;
 using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
 {
-    public class EFContextConfiguration : IApplicationConfigurator
+    public class EFRepositoryConfiguration : IApplicationConfigurator
     {
         public void ApplyConfiguration(WebApplicationBuilder builder)
         {
@@ -15,6 +17,8 @@ namespace TestHub.Web.Configuration
             {
                 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
             }
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(EFRepository<>));
         }
     }
 }
