@@ -4,11 +4,11 @@ using TestHub.Web.Areas.TestTaker.Models;
 
 namespace TestHub.Web.ModelBinders
 {
-    public class QuestionFormModelBinder : IModelBinder
+    public class AnswerViewModelBinder : IModelBinder
     {
         private readonly Dictionary<Type, (ModelMetadata, IModelBinder)> binders;
 
-        public QuestionFormModelBinder(Dictionary<Type, (ModelMetadata, IModelBinder)> binders)
+        public AnswerViewModelBinder(Dictionary<Type, (ModelMetadata, IModelBinder)> binders)
         {
             this.binders = binders;
         }

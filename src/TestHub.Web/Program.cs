@@ -19,7 +19,7 @@ builder.Services.AddScoped<IRepository<Test>, TestRepository>();
 builder.Services.AddSingleton<IPartialViewResolver, PartialViewResolver>();
 
 builder.Services.AddControllers(options =>
-    options.ModelBinderProviders.Insert(0, new QuestionFormModelBinderProvider()));
+    options.ModelBinderProviders.Insert(0, new AnswerViewModelBinderProvider()));
 
 var app = builder.Build();
 

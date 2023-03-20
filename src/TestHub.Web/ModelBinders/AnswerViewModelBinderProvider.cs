@@ -3,7 +3,7 @@ using TestHub.Web.Areas.TestTaker.Models;
 
 namespace TestHub.Web.ModelBinders
 {
-    public class QuestionFormModelBinderProvider : IModelBinderProvider
+    public class AnswerViewModelBinderProvider : IModelBinderProvider
     {
         public IModelBinder? GetBinder(ModelBinderProviderContext context)
         {
@@ -26,7 +26,7 @@ namespace TestHub.Web.ModelBinders
                 binders[type] = (modelMetadata, context.CreateBinder(modelMetadata));
             }
 
-            return new QuestionFormModelBinder(binders);
+            return new AnswerViewModelBinder(binders);
         }
     }
 }
