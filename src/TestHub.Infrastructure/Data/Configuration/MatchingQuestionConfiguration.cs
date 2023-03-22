@@ -15,14 +15,6 @@ namespace TestHub.Infrastructure.Data.Configuration
             builder.HasMany(q => q.Stems)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Navigation(q => q.Responses)
-                .HasField("_responses")
-                .AutoInclude();
-
-            builder.HasMany(q => q.Responses)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

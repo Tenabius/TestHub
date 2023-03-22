@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TestHub.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,6 +48,19 @@ namespace TestHub.Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Response",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Response", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -418,21 +431,28 @@ namespace TestHub.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Response",
+                name: "Stem",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResponseId = table.Column<int>(type: "int", nullable: false),
                     MatchingQuestionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Response", x => x.Id);
+                    table.PrimaryKey("PK_Stem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Response_MatchingQuestion_MatchingQuestionId",
+                        name: "FK_Stem_MatchingQuestion_MatchingQuestionId",
                         column: x => x.MatchingQuestionId,
                         principalTable: "MatchingQuestion",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stem_Response_ResponseId",
+                        column: x => x.ResponseId,
+                        principalTable: "Response",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -486,60 +506,6 @@ namespace TestHub.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stem",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CorrectResponseId = table.Column<int>(type: "int", nullable: false),
-                    MatchingQuestionId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Stem_MatchingQuestion_MatchingQuestionId",
-                        column: x => x.MatchingQuestionId,
-                        principalTable: "MatchingQuestion",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Stem_Response_CorrectResponseId",
-                        column: x => x.CorrectResponseId,
-                        principalTable: "Response",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubmittedChoice",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ChoiceId = table.Column<int>(type: "int", nullable: false),
-                    IsSelected = table.Column<bool>(type: "bit", nullable: false),
-                    MultipleChoiceAnswerId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubmittedChoice", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SubmittedChoice_Choice_ChoiceId",
-                        column: x => x.ChoiceId,
-                        principalTable: "Choice",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SubmittedChoice_MultipleChoiceAnswer_MultipleChoiceAnswerId",
-                        column: x => x.MultipleChoiceAnswerId,
-                        principalTable: "MultipleChoiceAnswer",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubmittedResponse",
                 columns: table => new
                 {
@@ -567,6 +533,33 @@ namespace TestHub.Infrastructure.Data.Migrations
                         name: "FK_SubmittedResponse_Stem_StemId",
                         column: x => x.StemId,
                         principalTable: "Stem",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubmittedChoice",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ChoiceId = table.Column<int>(type: "int", nullable: false),
+                    IsSelected = table.Column<bool>(type: "bit", nullable: false),
+                    MultipleChoiceAnswerId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubmittedChoice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubmittedChoice_Choice_ChoiceId",
+                        column: x => x.ChoiceId,
+                        principalTable: "Choice",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SubmittedChoice_MultipleChoiceAnswer_MultipleChoiceAnswerId",
+                        column: x => x.MultipleChoiceAnswerId,
+                        principalTable: "MultipleChoiceAnswer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -646,19 +639,14 @@ namespace TestHub.Infrastructure.Data.Migrations
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Response_MatchingQuestionId",
-                table: "Response",
-                column: "MatchingQuestionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Stem_CorrectResponseId",
-                table: "Stem",
-                column: "CorrectResponseId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Stem_MatchingQuestionId",
                 table: "Stem",
                 column: "MatchingQuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stem_ResponseId",
+                table: "Stem",
+                column: "ResponseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubmittedBlank_BlankId",
@@ -765,13 +753,13 @@ namespace TestHub.Infrastructure.Data.Migrations
                 name: "Answer");
 
             migrationBuilder.DropTable(
+                name: "MatchingQuestion");
+
+            migrationBuilder.DropTable(
                 name: "Response");
 
             migrationBuilder.DropTable(
                 name: "AnswersSheets");
-
-            migrationBuilder.DropTable(
-                name: "MatchingQuestion");
 
             migrationBuilder.DropTable(
                 name: "Question");
