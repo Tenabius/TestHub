@@ -5,6 +5,7 @@ namespace TestHub.Infrastructure
 { 
     public class TestAttemptInfo
     {
+        public int? Id { get; private set; }
         public IdentityUser Candidate { get; private set; }
         public Test Test { get; private set; }
         public DateTimeOffset StartTime { get; private set; }

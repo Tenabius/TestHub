@@ -7,7 +7,6 @@ namespace TestHub.Infrastructure.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<TestAttemptInfo> builder)
         {
-            builder.HasNoKey();
             builder.HasOne(a => a.Candidate)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
