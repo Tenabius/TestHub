@@ -372,12 +372,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MatchingQuestionId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("MatchingQuestionId");
 
                     b.ToTable("Response");
                 });
@@ -394,17 +389,17 @@ namespace TestHub.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CorrectResponseId")
+                    b.Property<int?>("MatchingQuestionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MatchingQuestionId")
+                    b.Property<int>("ResponseId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CorrectResponseId");
-
                     b.HasIndex("MatchingQuestionId");
+
+                    b.HasIndex("ResponseId");
 
                     b.ToTable("Stem");
                 });
@@ -728,28 +723,20 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.Navigation("Stem");
                 });
 
-            modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion+Response", b =>
-                {
-                    b.HasOne("TestHub.Core.Entities.MatchingQuestion", null)
-                        .WithMany("Responses")
-                        .HasForeignKey("MatchingQuestionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion+Stem", b =>
                 {
-                    b.HasOne("TestHub.Core.Entities.MatchingQuestion+Response", "CorrectResponse")
-                        .WithMany()
-                        .HasForeignKey("CorrectResponseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TestHub.Core.Entities.MatchingQuestion", null)
                         .WithMany("Stems")
                         .HasForeignKey("MatchingQuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("CorrectResponse");
+                    b.HasOne("TestHub.Core.Entities.MatchingQuestion+Response", "Response")
+                        .WithMany()
+                        .HasForeignKey("ResponseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Response");
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MultipleChoiceAnswer+SubmittedChoice", b =>
@@ -899,8 +886,6 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion", b =>
                 {
-                    b.Navigation("Responses");
-
                     b.Navigation("Stems");
                 });
 
