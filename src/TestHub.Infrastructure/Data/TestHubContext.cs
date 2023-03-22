@@ -12,6 +12,7 @@ namespace TestHub.Infrastructure.Data
 
         public DbSet<Test> Tests { get; set; }
         public DbSet<AnswersSheet> AnswersSheets { get; set; }
+        public DbSet<TestAttemptInfo> TestAttempts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
