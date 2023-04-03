@@ -1,13 +1,14 @@
 ﻿using System.Linq.Expressions;
+using TestHub.Core.Entities;
 
 namespace TestHub.Core.Interfaces
 {
-    public interface IRepository<TEntity>
+    public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         Task<TEntity?> GetByIdAsync(object id);
         Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate);
-        Task CreateAsync(TEntity entity);
+        Task<TEntity> CreateAsync(TEntity entity);
         Task<bool> DeleteAsync(TEntity entity);
-        Task<bool> UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
     }
 }

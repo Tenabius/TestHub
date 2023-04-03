@@ -17,10 +17,11 @@ namespace TestHub.Infrastructure
             _entities = _context.Set<TEntity>();
         }
 
-        public async Task CreateAsync(TEntity entity)
+        public async Task<TEntity> CreateAsync(TEntity entity)
         {
             _entities.Add(entity);
             await _context.SaveChangesAsync();
+            return entity;
         }
 
         public async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
@@ -40,11 +41,11 @@ namespace TestHub.Infrastructure
             return changes > 0;
         }
 
-        public async Task<bool> UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             _entities.Update(entity);
-            int changes = await _context.SaveChangesAsync();
-            return changes > 0;
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }
