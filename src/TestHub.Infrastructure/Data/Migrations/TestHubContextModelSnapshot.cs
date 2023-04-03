@@ -244,7 +244,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answer");
+                    b.ToTable("Answer", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
@@ -276,7 +276,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("AnswersSheets");
+                    b.ToTable("AnswersSheets", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FillBlankAnswer+SubmittedBlank", b =>
@@ -303,7 +303,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("FillBlankAnswerId");
 
-                    b.ToTable("SubmittedBlank");
+                    b.ToTable("SubmittedBlank", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FillBlankQuestion+Blank", b =>
@@ -329,7 +329,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("FillBlankQuestionId");
 
-                    b.ToTable("Blank");
+                    b.ToTable("Blank", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingAnswer+SubmittedResponse", b =>
@@ -357,7 +357,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("StemId");
 
-                    b.ToTable("SubmittedResponse");
+                    b.ToTable("SubmittedResponse", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion+Response", b =>
@@ -374,7 +374,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Response");
+                    b.ToTable("Response", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion+Stem", b =>
@@ -401,7 +401,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("ResponseId");
 
-                    b.ToTable("Stem");
+                    b.ToTable("Stem", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MultipleChoiceAnswer+SubmittedChoice", b =>
@@ -427,7 +427,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("MultipleChoiceAnswerId");
 
-                    b.ToTable("SubmittedChoice");
+                    b.ToTable("SubmittedChoice", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MultipleChoiceQuestion+Choice", b =>
@@ -452,7 +452,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("MultipleChoiceQuestionId");
 
-                    b.ToTable("Choice");
+                    b.ToTable("Choice", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.Question", b =>
@@ -474,7 +474,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("Question");
+                    b.ToTable("Question", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
@@ -511,37 +511,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Tests");
-                });
-
-            modelBuilder.Entity("TestHub.Infrastructure.TestAttemptInfo", b =>
-                {
-                    b.Property<int?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
-
-                    b.Property<string>("CandidateId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<TimeSpan>("Expiration")
-                        .HasColumnType("time");
-
-                    b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CandidateId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("TestAttempts");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FalseTrueAnswer", b =>
@@ -551,28 +521,28 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.Property<bool?>("SubmittedChoice")
                         .HasColumnType("bit");
 
-                    b.ToTable("FalseTrueAnswer");
+                    b.ToTable("FalseTrueAnswer", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FillBlankAnswer", b =>
                 {
                     b.HasBaseType("TestHub.Core.Entities.Answer");
 
-                    b.ToTable("FillBlankAnswer");
+                    b.ToTable("FillBlankAnswer", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingAnswer", b =>
                 {
                     b.HasBaseType("TestHub.Core.Entities.Answer");
 
-                    b.ToTable("MatchingAnswer");
+                    b.ToTable("MatchingAnswer", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MultipleChoiceAnswer", b =>
                 {
                     b.HasBaseType("TestHub.Core.Entities.Answer");
 
-                    b.ToTable("MultipleChoiceAnswer");
+                    b.ToTable("MultipleChoiceAnswer", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FalseTrueQuestion", b =>
@@ -586,7 +556,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("FalseTrueQuestion");
+                    b.ToTable("FalseTrueQuestion", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FillBlankQuestion", b =>
@@ -597,14 +567,14 @@ namespace TestHub.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("FillBlankQuestion");
+                    b.ToTable("FillBlankQuestion", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion", b =>
                 {
                     b.HasBaseType("TestHub.Core.Entities.Question");
 
-                    b.ToTable("MatchingQuestion");
+                    b.ToTable("MatchingQuestion", (string)null);
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.MultipleChoiceQuestion", b =>
@@ -618,7 +588,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("MultipleChoiceQuestion");
+                    b.ToTable("MultipleChoiceQuestion", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -810,25 +780,6 @@ namespace TestHub.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("TestHub.Infrastructure.TestAttemptInfo", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Candidate")
-                        .WithMany()
-                        .HasForeignKey("CandidateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TestHub.Core.Entities.Test", "Test")
-                        .WithMany()
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Candidate");
-
-                    b.Navigation("Test");
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FalseTrueAnswer", b =>

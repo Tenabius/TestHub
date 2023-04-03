@@ -11,15 +11,12 @@ namespace TestHub.Web.Controllers
     public class TestTakerController : Controller
     {
         private readonly IRepository<Test> _testsRepository;
-        private readonly IRepository<TestAttemptInfo> _attemptsRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
         public TestTakerController(IRepository<Test> testsRepository,
-            IRepository<TestAttemptInfo> attemptsRepository,
             UserManager<IdentityUser> userManager)
         {
             _testsRepository = testsRepository;
-            _attemptsRepository = attemptsRepository;
             _userManager = userManager;
         }
 
@@ -40,16 +37,7 @@ namespace TestHub.Web.Controllers
                 && identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
-
-                var testAttempt = new TestAttemptInfo(
-                    user!,
-                    test,
-                    DateTimeOffset.UtcNow,
-                    test.Duration + TimeSpan.FromMinutes(10));
-
-                await _attemptsRepository.CreateAsync(testAttempt);
-
-                ViewData["testAttemptId"] = testAttempt.Id;
+                //TODO 
             }
 
             return View(test);
@@ -58,8 +46,7 @@ namespace TestHub.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Submit([FromForm] List<AnswerViewModel> answers, [FromForm] int? testAttepmtId)
         {
-            var testAttemptInfo = await _attemptsRepository.GetByIdAsync(1);
-            var questions = _testsRepository.GetById(1)?.Questions;
+            //var questions = _testsRepository.GetById(1)?.Questions;
             int result = 0;
             //foreach (var questionForm in questionForms)
             //{

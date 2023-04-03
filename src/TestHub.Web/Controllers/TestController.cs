@@ -22,7 +22,7 @@ namespace TestHub.Web.Controllers
         [HttpPost]
         public IActionResult Submit([FromForm] List<Answer> questionForms)
         {
-            var questions = _repository.GetByIdAsync(1)?.Questions;
+            //var questions = _repository.GetByIdAsync(1)?.Questions;
             int result = 0;
             //foreach (var questionForm in questionForms)
             //{
