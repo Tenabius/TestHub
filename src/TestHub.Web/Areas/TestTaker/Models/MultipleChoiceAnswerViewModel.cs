@@ -2,7 +2,7 @@
 {
     public class MultipleChoiceAnswerViewModel : AnswerViewModel
     {
-        public List<SubmittedChoiceViewModel> SubmittedChoice { get; set; }
+        public List<SubmittedChoiceViewModel>? SubmittedChoice { get; set; }
 
         public class SubmittedChoiceViewModel
         {
