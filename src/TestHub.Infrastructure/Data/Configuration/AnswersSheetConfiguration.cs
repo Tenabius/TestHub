@@ -4,15 +4,15 @@ using TestHub.Core.Entities;
 
 namespace TestHub.Infrastructure.Data.Configuration
 {
-    public class AnswersSheetConfiguration : IEntityTypeConfiguration<AnswersSheet>
+    public class AnswersSheetConfiguration : IEntityTypeConfiguration<TestResult>
     {
-        public void Configure(EntityTypeBuilder<AnswersSheet> builder)
+        public void Configure(EntityTypeBuilder<TestResult> builder)
         {
-            builder.Navigation(x => x.SubmittedAnswers)
+            builder.Navigation(x => x.CandidateAnswers)
                 .HasField("_submittedAnswers")
                 .AutoInclude();
 
-            builder.HasMany(x => x.SubmittedAnswers)
+            builder.HasMany(x => x.CandidateAnswers)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 

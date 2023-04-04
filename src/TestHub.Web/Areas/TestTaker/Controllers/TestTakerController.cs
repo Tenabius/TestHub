@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
@@ -11,12 +12,15 @@ namespace TestHub.Web.Controllers
     public class TestTakerController : Controller
     {
         private readonly IRepository<Test> _testsRepository;
+        private readonly IRepository<TestResult> _testResultsRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
         public TestTakerController(IRepository<Test> testsRepository,
+            IRepository<TestResult> resultRepository,
             UserManager<IdentityUser> userManager)
         {
             _testsRepository = testsRepository;
+            _testResultsRepository = resultRepository;
             _userManager = userManager;
         }
 
@@ -30,14 +34,15 @@ namespace TestHub.Web.Controllers
 
             if (!startTest)
             {
-                return View("TestInfo");
+                return View("TestInfo"); //TODO pass testInfo object
             }
 
             if (HttpContext.User.Identity is { } identity
                 && identity.IsAuthenticated)
             {
-                var user = await _userManager.GetUserAsync(HttpContext.User);
-                //TODO 
+                var candidate = await _userManager.GetUserAsync(HttpContext.User);
+                var testResult = TestResult.Create(candidate!, test, DateTimeOffset.UtcNow);
+                await _testResultsRepository.CreateAsync(testResult);
             }
 
             return View(test);
