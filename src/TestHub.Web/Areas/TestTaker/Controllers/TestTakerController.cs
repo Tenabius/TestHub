@@ -49,7 +49,7 @@ namespace TestHub.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Submit([FromForm] List<AnswerViewModel> answers, [FromForm] int? testAttepmtId)
+        public async Task<IActionResult> Submit([FromForm] List<CandidateAnswerViewModel> answers, [FromForm] int? testAttepmtId)
         {
             //var questions = _testsRepository.GetById(1)?.Questions;
             int result = 0;

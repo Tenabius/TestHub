@@ -7,16 +7,16 @@ namespace TestHub.Web.ModelBinders
     {
         public IModelBinder? GetBinder(ModelBinderProviderContext context)
         {
-            if (context.Metadata.ModelType != typeof(AnswerViewModel))
+            if (context.Metadata.ModelType != typeof(CandidateAnswerViewModel))
             {
                 return null;
             }
 
             var subclasses = new[] { 
-                typeof(FalseTrueAnswerViewModel), 
-                typeof(FillBlankAnswerViewModel),
-                typeof(MatchingAnswerViewModel),
-                typeof(MultipleChoiceAnswerViewModel)
+                typeof(FalseTrueCandidateAnswerViewModel), 
+                typeof(FillBlankCandidateAnswerViewModel),
+                typeof(MatchingCandidateAnswerViewModel),
+                typeof(MultipleChoiceCandidateAnswerViewModel)
             };
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();

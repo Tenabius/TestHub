@@ -1,6 +1,6 @@
 ﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class FillBlankAnswerViewModel : AnswerViewModel
+    public class FillBlankAnswerViewModel : CandidateAnswerViewModel
     {
         public List<SubmittedBlankViewModel>? SubmittedBlanks { get; set; }
 

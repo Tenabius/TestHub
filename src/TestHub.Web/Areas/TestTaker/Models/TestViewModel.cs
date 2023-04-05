@@ -2,7 +2,9 @@
 {
     public class TestViewModel
     {
-        public TestInfoViewModel? Info { get; set; }
+        public int? Id { get; set; }
+        public string? Title { get; set; }
+        public TimeSpan? Duration { get; set; }
         public List<QuestionViewModel>? Questions { get; set; }
     }
 }

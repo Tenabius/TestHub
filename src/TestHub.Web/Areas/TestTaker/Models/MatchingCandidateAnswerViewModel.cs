@@ -1,6 +1,6 @@
 ﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class MatchingAnswerViewModel : AnswerViewModel
+    public class MatchingAnswerViewModel : CandidateAnswerViewModel
     {
         public List<SubmittedResponseViewModel>? SubmittedResponses { get; set; }
 
