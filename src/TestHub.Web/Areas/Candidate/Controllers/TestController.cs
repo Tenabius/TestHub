@@ -7,15 +7,15 @@ using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
 using TestHub.Web.Areas.TestTaker.Models;
 
-namespace TestHub.Web.Controllers
+namespace TestHub.Web.Areas.Candidate.Controllers
 {
-    public class TestTakerController : Controller
+    public class TestController : Controller
     {
         private readonly IRepository<Test> _testsRepository;
         private readonly IRepository<TestResult> _testResultsRepository;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public TestTakerController(IRepository<Test> testsRepository,
+        public TestController(IRepository<Test> testsRepository,
             IRepository<TestResult> resultRepository,
             UserManager<IdentityUser> userManager)
         {
