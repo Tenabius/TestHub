@@ -1,6 +1,8 @@
-﻿namespace TestHub.Web.Areas.TestTaker.Models
+﻿using TestHub.Web.Interfaces;
+
+namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class MultipleChoiceCandidateAnswerViewModel : CandidateAnswerViewModel
+    public class MultipleChoiceCandidateAnswerViewModel : CandidateAnswerViewModel, IBaseViewModel
     {
         public List<SubmittedChoiceViewModel>? SubmittedChoice { get; set; }
 

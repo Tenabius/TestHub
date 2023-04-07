@@ -1,6 +1,8 @@
-﻿namespace TestHub.Web.Areas.TestTaker.Models
+﻿using TestHub.Web.Interfaces;
+
+namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class TestResultViewModel
+    public class TestResultViewModel : IBaseViewModel
     {
         public int? CandidateId { get; set; }
         public int? TestId { get; set; }

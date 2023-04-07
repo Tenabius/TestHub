@@ -1,6 +1,8 @@
-﻿namespace TestHub.Web.Areas.TestTaker.Models
+﻿using TestHub.Web.Interfaces;
+
+namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class MatchingQuestionViewModel : QuestionViewModel
+    public class MatchingQuestionViewModel : QuestionViewModel, IBaseViewModel
     {
         public List<StemViewModel>? Stems { get; }
         public List<ResponseViewModel>? Responses { get; }
