@@ -1,8 +1,6 @@
-﻿using TestHub.Web.Interfaces;
-
-namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class MultipleChoiceQuestionViewModel : QuestionViewModel, IBaseViewModel
+    public class MultipleChoiceQuestionViewModel : QuestionViewModel
     {
         public string? Stem { get; }
         public List<ChoiceViewModel>? Choices { get; }

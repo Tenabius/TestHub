@@ -1,8 +1,6 @@
-﻿using TestHub.Web.Interfaces;
-
-namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class FalseTrueCandidateAnswerViewModel : CandidateAnswerViewModel, IBaseViewModel
+    public class FalseTrueCandidateAnswerViewModel : CandidateAnswerViewModel
     {
         public bool? SelectedChoice { get; set; }
     }

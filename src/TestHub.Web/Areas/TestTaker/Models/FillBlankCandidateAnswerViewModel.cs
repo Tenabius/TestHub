@@ -1,8 +1,6 @@
-﻿using TestHub.Web.Interfaces;
-
-namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class FillBlankCandidateAnswerViewModel : CandidateAnswerViewModel, IBaseViewModel
+    public class FillBlankCandidateAnswerViewModel : CandidateAnswerViewModel
     {
         public List<SubmittedBlankViewModel>? SubmittedBlanks { get; set; }
 

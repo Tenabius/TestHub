@@ -1,8 +1,6 @@
-﻿using TestHub.Web.Interfaces;
-
-namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public abstract class CandidateAnswerViewModel : IBaseViewModel
+    public abstract class CandidateAnswerViewModel
     {
         public int? QuestionId { get; set; }
     }

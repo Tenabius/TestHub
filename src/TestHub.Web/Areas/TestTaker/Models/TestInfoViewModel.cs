@@ -1,8 +1,6 @@
-﻿using TestHub.Web.Interfaces;
-
-namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class TestInfoViewModel : IBaseViewModel
+    public class TestInfoViewModel
     {
         public int? Id { get; set; }
         public string? Title { get; set; }

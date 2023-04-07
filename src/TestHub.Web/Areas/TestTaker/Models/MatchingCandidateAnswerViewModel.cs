@@ -1,8 +1,6 @@
-﻿using TestHub.Web.Interfaces;
-
-namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class MatchingCandidateAnswerViewModel : CandidateAnswerViewModel, IBaseViewModel
+    public class MatchingCandidateAnswerViewModel : CandidateAnswerViewModel
     {
         public List<SubmittedResponseViewModel>? SubmittedResponses { get; set; }
 

@@ -1,8 +1,6 @@
-﻿using TestHub.Web.Interfaces;
-
-namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.TestTaker.Models
 {
-    public class FalseTrueQuestionViewModel : QuestionViewModel, IBaseViewModel
+    public class FalseTrueQuestionViewModel : QuestionViewModel
     {
         public string? Statment { get; set; }
     }
