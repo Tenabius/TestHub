@@ -515,7 +515,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("AnswersSheets");
+                    b.ToTable("TestResults");
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FalseTrueCandidateAnswer", b =>

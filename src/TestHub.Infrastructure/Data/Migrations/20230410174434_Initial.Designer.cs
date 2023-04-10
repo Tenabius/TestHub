@@ -12,7 +12,7 @@ using TestHub.Infrastructure.Data;
 namespace TestHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TestHubContext))]
-    [Migration("20230410174025_Initial")]
+    [Migration("20230410174434_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -518,7 +518,7 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasIndex("TestId");
 
-                    b.ToTable("AnswersSheets");
+                    b.ToTable("TestResults");
                 });
 
             modelBuilder.Entity("TestHub.Core.Entities.FalseTrueCandidateAnswer", b =>
