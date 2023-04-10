@@ -60,7 +60,14 @@ namespace TestHub.Infrastructure.Data
                     })
              };
 
-            return Test.Create(new IdentityUser(), "Animals", 3, TimeSpan.FromMinutes(3), 1, questions);
+            return Test.Create(
+                author: new IdentityUser(), 
+                title: "Animals", 
+                passingScore: 3,
+                duration: TimeSpan.FromMinutes(3),
+                description: "This is a test for basic animal knowledge.",
+                attemptAllowed: 1,
+                questions: questions);
         }
     }
 }

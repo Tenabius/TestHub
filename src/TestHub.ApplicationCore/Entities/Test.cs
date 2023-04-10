@@ -24,6 +24,7 @@ namespace TestHub.Core.Entities
             string title,
             int passingScore,
             TimeSpan duration,
+            string description,
             int attemptAllowed,
             IList<Question> questions)
         {
@@ -31,6 +32,7 @@ namespace TestHub.Core.Entities
             Title = title;
             PassingScore = passingScore;
             Duration = duration;
+            Description = description;
             AttemptAllowed = attemptAllowed;
             _questions = questions.ToList();
             CreationTime = DateTimeOffset.Now;
@@ -40,6 +42,7 @@ namespace TestHub.Core.Entities
             string title, 
             int passingScore, 
             TimeSpan duration,
+            string description,
             int attemptAllowed, 
             IList<Question> questions)
         {
@@ -47,11 +50,12 @@ namespace TestHub.Core.Entities
             Requires.NotNull(questions, nameof(questions));
             Requires.Range(questions.Count >= 1, nameof(questions));
             Requires.NotNullOrEmpty(title, nameof(title));
+            Requires.NotNullOrEmpty(description, nameof(description));
             Requires.Range(duration > TimeSpan.FromMinutes(3), nameof(duration));
             Requires.Range(passingScore > 0 && passingScore < questions.Count, nameof(passingScore));
             Requires.Range(attemptAllowed >= 1, nameof(attemptAllowed));
 
-            return new(author, title, passingScore, duration, attemptAllowed, questions);
+            return new(author, title, passingScore, duration, description, attemptAllowed, questions);
         }
     }
 }
