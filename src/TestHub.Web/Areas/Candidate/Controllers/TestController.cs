@@ -24,17 +24,28 @@ namespace TestHub.Web.Areas.Candidate.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(int id, bool startTest = false)
+        [HttpGet]
+        public async Task<IActionResult> Index(int id)
         {
             var test = await _testsRepository.GetByIdAsync(id);
             if (test == null)
             {
                 return NotFound();
             }
+            
 
-            if (!startTest)
+
+            return View("TestInfo"); //TODO pass testInfo object
+        }
+
+        [HttpPost]
+        [ActionName("Index")]
+        public async Task<IActionResult> IndexPost(int id)
+        {
+            var test = await _testsRepository.GetByIdAsync(id);
+            if (test == null)
             {
-                return View("TestInfo"); //TODO pass testInfo object
+                return NotFound();
             }
 
             if (HttpContext.User.Identity is { } identity
@@ -49,7 +60,7 @@ namespace TestHub.Web.Areas.Candidate.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Submit([FromForm] List<CandidateAnswerViewModel> answers, [FromForm] int? testAttepmtId)
+        public async Task<IActionResult> Submit([FromForm] List<CandidateAnswerViewModel> answers)
         {
             //var questions = _testsRepository.GetById(1)?.Questions;
             int result = 0;
