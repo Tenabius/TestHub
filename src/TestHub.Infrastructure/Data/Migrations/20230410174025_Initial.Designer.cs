@@ -12,8 +12,8 @@ using TestHub.Infrastructure.Data;
 namespace TestHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TestHubContext))]
-    [Migration("20230410164150_TestEntityUpdate")]
-    partial class TestEntityUpdate
+    [Migration("20230410174025_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
