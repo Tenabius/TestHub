@@ -12,7 +12,7 @@ using TestHub.Infrastructure.Data;
 namespace TestHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TestHubContext))]
-    [Migration("20230410163503_TestEntityUpdate")]
+    [Migration("20230410164150_TestEntityUpdate")]
     partial class TestEntityUpdate
     {
         /// <inheritdoc />
@@ -469,6 +469,10 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.Property<DateTimeOffset>("CreationTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");

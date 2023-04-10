@@ -10,6 +10,7 @@ namespace TestHub.Core.Entities
         public int PassingScore { get; private set; }
         public TimeSpan Duration { get; private set; }
         public DateTimeOffset CreationTime { get; private set; }
+        public string Description { get; private set; }
         public int AttemptAllowed { get; private set; }
         public IReadOnlyList<Question> Questions => _questions.AsReadOnly();
 

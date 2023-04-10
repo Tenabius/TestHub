@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TestHub.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class TestEntityUpdate : Migration
+    public partial class EntitiesRename : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
