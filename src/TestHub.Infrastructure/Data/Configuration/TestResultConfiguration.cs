@@ -4,12 +4,12 @@ using TestHub.Core.Entities;
 
 namespace TestHub.Infrastructure.Data.Configuration
 {
-    public class AnswersSheetConfiguration : IEntityTypeConfiguration<TestResult>
+    public class TestResultConfiguration : IEntityTypeConfiguration<TestResult>
     {
         public void Configure(EntityTypeBuilder<TestResult> builder)
         {
             builder.Navigation(x => x.CandidateAnswers)
-                .HasField("_submittedAnswers")
+                .HasField("_candidateAnswers")
                 .AutoInclude();
 
             builder.HasMany(x => x.CandidateAnswers)

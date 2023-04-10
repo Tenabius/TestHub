@@ -12,8 +12,8 @@ namespace TestHub.Core.Entities
         public int? Score => _candidateAnswers?.Aggregate(0, (score, answer) => answer.IsCorrect() ? score++ : score);
         public bool? IsPassed => Score >= Test.PassingScore 
             && EndTime - StartTime <= Test.Duration;
-        public IReadOnlyList<Answer>? CandidateAnswers => _candidateAnswers?.AsReadOnly();
-        private List<Answer>? _candidateAnswers;
+        public IReadOnlyList<CandidateAnswer>? CandidateAnswers => _candidateAnswers?.AsReadOnly();
+        private List<CandidateAnswer>? _candidateAnswers;
 
 #pragma warning disable CS8618
         private TestResult() { }
@@ -37,7 +37,7 @@ namespace TestHub.Core.Entities
             return new(candidate, test, startTime);
         }
 
-        public void SubmitCandidateAnswers(DateTimeOffset endTime, IEnumerable<Answer> candidateAnswers)
+        public void SubmitCandidateAnswers(DateTimeOffset endTime, IEnumerable<CandidateAnswer> candidateAnswers)
         {
             bool isAnswersForThisTest = Test.Questions.All(q => candidateAnswers.Any(a => a.Question.Id == q.Id))
                 && candidateAnswers.All(a => Test.Questions.Any(q => a.Question.Id == q.Id));

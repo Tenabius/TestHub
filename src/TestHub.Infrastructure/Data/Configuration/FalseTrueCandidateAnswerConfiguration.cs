@@ -4,9 +4,9 @@ using TestHub.Core.Entities;
 
 namespace TestHub.Infrastructure.Data.Configuration
 {
-    public class FalseTrueAnswerConfiguration : IEntityTypeConfiguration<FalseTrueAnswer>
+    public class FalseTrueCandidateAnswerConfiguration : IEntityTypeConfiguration<FalseTrueCandidateAnswer>
     {
-        public void Configure(EntityTypeBuilder<FalseTrueAnswer> builder)
+        public void Configure(EntityTypeBuilder<FalseTrueCandidateAnswer> builder)
         {
         }
     }

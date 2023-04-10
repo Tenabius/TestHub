@@ -2,16 +2,16 @@
 
 namespace TestHub.Core.Entities
 {
-    public class MatchingAnswer : Answer
+    public class MatchingCandidateAnswer : CandidateAnswer
     {
         public IReadOnlyList<SubmittedResponse> SubmittedResponses => _submittedResponses.AsReadOnly();
         private List<SubmittedResponse> _submittedResponses;
 
 #pragma warning disable CS8618
-        private MatchingAnswer() { }
+        private MatchingCandidateAnswer() { }
 #pragma warning restore 
 
-        public MatchingAnswer(Question question, IList<SubmittedResponse> submittedResponses)
+        public MatchingCandidateAnswer(Question question, IList<SubmittedResponse> submittedResponses)
             : base(question)
         {
             _submittedResponses = submittedResponses.ToList();

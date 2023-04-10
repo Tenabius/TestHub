@@ -13,6 +13,6 @@
             Directions = directions;
         }
 
-        public abstract bool EvaluateAnswer(Answer answer);
+        public abstract bool EvaluateAnswer(CandidateAnswer answer);
     }
 }

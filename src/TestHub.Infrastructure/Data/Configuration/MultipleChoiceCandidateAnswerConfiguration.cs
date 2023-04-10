@@ -4,9 +4,9 @@ using TestHub.Core.Entities;
 
 namespace TestHub.Infrastructure.Data.Configuration
 {
-    public class MultipleChoiceAnswerConfiguration : IEntityTypeConfiguration<MultipleChoiceAnswer>
+    public class MultipleChoiceCandidateAnswerConfiguration : IEntityTypeConfiguration<MultipleChoiceCandidateAnswer>
     {
-        public void Configure(EntityTypeBuilder<MultipleChoiceAnswer> builder)
+        public void Configure(EntityTypeBuilder<MultipleChoiceCandidateAnswer> builder)
         {
             builder.Navigation(q => q.SubmittedChoices)
                 .HasField("_submittedChoices")

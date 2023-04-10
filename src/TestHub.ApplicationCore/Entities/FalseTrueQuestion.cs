@@ -26,9 +26,9 @@ namespace TestHub.Core.Entities
             return new(directions, statement, correctChoice);
         }
 
-        public override bool EvaluateAnswer(Answer submittedAnswer)
+        public override bool EvaluateAnswer(CandidateAnswer submittedAnswer)
         {
-            if (submittedAnswer is FalseTrueAnswer answer)
+            if (submittedAnswer is FalseTrueCandidateAnswer answer)
             {
                 return answer.SubmittedChoice.HasValue
                     && answer.SubmittedChoice == CorrectChoice;

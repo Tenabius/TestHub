@@ -4,9 +4,9 @@ using TestHub.Core.Entities;
 
 namespace TestHub.Infrastructure.Data.Configuration
 {
-    public class AnswerConfiguratuion : IEntityTypeConfiguration<Answer>
+    public class CandidateAnswerConfiguration : IEntityTypeConfiguration<CandidateAnswer>
     {
-        public void Configure(EntityTypeBuilder<Answer> builder)
+        public void Configure(EntityTypeBuilder<CandidateAnswer> builder)
         {
             builder.UseTptMappingStrategy();
         }

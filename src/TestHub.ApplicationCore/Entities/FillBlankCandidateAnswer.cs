@@ -2,16 +2,16 @@
 
 namespace TestHub.Core.Entities
 {
-    public sealed class FillBlankAnswer : Answer
+    public sealed class FillBlankCandidateAnswer : CandidateAnswer
     {
         public IReadOnlyList<SubmittedBlank> SubmittedBlanks => _submittedBlanks.AsReadOnly();
         private List<SubmittedBlank> _submittedBlanks;
 
 #pragma warning disable CS8618
-        private FillBlankAnswer() { }
+        private FillBlankCandidateAnswer() { }
 #pragma warning restore 
 
-        public FillBlankAnswer(Question question, IList<SubmittedBlank> submittedBlanks)
+        public FillBlankCandidateAnswer(Question question, IList<SubmittedBlank> submittedBlanks)
             : base(question)
         {
             _submittedBlanks = submittedBlanks.ToList();

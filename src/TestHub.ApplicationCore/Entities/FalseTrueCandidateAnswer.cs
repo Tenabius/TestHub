@@ -1,14 +1,14 @@
 ﻿namespace TestHub.Core.Entities
 {
-    public sealed class FalseTrueAnswer : Answer
+    public sealed class FalseTrueCandidateAnswer : CandidateAnswer
     {
         public bool? SubmittedChoice { get; private set; }
 
 #pragma warning disable CS8618
-        public FalseTrueAnswer() { }
+        public FalseTrueCandidateAnswer() { }
 #pragma warning restore 
 
-        public FalseTrueAnswer(Question question, bool? submittedChoice) :
+        public FalseTrueCandidateAnswer(Question question, bool? submittedChoice) :
             base(question)
         {
             SubmittedChoice = submittedChoice;

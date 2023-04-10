@@ -20,7 +20,7 @@ namespace TestHub.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Submit([FromForm] List<Answer> questionForms)
+        public IActionResult Submit([FromForm] List<CandidateAnswer> questionForms)
         {
             //var questions = _repository.GetByIdAsync(1)?.Questions;
             int result = 0;

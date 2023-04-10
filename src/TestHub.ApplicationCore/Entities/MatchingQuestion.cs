@@ -25,9 +25,9 @@ namespace TestHub.Core.Entities
             return new(directions, stems);
         }
 
-        public override bool EvaluateAnswer(Answer submittedAnswer)
+        public override bool EvaluateAnswer(CandidateAnswer submittedAnswer)
         {
-            if (submittedAnswer is MatchingAnswer answer)
+            if (submittedAnswer is MatchingCandidateAnswer answer)
             {
                 return answer.SubmittedResponses.All(a => a.Stem.Response == a.Response);
             }

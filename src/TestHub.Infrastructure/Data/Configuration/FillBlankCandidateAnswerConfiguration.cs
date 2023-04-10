@@ -4,9 +4,9 @@ using TestHub.Core.Entities;
 
 namespace TestHub.Infrastructure.Data.Configuration
 {
-    public class FillBlankAnswerConfiguration : IEntityTypeConfiguration<FillBlankAnswer>
+    public class FillBlankCandidateAnswerConfiguration : IEntityTypeConfiguration<FillBlankCandidateAnswer>
     {
-        public void Configure(EntityTypeBuilder<FillBlankAnswer> builder)
+        public void Configure(EntityTypeBuilder<FillBlankCandidateAnswer> builder)
         {
             builder.Navigation(x => x.SubmittedBlanks)
                 .HasField("_submittedBlanks")

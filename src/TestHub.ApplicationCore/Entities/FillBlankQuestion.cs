@@ -29,9 +29,9 @@ namespace TestHub.Core.Entities
             return new(directions, context, blanks);
         }
 
-        public override bool EvaluateAnswer(Answer submittedAnswer)
+        public override bool EvaluateAnswer(CandidateAnswer submittedAnswer)
         {
-            if (submittedAnswer is FillBlankAnswer answer)
+            if (submittedAnswer is FillBlankCandidateAnswer answer)
             {
                 return answer.SubmittedBlanks
                     .All(a => a.SubmittedAnswer == a.Blank.CorrectAnswer);

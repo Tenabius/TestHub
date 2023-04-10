@@ -36,9 +36,9 @@ namespace TestHub.Core.Entities
             return new(directions, stem, choices, isMultipleAnswers);
         }
 
-        public override bool EvaluateAnswer(Answer submittedAnswer)
+        public override bool EvaluateAnswer(CandidateAnswer submittedAnswer)
         {
-            if (submittedAnswer is MultipleChoiceAnswer answer)
+            if (submittedAnswer is MultipleChoiceCandidateAnswer answer)
             {
                 return answer.SubmittedChoices.All(a => a.Choice.IsCorrect == a.IsSelected);
             }

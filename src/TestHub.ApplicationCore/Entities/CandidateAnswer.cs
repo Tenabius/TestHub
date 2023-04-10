@@ -1,14 +1,14 @@
 ﻿namespace TestHub.Core.Entities
 {
-    public abstract class Answer : BaseEntity
+    public abstract class CandidateAnswer : BaseEntity
     {
         public Question Question { get; private set; }
 
 #pragma warning disable CS8618
-        protected Answer() { }
+        protected CandidateAnswer() { }
 #pragma warning restore 
 
-        protected Answer(Question question)
+        protected CandidateAnswer(Question question)
         {
             Question = question;
         }

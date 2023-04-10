@@ -2,16 +2,16 @@
 
 namespace TestHub.Core.Entities
 {
-    public class MultipleChoiceAnswer : Answer
+    public class MultipleChoiceCandidateAnswer : CandidateAnswer
     {
         public IReadOnlyList<SubmittedChoice> SubmittedChoices => _submittedChoices.AsReadOnly();
         private readonly List<SubmittedChoice> _submittedChoices;
 
 #pragma warning disable CS8618
-        public MultipleChoiceAnswer() { }
+        public MultipleChoiceCandidateAnswer() { }
 #pragma warning restore 
 
-        public MultipleChoiceAnswer(Question question, IList<SubmittedChoice> submittedChoices)
+        public MultipleChoiceCandidateAnswer(Question question, IList<SubmittedChoice> submittedChoices)
             : base(question)
         {
             _submittedChoices = submittedChoices.ToList();
