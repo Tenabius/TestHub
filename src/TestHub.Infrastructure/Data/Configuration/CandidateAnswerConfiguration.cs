@@ -9,6 +9,9 @@ namespace TestHub.Infrastructure.Data.Configuration
         public void Configure(EntityTypeBuilder<CandidateAnswer> builder)
         {
             builder.UseTptMappingStrategy();
+            builder.HasOne(x => x.Question)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

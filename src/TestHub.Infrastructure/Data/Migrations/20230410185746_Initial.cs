@@ -232,8 +232,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         name: "FK_TestResults_AspNetUsers_CandidateId",
                         column: x => x.CandidateId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TestResults_Tests_TestId",
                         column: x => x.TestId,
@@ -331,8 +330,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         name: "FK_CandidateAnswer_Question_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Question",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_CandidateAnswer_TestResults_TestResultId",
                         column: x => x.TestResultId,
@@ -496,8 +494,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         name: "FK_SubmittedBlank_Blank_BlankId",
                         column: x => x.BlankId,
                         principalTable: "Blank",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SubmittedBlank_FillBlankCandidateAnswer_FillBlankCandidateAnswerId",
                         column: x => x.FillBlankCandidateAnswerId,
@@ -534,8 +531,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         name: "FK_SubmittedResponse_Stem_StemId",
                         column: x => x.StemId,
                         principalTable: "Stem",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -555,8 +551,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                         name: "FK_SubmittedChoice_Choice_ChoiceId",
                         column: x => x.ChoiceId,
                         principalTable: "Choice",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SubmittedChoice_MultipleChoiceCandidateAnswer_MultipleChoiceCandidateAnswerId",
                         column: x => x.MultipleChoiceCandidateAnswerId,

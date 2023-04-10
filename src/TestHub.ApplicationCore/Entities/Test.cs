@@ -51,7 +51,7 @@ namespace TestHub.Core.Entities
             Requires.Range(questions.Count >= 1, nameof(questions));
             Requires.NotNullOrEmpty(title, nameof(title));
             Requires.NotNullOrEmpty(description, nameof(description));
-            Requires.Range(duration > TimeSpan.FromMinutes(3), nameof(duration));
+            Requires.Range(duration >= TimeSpan.FromMinutes(3), nameof(duration));
             Requires.Range(passingScore > 0 && passingScore < questions.Count, nameof(passingScore));
             Requires.Range(attemptAllowed >= 1, nameof(attemptAllowed));
 

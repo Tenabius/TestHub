@@ -12,7 +12,7 @@ using TestHub.Infrastructure.Data;
 namespace TestHub.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TestHubContext))]
-    [Migration("20230410174434_Initial")]
+    [Migration("20230410185746_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -654,7 +654,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.HasOne("TestHub.Core.Entities.Question", "Question")
                         .WithMany()
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TestHub.Core.Entities.TestResult", null)
@@ -670,7 +670,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.HasOne("TestHub.Core.Entities.FillBlankQuestion+Blank", "Blank")
                         .WithMany()
                         .HasForeignKey("BlankId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TestHub.Core.Entities.FillBlankCandidateAnswer", null)
@@ -698,12 +698,13 @@ namespace TestHub.Infrastructure.Data.Migrations
 
                     b.HasOne("TestHub.Core.Entities.MatchingQuestion+Response", "Response")
                         .WithMany()
-                        .HasForeignKey("ResponseId");
+                        .HasForeignKey("ResponseId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("TestHub.Core.Entities.MatchingQuestion+Stem", "Stem")
                         .WithMany()
                         .HasForeignKey("StemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Response");
@@ -732,7 +733,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.HasOne("TestHub.Core.Entities.MultipleChoiceQuestion+Choice", "Choice")
                         .WithMany()
                         .HasForeignKey("ChoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TestHub.Core.Entities.MultipleChoiceCandidateAnswer", null)
@@ -775,7 +776,7 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Candidate")
                         .WithMany()
                         .HasForeignKey("CandidateId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("TestHub.Core.Entities.Test", "Test")
