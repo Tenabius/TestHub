@@ -3,6 +3,7 @@ using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
 using TestHub.Infrastructure.Data;
 using TestHub.Web.Interfaces;
+using Laraue.EfCoreTriggers.SqlServer.Extensions;
 
 namespace TestHub.Web.Configuration
 {
@@ -11,7 +12,9 @@ namespace TestHub.Web.Configuration
         public void ApplyConfiguration(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<TestHubContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetValue<string>("ConnectionStrings:TestHubDb")));
+                options
+                    .UseSqlServer(builder.Configuration.GetValue<string>("ConnectionStrings:TestHubDb"))
+                    .UseSqlServerTriggers());
 
             if (builder.Environment.IsDevelopment())
             {
