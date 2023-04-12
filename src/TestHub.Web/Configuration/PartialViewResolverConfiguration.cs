@@ -10,6 +10,8 @@ namespace TestHub.Web.Configuration
             var resolver = app.Services.GetRequiredService<IPartialViewResolver>();
             resolver.AddPartialView<FalseTrueQuestionViewModel>("_FalseTrueQuestion");
             resolver.AddPartialView<MultipleChoiceQuestionViewModel>("_MultipleChoiceQuestion");
+            resolver.AddPartialView<FillBlankQuestionViewModel>("_FillBlankQuestion");
+            resolver.AddPartialView<MatchingQuestionViewModel>("_MatchingQuestion");
         }
     }
 }
