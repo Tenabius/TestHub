@@ -6,6 +6,6 @@ namespace TestHub.Web.Areas.Candidate.Models
     [AutoMap(typeof(FalseTrueQuestion))]
     public class FalseTrueQuestionViewModel : QuestionViewModel
     {
-        public string? Statment { get; set; }
+        public string? Statement { get; set; }
     }
 }

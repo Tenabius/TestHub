@@ -12,14 +12,15 @@ namespace TestHub.Web.Areas.Candidate.Controllers
 {
 
     [Area("Candidate")]
-    public class TestController : Controller
+    [Route("[area]/[controller]")]
+    public class TestsController : Controller
     {
         private readonly IRepository<Test> _testsRepository;
         private readonly IRepository<TestResult> _testResultsRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public TestController(IRepository<Test> testsRepository,
+        public TestsController(IRepository<Test> testsRepository,
             IRepository<TestResult> resultRepository,
             IMapper mapper,
             UserManager<IdentityUser> userManager)
@@ -30,8 +31,8 @@ namespace TestHub.Web.Areas.Candidate.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> TestInfo(int id)
         {
             var test = await _testsRepository.GetByIdAsync(id);
             if (test == null)
@@ -40,12 +41,11 @@ namespace TestHub.Web.Areas.Candidate.Controllers
             }
 
             var testInfo = _mapper.Map<TestInfoViewModel>(test);
-            return View("TestInfo", testInfo); 
+            return View(testInfo); 
         }
 
-        [HttpPost]
-        [ActionName("Index")]
-        public async Task<IActionResult> IndexPost(int id)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Test(int id)
         {
             var test = await _testsRepository.GetByIdAsync(id);
             if (test == null)
