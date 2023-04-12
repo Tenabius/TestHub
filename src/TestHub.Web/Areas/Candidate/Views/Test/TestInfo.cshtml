@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model TestInfoViewModel
+
+<section>
+    <div class="container">
+        <h2>
+            @Model.Title
+        </h2>
+        <h3>
+            @Model.Description
+        </h3>
+        <p>Passing score @Model.PassingScore</p>
+        <p>Duration of test is @Model.Duration minutes.</p>
+        <p>You have @Model.AttemptAllowed attempt(s).</p>
+        <form method="post" asp-action="Index">
+            <input type="submit" value="Start test"/>
+        </form>
+    </div>
+</section>

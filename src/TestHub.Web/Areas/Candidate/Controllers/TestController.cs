@@ -1,26 +1,32 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
 using TestHub.Infrastructure;
-using TestHub.Web.Areas.TestTaker.Models;
+using TestHub.Web.Areas.Candidate.Models;
 
 namespace TestHub.Web.Areas.Candidate.Controllers
 {
+
+    [Area("Candidate")]
     public class TestController : Controller
     {
         private readonly IRepository<Test> _testsRepository;
         private readonly IRepository<TestResult> _testResultsRepository;
+        private readonly IMapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
 
         public TestController(IRepository<Test> testsRepository,
             IRepository<TestResult> resultRepository,
+            IMapper mapper,
             UserManager<IdentityUser> userManager)
         {
             _testsRepository = testsRepository;
             _testResultsRepository = resultRepository;
+            _mapper = mapper;
             _userManager = userManager;
         }
 
@@ -32,10 +38,9 @@ namespace TestHub.Web.Areas.Candidate.Controllers
             {
                 return NotFound();
             }
-            
 
-
-            return View("TestInfo"); //TODO pass testInfo object
+            var testInfo = _mapper.Map<TestInfoViewModel>(test);
+            return View("TestInfo", testInfo); 
         }
 
         [HttpPost]
@@ -56,7 +61,8 @@ namespace TestHub.Web.Areas.Candidate.Controllers
                 await _testResultsRepository.CreateAsync(testResult);
             }
 
-            return View(test);
+            var testViewModel = _mapper.Map<TestViewModel>(test);
+            return View(testViewModel);
         }
 
         [HttpPost]

@@ -33,4 +33,8 @@
     <ProjectReference Include="..\TestHub.Infrastructure\TestHub.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+
 </Project>

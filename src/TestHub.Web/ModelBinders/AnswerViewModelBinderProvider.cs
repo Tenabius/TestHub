@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using TestHub.Web.Areas.TestTaker.Models;
+using TestHub.Web.Areas.Candidate.Models;
 
 namespace TestHub.Web.ModelBinders
 {

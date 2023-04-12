@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Google.Api;
-using TestHub.Core.Entities;
-using TestHub.Web.Areas.TestTaker.Models;
+using System.Reflection;
 using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
@@ -11,7 +9,7 @@ namespace TestHub.Web.Configuration
         public void ApplyConfiguration(WebApplicationBuilder builder)
         {
             var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Test, TestInfoViewModel>();
+                cfg.AddMaps(Assembly.GetExecutingAssembly());
             });
 
             IMapper mapper = config.CreateMapper();

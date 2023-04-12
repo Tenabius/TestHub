@@ -1,11 +1,12 @@
-﻿@model List<QuestionViewModel>
+﻿@model TestViewModel
 @inject IPartialViewResolver Resolver
 
 <section>
     <div class="container">
+        <h3>@Model.Title</h3>
         <form id="Test" asp-action="Submit" method="post">
         @{
-            foreach (QuestionViewModel content in Model)
+            foreach (QuestionViewModel content in Model.Questions)
             {
                 @(await Html.PartialAsync(Resolver.GetPartialViewName(content.GetType()), content))
             }

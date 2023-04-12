@@ -42,14 +42,14 @@ app.ConfigurePartialViewResolver();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseDeveloperExceptionPage();
 }
 else
 {
     app.UseExceptionHandler("/Error");
+    app.UseStatusCodePagesWithRedirects("~/Error");
     app.UseHsts();
 }
-
-app.UseStatusCodePagesWithRedirects("~/Error");
 
 app.UseStaticFiles();
 
@@ -62,6 +62,10 @@ app.UseAuthorization();
 app.UseSession();
 
 app.MapRazorPages();
+
+app.MapControllerRoute(
+    name: "Areas",
+    pattern: "{area}/{controller}/{action}/{id?}");
 
 app.MapDefaultControllerRoute();
 

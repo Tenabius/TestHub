@@ -1,4 +1,4 @@
-﻿namespace TestHub.Web.Areas.TestTaker.Models
+﻿namespace TestHub.Web.Areas.Candidate.Models
 {
     public class MatchingCandidateAnswerViewModel : CandidateAnswerViewModel
     {

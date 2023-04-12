@@ -1,5 +1,9 @@
-﻿namespace TestHub.Web.Areas.TestTaker.Models
+﻿using AutoMapper;
+using TestHub.Core.Entities;
+
+namespace TestHub.Web.Areas.Candidate.Models
 {
+    [AutoMap(typeof(TestResult))]
     public class TestResultViewModel
     {
         public int? CandidateId { get; set; }

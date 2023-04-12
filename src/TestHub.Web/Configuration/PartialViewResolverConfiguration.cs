@@ -1,4 +1,4 @@
-﻿using TestHub.Web.Areas.TestTaker.Models;
+﻿using TestHub.Web.Areas.Candidate.Models;
 using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
