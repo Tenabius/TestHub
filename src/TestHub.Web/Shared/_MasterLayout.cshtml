@@ -1,4 +1,5 @@
-﻿@{
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
     ViewData["ParentLayout"] = "_MasterLayout";
 }
 
@@ -29,6 +30,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Candidate" asp-controller="Test" asp-action="Index">Tests</a>
+                        </li>
                         <partial name="_LoginPartial" />
                     </ul>
                 </div>
@@ -43,7 +47,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - TestHub.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - TestHub - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
