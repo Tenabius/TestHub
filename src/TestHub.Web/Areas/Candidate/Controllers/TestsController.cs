@@ -66,7 +66,7 @@ namespace TestHub.Web.Areas.Candidate.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Submit([FromForm] List<CandidateAnswerViewModel> answers)
+        public async Task<IActionResult> Submit([FromForm] List<QuestionViewModel> submttedAnswers)
         {
             //var questions = _testsRepository.GetById(1)?.Questions;
             int result = 0;

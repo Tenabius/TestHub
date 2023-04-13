@@ -7,8 +7,13 @@ namespace TestHub.Web.Areas.Candidate.Models
         IncludeAllDerived = true)]
     public abstract class QuestionViewModel
     {
-        public string? Kind { get; set; }
-        public int? QuestionId { get; set; }
+        public string Kind { get; protected set; }
+        public int? Id { get; set; }
         public string? Directions { get; set; }
+
+        public QuestionViewModel()
+        {
+            Kind = GetType().Name;
+        }
     }
 }

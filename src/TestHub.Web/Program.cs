@@ -17,7 +17,7 @@ builder.Services.AddMvc();
 builder.Services.AddSingleton<IPartialViewResolver, PartialViewResolver>();
 
 builder.Services.AddControllers(options =>
-    options.ModelBinderProviders.Insert(0, new AnswerViewModelBinderProvider()));
+    options.ModelBinderProviders.Insert(0, new QuestionViewModelBinderProvider()));
 
 var app = builder.Build();
 

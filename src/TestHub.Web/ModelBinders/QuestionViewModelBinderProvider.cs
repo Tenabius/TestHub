@@ -3,20 +3,20 @@ using TestHub.Web.Areas.Candidate.Models;
 
 namespace TestHub.Web.ModelBinders
 {
-    public class AnswerViewModelBinderProvider : IModelBinderProvider
+    public class QuestionViewModelBinderProvider : IModelBinderProvider
     {
         public IModelBinder? GetBinder(ModelBinderProviderContext context)
         {
-            if (context.Metadata.ModelType != typeof(CandidateAnswerViewModel))
+            if (context.Metadata.ModelType != typeof(QuestionViewModel))
             {
                 return null;
             }
 
             var subclasses = new[] { 
-                typeof(FalseTrueCandidateAnswerViewModel), 
-                typeof(FillBlankCandidateAnswerViewModel),
-                typeof(MatchingCandidateAnswerViewModel),
-                typeof(MultipleChoiceCandidateAnswerViewModel)
+                typeof(FalseTrueQuestionViewModel), 
+                typeof(FillBlankQuestionViewModel),
+                typeof(MatchingQuestionViewModel),
+                typeof(MultipleChoiceQuestionViewModel)
             };
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();
@@ -26,7 +26,7 @@ namespace TestHub.Web.ModelBinders
                 binders[type] = (modelMetadata, context.CreateBinder(modelMetadata));
             }
 
-            return new AnswerViewModelBinder(binders);
+            return new QuestionViewModelBinder(binders);
         }
     }
 }

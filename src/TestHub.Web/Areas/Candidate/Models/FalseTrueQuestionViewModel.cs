@@ -7,5 +7,6 @@ namespace TestHub.Web.Areas.Candidate.Models
     public class FalseTrueQuestionViewModel : QuestionViewModel
     {
         public string? Statement { get; set; }
+        public bool? SelectedChoice { get; set; }
     }
 }
