@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using TestHub.Infrastructure.EmailSender;
 using TestHub.Web.Interfaces;
 
 namespace TestHub.Web.Configuration
 {
-    public class ConfigureEmailSenderHelper : IApplicationConfigurator
+    public class EmailSenderConfiguration : IApplicationConfigurator
     {
         public void ApplyConfiguration(WebApplicationBuilder builder)
         {
