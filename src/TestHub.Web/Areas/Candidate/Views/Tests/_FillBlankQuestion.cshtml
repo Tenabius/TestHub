@@ -4,15 +4,15 @@
     @Model.Directions
 </div>
 <div class="row">
-    <div class="col">
+    <div id="FillBlank-@Model.Id" class="col">
         @Model.Context
     </div>
 </div>
 
-@section Scripts{
-    <script>
-        function (){
-
-        }()
-    </script>
-}
+<script>
+        (function() {
+            let matches = document.querySelectorAll("div[id*='FillBlank']");
+            let tag = /{blank_\d+}/;
+            matches.forEach(m => m.innerHTML = m.innerHTML.replace(tag, "1"));
+        })()
+</script>

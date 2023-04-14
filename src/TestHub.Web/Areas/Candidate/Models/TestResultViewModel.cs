@@ -10,6 +10,6 @@ namespace TestHub.Web.Areas.Candidate.Models
         public int? TestId { get; set; }
         public DateTimeOffset? StartDate { get; set; }
         public DateTimeOffset? EndDate { get; set; }
-        public List<CandidateAnswerViewModel>? SubmittedAnswers { get; set; }
+        public List<QuestionViewModel>? SubmittedAnswers { get; set; }
     }
 }
