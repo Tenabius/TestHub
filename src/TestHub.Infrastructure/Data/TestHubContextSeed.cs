@@ -56,7 +56,7 @@ namespace TestHub.Infrastructure.Data
                     context: "Cow gives us {blank_1}.",
                     blanks: new List<FillBlankQuestion.Blank>()
                     {
-                        FillBlankQuestion.Blank.Create("blank_1", "milk")
+                        FillBlankQuestion.Blank.Create(1, "milk")
                     })
              };
 

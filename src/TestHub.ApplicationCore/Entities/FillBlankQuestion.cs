@@ -1,10 +1,11 @@
-﻿using Validation;
+﻿using System.Text.RegularExpressions;
+using Validation;
 
 namespace TestHub.Core.Entities
 {
     public sealed class FillBlankQuestion : Question
     {
-        public static readonly string BlankTag = "<blank>";
+        public static readonly Regex BlankTag = new("{blank_\\d+}");
         public string Context { get; private set; }
         public IReadOnlyList<Blank> Blanks => _blanks.AsReadOnly();
         private readonly List<Blank> _blanks = new();
@@ -24,7 +25,9 @@ namespace TestHub.Core.Entities
         {
             Requires.NotNullOrEmpty(directions, nameof(directions));
             Requires.NotNullOrEmpty(context, nameof(context));
-            //TODO Check that all blanks have answers and no answers without a blank
+            Verify.Operation(blanks.Select(x => x.InnerId).All(new HashSet<int>().Add),
+                $"{nameof(Blank.InnerId)} of all blanks must be unique.");
+            //TODO Check that all blanks present in context
 
             return new(directions, context, blanks);
         }
@@ -42,26 +45,24 @@ namespace TestHub.Core.Entities
 
         public sealed class Blank : BaseEntity
         {
-            public string Name { get; private set; }
+            public int InnerId { get; private set; }
             public string CorrectAnswer { get; private set; }
 
 #pragma warning disable CS8618
             private Blank() { }
 #pragma warning restore 
 
-            private Blank(string name, string correctAnswer)
+            private Blank(int innerId, string correctAnswer)
             {
-                Name = name;
+                InnerId = innerId;
                 CorrectAnswer = correctAnswer;
             }
 
-            public static Blank Create(string name, string correctAnswer)
+            public static Blank Create(int innerId, string correctAnswer)
             {
-                Requires.NotNullOrEmpty(name, nameof(name));
                 Requires.NotNullOrEmpty(correctAnswer, nameof(correctAnswer));
 
-                return new(name,
-                    correctAnswer.Trim().ToLower());
+                return new(innerId, correctAnswer.Trim().ToLower());
             }
         }
     }
