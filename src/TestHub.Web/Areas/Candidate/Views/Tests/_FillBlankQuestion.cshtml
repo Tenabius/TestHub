@@ -7,14 +7,32 @@
 <div class="row">
     <div id="FillBlank-@Model.Id" class="col">
         @{
-            string input = "<div class=\"dynamic-lenght-input-container\"><span></span><input/></div>";
-            string result = "";
-            if(Model.Context is { } context)
+            if (Model.Context is { } context)
             {
-                result = new Regex("{blank_\\d+}").Replace(context, input);
+                var regEx = FillBlankQuestion.BlankTag;
+                var substrings = regEx.Split(context).ToList();
+                substrings.RemoveAll(x => x == "");
+                int j = 0;
+                foreach (string substring in substrings)
+                {
+                    if (regEx.IsMatch(substring))
+                    {
+                        <div class="dynamic-lenght-input-container">
+                            <span class="dynamic-lenght-input-span">
+                            </span>
+                            <input type="text"
+                                   class="dynamic-lenght-input"
+                                   name="[@ViewData["QuestionIndex"]].Blanks[@j].SubmittedAnswer" />
+                        </div>
+                        j++;
+                    }
+                    else
+                    {
+                        @substring
+                    }
+                }
             }
         }
-        @Html.Raw(result)
     </div>
 </div>
 

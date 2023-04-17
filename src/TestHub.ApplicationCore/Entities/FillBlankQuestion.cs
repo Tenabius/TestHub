@@ -5,7 +5,7 @@ namespace TestHub.Core.Entities
 {
     public sealed class FillBlankQuestion : Question
     {
-        public static readonly Regex BlankTag = new("{blank_\\d+}");
+        public static readonly Regex BlankTag = new("({blank_\\d+})");
         public string Context { get; private set; }
         public IReadOnlyList<Blank> Blanks => _blanks.AsReadOnly();
         private readonly List<Blank> _blanks = new();
