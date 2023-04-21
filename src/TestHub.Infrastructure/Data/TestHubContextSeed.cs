@@ -43,13 +43,7 @@ namespace TestHub.Infrastructure.Data
                     statement: "The blue whale is the biggest animal to have ever lived.",
                     correctChoice: true),
 
-                MatchingQuestion.Create(
-                    directions: "Match the animals with their abilities.",
-                    stems: new List<MatchingQuestion.Stem>(){
-                        MatchingQuestion.Stem.Create("a dog", MatchingQuestion.Response.Create("walk")),
-                        MatchingQuestion.Stem.Create("a fish", MatchingQuestion.Response.Create("swim")),
-                        MatchingQuestion.Stem.Create("an eagle", MatchingQuestion.Response.Create("fly")),
-                    }),
+                GetMatchingQuestion(),
 
                 FillBlankQuestion.Create(
                     directions: "Fill in a blank with the correct word or phrase",
@@ -61,13 +55,39 @@ namespace TestHub.Infrastructure.Data
              };
 
             return Test.Create(
-                author: new IdentityUser(), 
-                title: "Animals", 
+                author: new IdentityUser(),
+                title: "Animals",
                 passingScore: 3,
                 duration: TimeSpan.FromMinutes(3),
                 description: "This is a test for basic animal knowledge.",
                 attemptAllowed: 1,
                 questions: questions);
+        }
+
+        private static MatchingQuestion GetMatchingQuestion()
+        {
+            var responses = new List<MatchingQuestion.Response>();
+            var stems = new List<MatchingQuestion.Stem>();
+
+            var fishResponse = MatchingQuestion.Response.Create("swim");
+            var fishStem = MatchingQuestion.Stem.Create("a fish", fishResponse);
+            responses.Add(fishResponse);
+            stems.Add(fishStem);
+
+            var dogResponse = MatchingQuestion.Response.Create("walk");
+            var dogStem = MatchingQuestion.Stem.Create("a dog", dogResponse);
+            responses.Add(dogResponse);
+            stems.Add(dogStem);
+
+            var eagleResponse = MatchingQuestion.Response.Create("fly");
+            var eagleStem = MatchingQuestion.Stem.Create("an eagle", eagleResponse);
+            responses.Add(eagleResponse);
+            stems.Add(eagleStem);
+
+            return MatchingQuestion.Create(
+                directions: "Match the animals with their abilities.",
+                stems: stems,
+                responses: responses);
         }
     }
 }

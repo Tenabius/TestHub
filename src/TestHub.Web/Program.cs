@@ -27,6 +27,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = scopedProvider.GetRequiredService<TestHubContext>();
+        context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
         await TestHubContextSeed.SeedAsync(context);
     }
