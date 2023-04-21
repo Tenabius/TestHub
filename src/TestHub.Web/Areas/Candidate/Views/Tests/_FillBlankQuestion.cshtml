@@ -9,22 +9,29 @@
         @{
             if (Model.Context is { } context)
             {
-                var regEx = FillBlankQuestion.BlankTag;
-                var substrings = regEx.Split(context).ToList();
+                var blankRegEx = FillBlankQuestion.BlankTag;
+                var substrings = blankRegEx.Split(context).ToList();
                 substrings.RemoveAll(x => x == "");
                 int j = 0;
+                var innerIdRegEx = new Regex("\\d+");
                 foreach (string substring in substrings)
                 {
-                    if (regEx.IsMatch(substring))
+                    if (blankRegEx.IsMatch(substring))
                     {
-                        <div class="dynamic-lenght-input-container">
-                            <span class="dynamic-lenght-input-span">
-                            </span>
-                            <input type="text"
-                                   class="dynamic-lenght-input"
-                                   name="[@ViewData["QuestionIndex"]].Blanks[@j].SubmittedAnswer" />
-                        </div>
-                        j++;
+                        int innerId = int.Parse(innerIdRegEx.Match(substring).Value);
+                        if (Model.Blanks is { } blanks)
+                        {
+                            var blank = blanks.Find(blank => blank.InnerId == innerId);
+
+                            <div class="dynamic-lenght-input-container">
+                                <input type="hidden" name="[@ViewData["QuestionIndex"]].Blanks[@j].Id" value="@blank!.Id">
+                                <span class="dynamic-lenght-input-span"></span>
+                                <input type="text"
+                                       class="dynamic-lenght-input"
+                                       name="[@ViewData["QuestionIndex"]].Blanks[@j].SubmittedAnswer" />
+                            </div>
+                            j++;
+                        }
                     }
                     else
                     {
@@ -38,15 +45,13 @@
 
 <script>
     (function () {
-        document.querySelector("input[class*='input25']")
-        var input = document.querySelector("input[class*='input25']"); // get the input element
-        input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
-        resizeInput.call(input); // immediately call the function
-
-        function resizeInput() {
-            var text = document.querySelector("span[class*='text25']");
-            console.log(this.value);
-            text.innerText = this.value;
-        }
+        document.querySelectorAll("input.dynamic-lenght-input").forEach((element) => {
+            element.addEventListener('input', () => {
+                element
+                    .parentElement
+                    .querySelector("span.dynamic-lenght-input-span")
+                    .innerText = element.value;
+            })
+        })
     })()
 </script>
