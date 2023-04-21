@@ -60,3 +60,42 @@ body {
 .dynamic-lenght-input:focus {
     outline-width: 0;
 }
+
+.draggable {
+    z-index: 9;
+}
+
+.containment {
+    width: 100%;
+}
+
+.draggable-placeholder {
+    padding: 1ex;
+}
+
+.w-66 {
+    width: 66% !important;
+}
+
+.blank {
+    padding: 0.3em 1em 0.3em 1em;
+    width: 10em;
+    height: 100%;
+    background-color: forestgreen;
+}
+
+.blank-left {
+    border-radius: 50rem 0 0 50rem;
+    padding-left: 1em;
+}
+
+.blank-right {
+    border-radius: 0 50rem 50rem 0;
+}
+
+.blank-placeholder {
+    border-radius: 0 50rem 50rem 0;
+    width: 10em;
+    height: 100%;
+    background-color: darkkhaki;
+}

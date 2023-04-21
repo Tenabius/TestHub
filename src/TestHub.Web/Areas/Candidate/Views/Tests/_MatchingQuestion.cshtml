@@ -1,10 +1,106 @@
 ﻿@model MatchingQuestionViewModel
 
 <div class="row">
+    @Model.Directions
 </div>
-<div class="row">
-    <div class="col">
+<div class="container containment">
+    <div class="p-3">
+        <div class="d-flex flex-row">
+            <div class="d-flex flex-column">
+                @if (Model.Stems is { } stems)
+                {
+                    for (int i = 0; i < stems.Count; i++)
+                    {
+                        <div class="d-flex flex-row flex-grow-1">
+                            <div class="flex-column p-0">
+                                <div class="blank blank-left">
+                                    @stems[i].Content
+                                </div>
+                            </div>
+                            <div class="flex-column p-0">
+                                <div class="blank-placeholder droppable">
+                                    <input type="hidden" name="[@ViewData["QuestionIndex"]].Stems[@i].Id" value="@stems[i].Id">
+                                    <input type="hidden" name="[@ViewData["QuestionIndex"]].Stems[@i].SubmittedResponse.Id" value="">
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="d-flex flex-column flex-grow-1">
+                @if (Model.Responses is { } responses)
+                {
+                    foreach (var response in responses)
+                    {
+                        <div class="d-flex flex-row flex-grow-1">
+                            <div class="blank-placeholder">
+                                <div class="draggable blank blank-right">
+                                    <div style="display: none;" name="SubmittedResponseId" value="@response.Id"></div>
+                                    @response.Content
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
     </div>
 </div>
 
 
+<script>
+    $(() => {
+        function handleRevert(dropped) {
+            if (!dropped) {
+                $(this).data("uiDraggable").originalPosition = {
+                    top: 0,
+                    left: 0
+                };
+            }
+            return !dropped;
+        }
+
+        function handleOutEvent(event, ui) {
+            var $self = $(this);
+            $self.children("input[name*='SubmittedResponse']").val("");
+        }
+
+        function handleDropEvent(event, ui) {
+            var $self = $(this);
+            var $item = ui.draggable;
+            $item.position({
+                my: 'left top',
+                at: 'left top',
+                of: $self
+            });
+            $self.children("input[name*='SubmittedResponse']")
+                .val($item.children("div[name='SubmittedResponseId']").attr("value"));
+            $self.droppable("destroy");
+            $item.draggable("destroy");
+            setTimeout(() => {
+                $item.draggable({
+                    start: function () {
+                        $self.droppable({
+                            drop: handleDropEvent,
+                            out: handleOutEvent
+                        });
+                    },
+                    containment: $(".container"),
+                    revert: handleRevert,
+                    stack: $(".draggable")
+                });
+            }, 0);
+        }
+
+        $(".draggable").draggable({
+            containment: $(".container"),
+            revert: handleRevert,
+            stack: $(".draggable")
+        });
+
+        $(".droppable").droppable({
+            drop: handleDropEvent,
+            out: handleOutEvent
+        });
+    });
+</script>
