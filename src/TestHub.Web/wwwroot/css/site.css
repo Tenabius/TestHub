@@ -1,32 +1,28 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
+    position: relative;
+    min-height: 100%;
 }
 
 .dynamic-lenght-input-container {
     display: inline-block;
     position: relative;
     border-bottom: 1px solid black;
-    font:inherit;
-    font-size:inherit;
+    font: inherit;
+    font-size: inherit;
 }
 
 .dynamic-lenght-input-span,
@@ -57,19 +53,13 @@ body {
     text-align: center;
 }
 
-.dynamic-lenght-input:focus {
-    outline: 0 none;
-    border: 0 none;
-}
-    outline-width: 0;
-}
+    .dynamic-lenght-input:focus {
+        outline: 0 none;
+        border: 0 none;
+    }
 
 .draggable {
     z-index: 9;
-}
-
-.containment {
-    width: 100%;
 }
 
 .draggable-placeholder {
@@ -84,21 +74,72 @@ body {
     padding: 0.3em 1em 0.3em 1em;
     width: 10em;
     height: 100%;
-    background-color: forestgreen;
+    background-color: deepskyblue;
+    border: 1px solid rgb(0,0,0);
+    box-shadow: 0 0 3px 0px black;
 }
 
 .blank-left {
     border-radius: 50rem 0 0 50rem;
     padding-left: 1em;
+    border-right: 0px solid black;
 }
 
 .blank-right {
     border-radius: 0 50rem 50rem 0;
+    border-left: 0px solid black;
 }
 
 .blank-placeholder {
     border-radius: 0 50rem 50rem 0;
     width: 10em;
     height: 100%;
-    background-color: darkkhaki;
+    background-color: darkgray;
+}
+
+.vertical-margins {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.horizontal-margin {
+    margin-right: 2rem;
+}
+
+.question {
+    margin: 0.5rem;
+    border: 1px solid black;
+    padding: 0.5em;
+    border-radius: 1ch;
+    box-shadow: 0 0 5px 0px gray;
+}
+
+.container-for-fixed-top {
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.flex-even {
+    flex: 1;
+}
+
+.countdown {
+    color: white;
+    height: 100%;
+    margin: 0;
+}
+
+.title {
+    color: white;
+    height: 100%;
+    margin: 0;
+}
+
+.countdown-warning {
+    color: rgb(216, 49, 49) !important;
+    text-shadow: 0px 0px 3px #000;
 }

@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jqueryui@1.13.2",
+      "destination": "wwwroot/lib/jquery-ui/"
+    },
+
+    {
+      "provider": "jsdelivr",
+      "library": "easytimer.js@4.5.4",
+      "destination": "wwwroot/lib/easytimer"
+    }
+  ]
+}

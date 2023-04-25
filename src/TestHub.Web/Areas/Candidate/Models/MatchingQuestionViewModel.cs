@@ -1,14 +1,34 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration.Annotations;
 using TestHub.Core.Entities;
+using TestHub.Web.Extensions;
 
 namespace TestHub.Web.Areas.Candidate.Models
 {
     [AutoMap(typeof(MatchingQuestion))]
     public class MatchingQuestionViewModel : QuestionViewModel
     {
-        public List<StemViewModel> Stems { get; set; } = new();
-        public List<ResponseViewModel> Responses { get; set; } = new();
+        private List<StemViewModel> _stems = new();
+        public List<StemViewModel> Stems
+        {
+            get { return _stems; }
+
+            set
+            {
+                _stems = value;
+                _stems.Shuffle();
+            }
+        }
+        private List<ResponseViewModel> _responses = new();
+        public List<ResponseViewModel> Responses
+        {
+            get { return _responses; }
+
+            set
+            {
+                _responses = value;
+                _responses.Shuffle();
+            }
+        }
 
         [AutoMap(typeof(MatchingQuestion.Stem))]
         public class StemViewModel

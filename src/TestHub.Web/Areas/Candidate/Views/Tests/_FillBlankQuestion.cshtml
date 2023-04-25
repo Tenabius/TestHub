@@ -42,16 +42,3 @@
         }
     </div>
 </div>
-
-<script>
-    (function () {
-        document.querySelectorAll("input.dynamic-lenght-input").forEach((element) => {
-            element.addEventListener('input', () => {
-                element
-                    .parentElement
-                    .querySelector("span.dynamic-lenght-input-span")
-                    .innerText = element.value;
-            })
-        })
-    })()
-</script>

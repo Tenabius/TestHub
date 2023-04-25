@@ -1,33 +1,80 @@
-﻿@model TestViewModel
+﻿@{
+    Layout = null;
+}
+@model TestViewModel
 @inject IPartialViewResolver Resolver
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<section>
-    <div class="container">
-        <h3>@Model.Title</h3>
-        <form id="Test" asp-action="Submit" method="post">
-            @{
-                if (Model.Questions is { } questions)
-                {
-                    for (int i = 0; i < questions.Count; i++)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TestHub.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TestHub.Web.styles.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <div class="navbar border-bottom fixed-top navbar-expand bg-secondary">
+            <div class="container w-100 d-flex">
+                <div class="flex-even d-flex justify-content-start">
+                    <h3 class="title">@Model.Title</h3>
+                </div>
+                <div class="d-flex flex-even justify-content-center">
+                    @if (Model.Duration is { } duration)
                     {
-                        <div class="question">
-                            <input type="hidden" name="Index" value="@i">
-                            <input type="hidden" name="[@i].Kind" value="@questions[i].Kind">
-                            <input type="hidden" name="[@i].Id" value="@questions[i].Id">
-                            <div class="row">
-                                <div class="col-1 w-auto">
-                                    <span>@(i + 1).</span>
-                                </div>
-                                <div class="col">
-                                    @{ViewData["QuestionIndex"] = i;}
-                                    @(await Html.PartialAsync(Resolver.GetPartialViewName(questions[i].GetType()), questions[i], ViewData))
+                        <h3 class="countdown-hook countdown" duration-minutes="@duration.Minutes">
+                            @duration
+                        </h3>
+                    }
+                </div>
+                <div class="container flex-even d-flex justify-content-end">
+                    <input id="Submit" class="btn bg-primary text-white border-0" type="submit" form="Test" value="Submit">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container container-for-fixed-top">
+        <div class="row">
+            <form id="Test" class="row" asp-action="Submit" method="post">
+                @{
+                    if (Model.Questions is { } questions)
+                    {
+                        for (int i = 0; i < questions.Count; i++)
+                        {
+                            <div class="question">
+                                <input type="hidden" name="Index" value="@i">
+                                <input type="hidden" name="[@i].Kind" value="@questions[i].Kind">
+                                <input type="hidden" name="[@i].Id" value="@questions[i].Id">
+                                <div class="row">
+                                    <div class="col-1 w-auto">
+                                        <span>@(i + 1).</span>
+                                    </div>
+                                    <div class="col">
+                                        @{
+                                            ViewData["QuestionIndex"] = i;
+                                        }
+                                        @(await Html.PartialAsync(Resolver.GetPartialViewName(questions[i].GetType()), questions[i], ViewData))
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
                 }
-            }
-        </form>
-        <input type="submit" form="Test" value="Submit" />
-    </div>
-</section>
+            </form>
+        </div>
+    </main>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - TestHub - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/easytimer/dist/easytimer.min.js"></script>
+    <script src="~/js/test.js" asp-append-version="true" defer></script>
+</body>
+</html>
