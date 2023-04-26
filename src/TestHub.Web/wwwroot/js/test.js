@@ -27,6 +27,7 @@ $(function matchingQuestion() {
                 top: 0,
                 left: 0
             };
+            $(this).off("dragstart");
         }
         return !dropped;
     }
@@ -47,11 +48,7 @@ $(function matchingQuestion() {
         $self.children("input[name*='SubmittedResponse']")
             .val($item.children("div[name='SubmittedResponseId']").attr("value"));
         $self.droppable("destroy");
-        $item.draggable("destroy");
-        setTimeout(() => {
-            createDraggable($item.get());
-            $item.on("dragstart", () => createDroppable($self.get()));
-        }, 0);
+        $item.on("dragstart", () => createDroppable($self.get()));
     }
 
     function createDraggable(item) {
