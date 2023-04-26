@@ -1,4 +1,5 @@
-﻿using Validation;
+﻿using TestHub.Core.Extensions;
+using Validation;
 
 namespace TestHub.Core.Entities
 {
@@ -17,7 +18,9 @@ namespace TestHub.Core.Entities
             : base(directions)
         {
             _stems = stems.ToList();
+            _stems.Shuffle();
             _responses = responses.ToList();
+            _responses.Shuffle();
         }
 
         public static MatchingQuestion Create(string directions, IList<Stem> stems, IList<Response> responses)

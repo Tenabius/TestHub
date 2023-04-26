@@ -39,6 +39,7 @@
     <main class="container container-for-fixed-top">
         <div class="row">
             <form id="Test" class="row" asp-action="Submit" method="post">
+                <input type="hidden" name="Id" value="@Model.Id">
                 @{
                     if (Model.Questions is { } questions)
                     {

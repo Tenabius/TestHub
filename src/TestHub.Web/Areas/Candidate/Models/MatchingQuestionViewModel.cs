@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using TestHub.Core.Entities;
-using TestHub.Web.Extensions;
+using TestHub.Core.Extensions;
 
 namespace TestHub.Web.Areas.Candidate.Models
 {

@@ -1,4 +1,4 @@
-﻿namespace TestHub.Web.Extensions
+﻿namespace TestHub.Core.Extensions
 {
     public static class Extensions
     {
