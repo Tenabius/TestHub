@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TestHub.Core.Entities;
+using TestHub.Web.BaseViewModels;
 
 namespace TestHub.Web.Areas.Candidate.Models
 {
@@ -10,9 +11,8 @@ namespace TestHub.Web.Areas.Candidate.Models
         public List<BlankViewModel>? Blanks { get; set; }
 
         [AutoMap(typeof(FillBlankQuestion.Blank))]
-        public class BlankViewModel
+        public class BlankViewModel : BaseEntityViewModel
         {
-            public int? Id { get; set; }
             public int? InnerId { get; set; }
             public string? SubmittedAnswer { get; set; }
             public string? CorrectAnswer { get; set; }

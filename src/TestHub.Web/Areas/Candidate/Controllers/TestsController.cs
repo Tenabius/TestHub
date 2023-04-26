@@ -32,7 +32,7 @@ namespace TestHub.Web.Areas.Candidate.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> TestInfo(int id)
+        public async Task<IActionResult> TestInfo(Guid id)
         {
             var test = await _testsRepository.GetByIdAsync(id);
             if (test == null)
@@ -45,7 +45,7 @@ namespace TestHub.Web.Areas.Candidate.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> Test(int id)
+        public async Task<IActionResult> Test(Guid id)
         {
             var test = await _testsRepository.GetByIdAsync(id);
             if (test == null)

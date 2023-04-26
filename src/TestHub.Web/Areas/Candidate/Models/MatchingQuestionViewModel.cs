@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TestHub.Core.Entities;
 using TestHub.Core.Extensions;
+using TestHub.Web.BaseViewModels;
 
 namespace TestHub.Web.Areas.Candidate.Models
 {
@@ -31,18 +32,16 @@ namespace TestHub.Web.Areas.Candidate.Models
         }
 
         [AutoMap(typeof(MatchingQuestion.Stem))]
-        public class StemViewModel
+        public class StemViewModel : BaseEntityViewModel
         {
-            public int? Id { get; set; }
             public string? Content { get; set; }
             public ResponseViewModel? CorrectResponse { get; set; }
             public ResponseViewModel? SubmittedResponse { get; set; }
         }
 
         [AutoMap(typeof(MatchingQuestion.Response))]
-        public class ResponseViewModel
+        public class ResponseViewModel : BaseEntityViewModel
         {
-            public int? Id { get; set; }
             public string? Content { get; set; }
         }
     }
