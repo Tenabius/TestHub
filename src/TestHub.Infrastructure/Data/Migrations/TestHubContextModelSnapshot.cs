@@ -231,17 +231,15 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.CandidateAnswer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TestResultId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("TestResultId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -256,17 +254,15 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.FillBlankCandidateAnswer+SubmittedBlank", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("BlankId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BlankId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FillBlankCandidateAnswerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("FillBlankCandidateAnswerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SubmittedAnswer")
                         .IsRequired()
@@ -283,18 +279,16 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.FillBlankQuestion+Blank", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CorrectAnswer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FillBlankQuestionId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("FillBlankQuestionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("InnerId")
                         .HasColumnType("int");
@@ -308,20 +302,18 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingCandidateAnswer+SubmittedResponse", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid?>("MatchingCandidateAnswerId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("MatchingCandidateAnswerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ResponseId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("ResponseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StemId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("StemId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -336,15 +328,15 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion+Response", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MatchingQuestionId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("MatchingQuestionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -355,18 +347,16 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.MatchingQuestion+Stem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MatchingQuestionId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("MatchingQuestionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -377,20 +367,18 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.MultipleChoiceCandidateAnswer+SubmittedChoice", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ChoiceId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ChoiceId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsSelected")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MultipleChoiceCandidateAnswerId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("MultipleChoiceCandidateAnswerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -403,11 +391,9 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.MultipleChoiceQuestion+Choice", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -416,8 +402,8 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MultipleChoiceQuestionId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("MultipleChoiceQuestionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -428,18 +414,16 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.Question", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Directions")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TestId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("TestId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -452,11 +436,9 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.Test", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AttemptAllowed")
                         .HasColumnType("int");
@@ -491,11 +473,9 @@ namespace TestHub.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("TestHub.Core.Entities.TestResult", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CandidateId")
                         .IsRequired()
@@ -507,8 +487,8 @@ namespace TestHub.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("StartTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TestId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
