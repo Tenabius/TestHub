@@ -7,15 +7,12 @@ namespace TestHub.Core.Extensions
     {
         public static string ShortGuid(this Guid guid)
         {
-            var bytes = Base32Encoding.ToBytes(guid.ToString());
-            return Encoding.ASCII.GetString(bytes);
+            return Base32Encoding.ToString(guid.ToByteArray());
         }
 
         public static Guid FromShortGuid(this string shortGuid)
         {
-            
-            var bytes = Encoding.ASCII.GetBytes(shortGuid);
-            return new Guid(Base32Encoding.ToString(bytes));
+            return new Guid(Base32Encoding.ToBytes(shortGuid));
         }
     }
 
