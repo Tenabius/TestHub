@@ -31,6 +31,18 @@ namespace TestHub.Web.Areas.Candidate.Controllers
             _userManager = userManager;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var tests = await _testsRepository.GetAsync((test) => true);
+
+            var testsInfo = new List<TestInfoViewModel>();
+            foreach (var test in tests)
+            {
+                testsInfo.Add(_mapper.Map<TestInfoViewModel>(test));
+            }
+            return View(testsInfo);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> TestInfo(Guid id)
         {
