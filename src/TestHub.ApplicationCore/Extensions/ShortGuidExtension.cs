@@ -7,7 +7,7 @@ namespace TestHub.Core.Extensions
     {
         public static string ShortGuid(this Guid guid)
         {
-            return Base32Encoding.ToString(guid.ToByteArray());
+            return Base32Encoding.ToString(guid.ToByteArray()).ToLower();
         }
 
         public static Guid FromShortGuid(this string shortGuid)
@@ -70,7 +70,7 @@ namespace TestHub.Core.Extensions
                 throw new ArgumentNullException("input");
             }
 
-            int charCount = (int)Math.Ceiling(input.Length / 5d) * 8;
+            int charCount = (int)Math.Ceiling(input.Length * 8 / 5d);
             char[] returnArray = new char[charCount];
 
             byte nextChar = 0, bitsRemaining = 5;
@@ -96,7 +96,7 @@ namespace TestHub.Core.Extensions
             if (arrayIndex != charCount)
             {
                 returnArray[arrayIndex++] = ValueToChar(nextChar);
-                while (arrayIndex != charCount) returnArray[arrayIndex++] = '='; //padding
+                //while (arrayIndex != charCount) returnArray[arrayIndex++] = '='; //padding
             }
 
             return new string(returnArray);
