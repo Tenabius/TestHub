@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using TestHub.Core.Entities;
 using TestHub.Core.Interfaces;
-using TestHub.Infrastructure;
+using TestHub.Core.Extensions;
 using TestHub.Web.Areas.Candidate.Models;
 
 namespace TestHub.Web.Areas.Candidate.Controllers
@@ -16,7 +15,6 @@ namespace TestHub.Web.Areas.Candidate.Controllers
     public class TestsController : Controller
     {
         private readonly IRepository<Test> _testsRepository;
-        private readonly IRepository<TestResult> _testResultsRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<IdentityUser> _userManager;
 
@@ -26,7 +24,6 @@ namespace TestHub.Web.Areas.Candidate.Controllers
             UserManager<IdentityUser> userManager)
         {
             _testsRepository = testsRepository;
-            _testResultsRepository = resultRepository;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -43,10 +40,11 @@ namespace TestHub.Web.Areas.Candidate.Controllers
             return View(testsInfo);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> TestInfo(Guid id)
+        [HttpGet("Info/{id}")]
+        public async Task<IActionResult> Info(string id)
         {
-            var test = await _testsRepository.GetByIdAsync(id);
+            var guid = id.FromShortGuid();
+            var test = await _testsRepository.GetByIdAsync(guid);
             if (test == null)
             {
                 return NotFound();
@@ -57,38 +55,17 @@ namespace TestHub.Web.Areas.Candidate.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> Test(Guid id)
+        public async Task<IActionResult> Test(string id)
         {
-            var test = await _testsRepository.GetByIdAsync(id);
+            var guid = id.FromShortGuid();
+            var test = await _testsRepository.GetByIdAsync(guid);
             if (test == null)
             {
                 return NotFound();
             }
 
-            if (HttpContext.User.Identity is { } identity
-                && identity.IsAuthenticated)
-            {
-                var candidate = await _userManager.GetUserAsync(HttpContext.User);
-                var testResult = TestResult.Create(candidate!, test, DateTimeOffset.UtcNow);
-                await _testResultsRepository.CreateAsync(testResult);
-            }
-
             var testViewModel = _mapper.Map<TestViewModel>(test);
             return View(testViewModel);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Submit([FromForm] List<QuestionViewModel> submttedAnswers)
-        {
-            //var questions = _testsRepository.GetById(1)?.Questions;
-            int result = 0;
-            //foreach (var questionForm in questionForms)
-            //{
-            //    result += questions?.First(q => q.Id == questionForm.QuestionId)?.EvaluateAnswer(questionForm) > 0 ? 1 : 0;
-            //}
-
-            return View("Result", result);
-        }
-
     }
 }

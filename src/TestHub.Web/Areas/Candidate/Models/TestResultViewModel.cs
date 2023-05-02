@@ -8,9 +8,11 @@ namespace TestHub.Web.Areas.Candidate.Models
     public class TestResultViewModel : BaseEntityViewModel
     {
         public Guid? CandidateId { get; set; }
-        public Guid? TestId { get; set; }
+        public Test? Test { get; set; }
         public DateTimeOffset? StartDate { get; set; }
         public DateTimeOffset? EndDate { get; set; }
+        public int Score { get; set; }
+        public bool IsPassed { get; set; }
         public List<QuestionViewModel>? SubmittedAnswers { get; set; }
     }
 }

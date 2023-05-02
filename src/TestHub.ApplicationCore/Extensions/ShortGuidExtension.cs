@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace TestHub.Core.Extensions
+﻿namespace TestHub.Core.Extensions
 {
     public static class ShortGuidExtension
     {

@@ -1,13 +1,17 @@
 ﻿@using TestHub.Core.Extensions;
 @model IList<TestInfoViewModel>
 
-<div class="row row-cols-4">
+<h1 class="row border-bottom border-1 ps-4">
+    Avaliable tests
+</h1>
+
+<div class="row row-cols-4 mt-4">
     @foreach(var testInfo in Model)
     {
         <div class="col card">
             <div class="card-content">
                 <h4 class="card-title">
-                    <a asp-area="Candidate" asp-controller="Tests" asp-action="TestInfo" asp-route-id="@testInfo.Id.ShortGuid()">
+                    <a asp-area="Candidate" asp-controller="Tests" asp-action="Info" asp-route-id="@testInfo.Id!.Value.ShortGuid()">
                         @testInfo.Title
                     </a>
                 </h4>
@@ -16,7 +20,7 @@
                 </p>
             </div>
             <div class="card-read-more">
-                <a asp-area="Candidate" asp-controller="Tests" asp-action="TestInfo" asp-route-id="@testInfo.Id.ShortGuid()">
+                <a asp-area="Candidate" asp-controller="Tests" asp-action="Info" asp-route-id="@testInfo.Id!.Value.ShortGuid()">
                     Pass test
                 </a>
             </div>
