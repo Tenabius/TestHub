@@ -18,7 +18,10 @@ namespace TestHub.Infrastructure.Data.Configuration
 
             builder.HasOne(x => x.Candidate)
                 .WithMany()
-                .OnDelete(DeleteBehavior.NoAction); //TODO Add trigger for delete on user delete
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Navigation(x => x.Test)
+                .AutoInclude();
 
             builder.HasOne(x => x.Test)
                 .WithMany()

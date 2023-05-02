@@ -1,0 +1,22 @@
+﻿@model TestResultViewModel
+
+<h1 class="row border-bottom border-1 ps-4">
+    @Model.Test!.Title
+</h1>
+
+@{
+    @if (Model.IsPassed)
+    {
+        <div>
+            Test is passed.
+        </div>
+    } else
+    {
+        <div>
+            Test is failed.
+        </div>
+    }
+    <div>
+        Your score @Model.Score. 
+    </div>
+}

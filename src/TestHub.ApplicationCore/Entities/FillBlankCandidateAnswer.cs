@@ -20,7 +20,7 @@ namespace TestHub.Core.Entities
         public class SubmittedBlank : BaseEntity
         {
             public Blank Blank { get; private set; }
-            public string SubmittedAnswer { get; private set; }
+            public string? SubmittedAnswer { get; private set; }
 
             public SubmittedBlank(Blank blank, string answer)
             {

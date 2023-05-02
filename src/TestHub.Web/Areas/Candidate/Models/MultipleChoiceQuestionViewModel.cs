@@ -14,7 +14,7 @@ namespace TestHub.Web.Areas.Candidate.Models
         public class ChoiceViewModel : BaseEntityViewModel
         {
             public string? Description { get; set; }
-            public bool? IsSelected { get; set; } = false;
+            public bool IsSelected { get; set; } = false;
         }
     }
 }

@@ -11,7 +11,7 @@
         <p>Passing score @Model.PassingScore</p>
         <p>Duration of test is @Model.Duration minutes.</p>
         <p>You have @Model.AttemptAllowed attempt(s).</p>
-        <form method="post" asp-route-id="@Model.Id.ShortGuid()">
+        <form method="post" asp-action="Test" asp-route-id="@Model.Id!.Value.ShortGuid()">
             <input type="submit" value="Start test"/>
         </form>
     </div>

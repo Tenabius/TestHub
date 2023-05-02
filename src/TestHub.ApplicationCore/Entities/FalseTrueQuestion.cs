@@ -30,8 +30,7 @@ namespace TestHub.Core.Entities
         {
             if (submittedAnswer is FalseTrueCandidateAnswer answer)
             {
-                return answer.SubmittedChoice.HasValue
-                    && answer.SubmittedChoice == CorrectChoice;
+                return answer.SubmittedChoice == CorrectChoice;
             }
 
             throw new InvalidCastException(nameof(submittedAnswer));
