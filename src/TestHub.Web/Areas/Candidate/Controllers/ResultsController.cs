@@ -80,7 +80,7 @@ namespace TestHub.Web.Areas.Candidate.Controllers
 
             await _testResultsRepository.CreateAsync(testResult);
 
-            string? location = Url.Action("Result", new { id = testResult.Id.ShortGuid() });
+            string? location = Url.Action("Result", new { id = testResult.Id.ToShortGuid() });
             Response.Headers.Add(HeaderNames.Location, location);
             return StatusCode(StatusCodes.Status303SeeOther);
         }
