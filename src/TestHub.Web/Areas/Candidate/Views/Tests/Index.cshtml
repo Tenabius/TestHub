@@ -11,7 +11,7 @@
         <div class="col card">
             <div class="card-content">
                 <h4 class="card-title">
-                    <a asp-area="Candidate" asp-controller="Tests" asp-action="Info" asp-route-id="@testInfo.Id!.Value.ShortGuid()">
+                    <a asp-area="Candidate" asp-controller="Tests" asp-action="Info" asp-route-id="@testInfo.Id!.Value.ToShortGuid()">
                         @testInfo.Title
                     </a>
                 </h4>
@@ -20,7 +20,7 @@
                 </p>
             </div>
             <div class="card-read-more">
-                <a asp-area="Candidate" asp-controller="Tests" asp-action="Info" asp-route-id="@testInfo.Id!.Value.ShortGuid()">
+                <a asp-area="Candidate" asp-controller="Tests" asp-action="Info" asp-route-id="@testInfo.Id!.Value.ToShortGuid()">
                     Pass test
                 </a>
             </div>

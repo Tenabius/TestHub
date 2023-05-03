@@ -15,5 +15,16 @@
                 list[n] = value;
             }
         }
+
+        public static string ToShortGuid(this Guid guid)
+        {
+            return Base32Encoding.ToString(guid.ToByteArray()).ToLower();
+        }
+
+        public static Guid FromShortGuid(this string shortGuid)
+        {
+            return new Guid(Base32Encoding.ToBytes(shortGuid));
+        }
+
     }
 }

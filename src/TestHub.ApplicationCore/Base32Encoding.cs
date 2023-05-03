@@ -1,19 +1,5 @@
-﻿namespace TestHub.Core.Extensions
+﻿namespace TestHub.Core
 {
-    public static class ShortGuidExtension
-    {
-        public static string ShortGuid(this Guid guid)
-        {
-            return Base32Encoding.ToString(guid.ToByteArray()).ToLower();
-        }
-
-        public static Guid FromShortGuid(this string shortGuid)
-        {
-            return new Guid(Base32Encoding.ToBytes(shortGuid));
-        }
-    }
-
-
     //https://stackoverflow.com/a/7135008
     internal class Base32Encoding
     {
